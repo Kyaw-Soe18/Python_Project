@@ -1,34 +1,14 @@
-# Python
+# Local and remote combined
 __pycache__/
-*.py[cod]
+*.pyc
 *.pyo
-*.pyd
-
-# Virtual Environments
+env/
 venv/
-.venv/
-
-# Environment Variables
-.env
-
-# Django database
-*.sqlite3
-
-# Media & Static (optional)
+db.sqlite3
 media/
-staticfiles/
-
-# PyCharm IDE
-.idea/
-*.iml
-
-# VS Code
-.vscode/
-
-# OS and logs
+*.log
 .DS_Store
 Thumbs.db
-*.log
-
-# Jupyter
-.ipynb_checkpoints/
+.vscode/
+.idea/
+.env
