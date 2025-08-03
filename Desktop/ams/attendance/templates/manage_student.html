@@ -1,0 +1,135 @@
+<div class="container-fluid">
+    <form action=" " id="student-form">
+        {% csrf_token %}
+        <input type="hidden" name="id" value="{{ student.id }}">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group mb-3">
+                    <label for="student_code" class="control-label">Student Code</label>
+                    <input type="text" class="form-control rounded-0" name="student_code" id="student_code" value="{{ student.student_code }}" required="required">
+                </div>
+                <div class="form-group mb-3">
+                    <label for="first_name" class="control-label">First Name</label>
+                    <input type="text" class="form-control rounded-0" name="first_name" id="first_name" value="{{ student.first_name }}" required="required">
+                </div>
+                <div class="form-group mb-3">
+                    <label for="middle_name" class="control-label">Middle Name</label>
+                    <input type="text" class="form-control rounded-0" name="middle_name" id="middle_name" value="{{ student.middle_name }}" placeholder="optional">
+                </div>
+                <div class="form-group mb-3">
+                    <label for="last_name" class="control-label">Last Name</label>
+                    <input type="text" class="form-control rounded-0" name="last_name" id="last_name" value="{{ student.last_name }}" required="required">
+                </div>
+                <div class="form-group mb-3">
+                    <label for="gender" class="control-label">Gender</label>
+                    <select name="gender" id="gender" class="form-select rounded-0" required>
+                        {% if student.gender == 'Male' %}
+                        <option selected>Male</option>
+                        {% else %}
+                        <option>Male</option>
+                        {% endif %}
+                        
+                        {% if student.gender == 'Female' %}
+                        <option selected>Female</option>
+                        {% else %}
+                        <option>Female</option>
+                        {% endif %}
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group mb-3">
+                    <label for="dob" class="control-label">Birthdate</label>
+                    <input type="date" class="form-control rounded-0" name="dob" id="dob" value="{{ student.dob|date:'Y-m-d' }}" required="required">
+                </div>
+                <div class="form-group mb-3">
+                    <label for="contact" class="control-label">Contact</label>
+                    <input type="text" class="form-control rounded-0" name="contact" id="contact" value="{{ student.contact }}" required="required">
+                </div>
+                <div class="form-group mb-3">
+                    <label for="course" class="control-label">Course</label>
+                    <select name="course" id="course" class="form-select rounded-0 select2" required>
+                        <option disabled selected>Select a course</option>
+                        
+                        {% for course in courses %}
+                        {% if student.course and course.id == student.course.id %}
+                        <option value="{{ course.id }}" selected>{{ course }}</option>
+                        {% else %}
+                        <option value="{{ course.id }}">{{ course }}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    function DisplayImage(input) {
+        console.log(input.files)
+        if (event.target.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var output = $('#user-avatar-modal');
+                output.attr('src', reader.result)
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+
+    };
+    $(function() {
+        $('#uni_modal').on('shown.bs.modal', function() {
+            $('.select2').select2({
+                placeholder: 'Please Select Here',
+                width: '100%',
+                dropdownParent: $('#uni_modal')
+            })
+        })
+        $('#student-form').submit(function(e) {
+            e.preventDefault();
+            var _this = $(this)
+            $('.err-msg').remove();
+            var el = $('<div>')
+            el.addClass("alert alert-danger err-msg")
+            el.hide()
+            if (_this[0].checkValidity() == false) {
+                _this[0].reportValidity();
+                return false;
+            }
+            start_loader();
+            $.ajax({
+                url: "{% url 'save-student' %}",
+                data: new FormData($(this)[0]),
+                cache: false,
+                contentType: false,
+                processData: false,
+                method: 'POST',
+                type: 'POST',
+                dataType: 'json',
+                error: function(xhr, status, error) {
+                    console.error("AJAX Error:", status, error);
+                    console.error("Response Text:", xhr.responseText);
+                    alert("An error occurred: " + error);
+                    end_loader();
+                },
+
+                success: function(resp) {
+                    if (typeof resp == 'object' && resp.status == 'success') {
+                        el.removeClass("alert alert-danger err-msg ")
+                        location.reload()
+                    } else if (resp.status == 'failed' && !!resp.msg) {
+                        el.html(resp.msg)
+                    } else {
+                        el.text("An error occurred ", 'error');
+                        end_loader();
+                        console.err(resp)
+                    }
+                    _this.prepend(el)
+                    el.show('slow')
+                    $("html, body, .modal ").scrollTop(0);
+                    end_loader()
+                }
+            })
+        })
+    })
+</script>
