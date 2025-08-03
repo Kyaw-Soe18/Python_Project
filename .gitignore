@@ -1,14 +1,38 @@
-# Local and remote combined
+# Byte-compiled / optimized / DLL files
 __pycache__/
-*.pyc
-*.pyo
+*.py[cod]
+*$py.class
+
+# Virtual environments
 env/
 venv/
+ENV/
+
+# Environment variables
+.env
+
+# Django-related
 db.sqlite3
-media/
 *.log
-.DS_Store
-Thumbs.db
+media/
+staticfiles/
+
+# Migrations (optional)
+*/migrations/*.py
+!*/migrations/__init__.py
+
+# IDE/editor configs
 .vscode/
 .idea/
-.env
+*.sublime-workspace
+*.sublime-project
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Coverage/testing
+.coverage
+htmlcov/
+.tox/
+.pytest_cache/
