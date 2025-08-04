@@ -23,8 +23,8 @@ static/assets/
 *.log
 
 # Migrations (ignore migration code but keep init files)
-*/migrations/*.py
-!*/migrations/__init__.py
+# */migrations/*.py
+# !*/migrations/__init__.py
 
 # IDE/editor folders
 .vscode/
