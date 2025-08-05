@@ -344,7 +344,8 @@ def view_faculty(request,pk=None):
 def save_faculty(request):
     resp = { 'status' : 'failed', 'msg' : '' }
     if request.method == 'POST':
-        data = request.POST
+        data = request.POST.copy()
+        data.pop('last_name', None)
         if data['id'].isnumeric() and data['id'] != '':
             user = User.objects.get(id = data['id'])
         else:

@@ -1,4 +1,4 @@
-from re import T
+
 from unicodedata import category
 from unittest.util import _MAX_LENGTH
 from django import forms
@@ -10,11 +10,11 @@ from attendance.models import ClassStudent, UserProfile, Department, Course, Stu
 class UserRegistration(UserCreationForm):
     email = forms.EmailField(max_length=250,help_text="The email field is required.")
     first_name = forms.CharField(max_length=250,help_text="The First Name field is required.")
-    last_name = forms.CharField(max_length=250,help_text="The Last Name field is required.")
+
 
     class Meta:
         model = User
-        fields = ('email', 'username', 'password1', 'password2', 'first_name', 'last_name')
+        fields = ('email', 'username', 'password1', 'password2', 'first_name')
     
 
     def clean_email(self):
@@ -37,11 +37,11 @@ class UpdateFaculty(UserChangeForm):
     username = forms.CharField(max_length=250,help_text="The username field is required.")
     email = forms.EmailField(max_length=250,help_text="The email field is required.")
     first_name = forms.CharField(max_length=250,help_text="The First Name field is required.")
-    last_name = forms.CharField(max_length=250,help_text="The Last Name field is required.")
+
 
     class Meta:
         model = User
-        fields = ('email', 'username', 'first_name', 'last_name')
+        fields = ('email', 'username', 'first_name')
 
     def __init__(self, user= None,*args, **kwargs):
         self.user = user
@@ -68,12 +68,11 @@ class UpdateProfile(forms.ModelForm):
     username = forms.CharField(max_length=250,help_text="The Username field is required.")
     email = forms.EmailField(max_length=250,help_text="The Email field is required.")
     first_name = forms.CharField(max_length=250,help_text="The First Name field is required.")
-    last_name = forms.CharField(max_length=250,help_text="The Last Name field is required.")
     current_password = forms.CharField(max_length=250)
 
     class Meta:
         model = User
-        fields = ('email', 'username','first_name', 'last_name')
+        fields = ('email', 'username','first_name')
 
     def clean_current_password(self):
         if not self.instance.check_password(self.cleaned_data['current_password']):
