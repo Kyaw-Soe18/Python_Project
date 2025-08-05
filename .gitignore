@@ -15,7 +15,6 @@ ENV/
 db.sqlite3
 
 # Media and static files
-media/
 staticfiles/
 
 # Logs
