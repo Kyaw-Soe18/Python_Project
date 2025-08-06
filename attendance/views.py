@@ -1,3 +1,5 @@
+
+from .models import Student, Course
 from unicodedata import category
 from aiohttp import request
 from django.http import HttpResponse
@@ -523,9 +525,11 @@ def delete_class_student(request):
 #Student
 @login_required
 def student(request):
-    students = Student.objects.all()
+    students = Student.objects.select_related('course').all()
+    courses = Course.objects.values_list('name', flat=True).distinct()
     context['page_title'] = "Student Management"
     context['students'] = students
+    context['courses'] = courses  # ✅ Add this line
     return render(request, 'student_mgt.html',context)
 
 

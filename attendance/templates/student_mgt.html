@@ -3,14 +3,32 @@
     <div class="card card-default rounded-0 shadow ">
         <div class="card-header">
             <div class="d-flex w-100 align-items-center justify-content-between">
-                <h4 class="card-title fw-bold">Student Management</h4>
+                <h4 class="card-title fw-bold">Sem-7 Student List</h4>
+
                 <div class="tools">
-                    <button type="button" class="btn btn-primary rounded-0 bg-gradient btn-sm" id='add_new'><i class="fa fa-plus"></i> Add New</button>
+                    <button type="button"  class="btn btn-primary rounded-0 bg-gradient btn-sm" id='add_new'><i class="fa fa-plus"></i> Add New</button>
                 </div>
+
             </div>
         </div>
         <div class="card-body">
+             <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label for="courseFilter" class="form-label fw-bold">Filter by Course:</label>
+                        <select id="courseFilter" class="form-select form-select-sm">
+                            <option value="">All Courses </option>
+                           {% for course_name in courses %}
+                                <option value="{{ course_name }}">{{ course_name }}</option>
+                            {% endfor %}
+
+
+                        </select>
+                    </div>
+                </div>
             <div class="container-fluid">
+
+
+            </div>
 
                 <table class="table table-bordered" id="student-list">
                     <colgroup>
@@ -24,7 +42,7 @@
                         <tr class="bg-gradient bg-primary bg-opacity-50 text-light">
                             <th class="px-2 py-2 text-center">#</th>
                             <th class="px-2 py-2 text-center">Roll No.</th>
-                            <th class="px-2 py-2 text-center">Course</th>
+                            <th class="px-2 py-2 text-center">Course Name</th>
                             <th class="px-2 py-2 text-center">Name</th>
                             <th class="px-2 py-2 text-center">Action</th>
                         </tr>
@@ -34,7 +52,7 @@
                         <tr>
                             <td class="px-2 py-1 align-middle">{{ student.id }}</td>
                             <td class="px-2 py-1 align-middle">{{ student.student_code }}</td>
-                            <td class="px-2 py-1 align-middle">{{ student.course.department }}-{{ student.course }}</td>
+                            <td class="px-2 py-1 align-middle">{{ student.course }}</td>
                             <td class="px-2 py-1 align-middle">{{ student.first_name }} {{ student.middle_name }} {{ student.last_name }}</td>
                             <td class="px-2 py-1 align-middle text-center">
                                 <a class="btn btn-outline-info btn-sm view-data" href="javascript:void(0)" data-url="{% url 'view-student-modal' student.pk %}" title="View Details">
@@ -91,6 +109,11 @@
                 $('table td, table th').addClass('px-2 py-1')
             }
         })
+         const dataTable = $('#student-list').DataTable();
+
+$('#courseFilter').on('change', function() {
+    dataTable.column(2).search(this.value).draw();
+});
     })
 
     function delete_student($id) {
