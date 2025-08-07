@@ -420,23 +420,27 @@ def classPage(request):
 
 @login_required
 def manage_class(request,pk=None):
-    faculty = UserProfile.objects.filter(user_type= 2).all()
-    courses = Course.objects.filter(status=1).values('name').annotate(id=Min('id')).order_by('name')
-    unique_courses = Course.objects.filter(id__in=[c['id'] for c in courses])
+    faculty = UserProfile.objects.filter(user_type=2).all()
 
-    if pk == None:
-        _class = {}
-    elif pk > 0:
-        _class = Class.objects.filter(id=pk).first()
-    else:
-        _class = {}
-    context = {}
-    context['page_title'] = "Manage Class"
-    context['faculties'] = faculty
-    context['courses'] =  unique_courses # 👈 Pass courses to template
-    context['class'] = _class
+    # Deduplicate courses by name
+    unique_course_ids = (
+        Course.objects.filter(status=1)
+        .values('name')
+        .annotate(id=Min('id'))
+        .values_list('id', flat=True)
+    )
+    unique_courses = Course.objects.filter(id__in=unique_course_ids).order_by('name')
 
-    return render(request, 'manage_class.html',context)
+    _class = Class.objects.filter(id=pk).first() if pk else {}
+
+    context = {
+        'page_title': "Manage Class",
+        'faculties': faculty,
+        'courses': unique_courses,
+        'class': _class,
+    }
+
+    return render(request, 'manage_class.html', context)
 
 @login_required
 def view_class(request, pk= None):
@@ -453,28 +457,38 @@ def view_class(request, pk= None):
 
 @login_required
 def save_class(request):
-    resp = { 'status':'failed' , 'msg' : '' }
+    resp = {'status': 'failed', 'msg': ''}
+
     if request.method == 'POST':
-        _class = None
-        print(not request.POST['id'] == '')
-        if not request.POST['id'] == '':
-            _class = Class.objects.filter(id=request.POST['id']).first()
-        if not _class == None:
-            form = SaveClass(request.POST,instance = _class)
-        else:
-            form = SaveClass(request.POST)
-    if form.is_valid():
-        form.save()
-        resp['status'] = 'success'
-        messages.success(request, 'Class has been saved successfully')
-    else:
-        for field in form:
-            for error in field.errors:
-                resp['msg'] += str(error + '<br>')
-        if not _class == None:
-            form = SaveClass(instance = _class)
-       
-    return HttpResponse(json.dumps(resp),content_type="application/json")
+        class_id = request.POST.get('id')
+        name = request.POST.get('name')
+        level = request.POST.get('level')
+        school_year = request.POST.get('school_year')
+        course_id = request.POST.get('course')
+        faculty_id = request.POST.get('assigned_faculty')
+
+        try:
+            course = Course.objects.get(id=course_id) if course_id else None
+            faculty = UserProfile.objects.get(id=faculty_id) if faculty_id else None
+
+            if class_id:
+                _class = Class.objects.get(id=class_id)
+            else:
+                _class = Class()
+
+            _class.name = name
+            _class.level = level
+            _class.school_year = school_year
+            _class.course = course
+            _class.assigned_faculty = faculty
+
+            _class.save()
+            resp['status'] = 'success'
+            messages.success(request, 'Class has been saved successfully')
+        except Exception as e:
+            resp['msg'] = str(e)
+
+    return HttpResponse(json.dumps(resp), content_type="application/json")
 
 @login_required
 def delete_class(request):
@@ -546,7 +560,13 @@ def student(request):
         students = Student.objects.select_related('course').filter(course_id__in=faculty_courses)
 
     # Optional: For displaying course names in dropdowns or filters
-    courses = Course.objects.values_list('name', flat=True).distinct()
+    unique_course_ids = (
+        Course.objects.filter(status=1)
+        .values('name')
+        .annotate(id=Min('id'))
+        .values_list('id', flat=True)
+    )
+    courses = Course.objects.filter(id__in=unique_course_ids).order_by('name')
 
     context['students'] = students
     context['courses'] = courses
@@ -556,17 +576,17 @@ def student(request):
 @login_required
 def manage_student(request, pk=None):
     context = {}
-    student = None
+    student = Student.objects.filter(id=pk).first() if pk else None
 
-    if pk:
-        student = Student.objects.filter(id=pk).first()
+    unique_course_ids = Course.objects.filter(status=1).values('name').annotate(id=Min('id')).values_list('id',
+                                                                                                          flat=True)
+    unique_courses = Course.objects.filter(id__in=unique_course_ids).order_by('name')
 
-    # Fix course logic to not cause errors
-    courses = Course.objects.filter(status=1)
-
-    context['page_title'] = "Manage Student"
-    context['courses'] = courses
-    context['student'] = student
+    context.update({
+        'page_title': "Manage Student",
+        'courses': unique_courses,
+        'student': student,
+    })
 
     return render(request, 'manage_student.html', context)
 
