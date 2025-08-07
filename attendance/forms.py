@@ -186,11 +186,12 @@ class SaveClass(forms.ModelForm):
     assigned_faculty = forms.IntegerField()
     school_year = forms.CharField(max_length=250,help_text = "School Year Field is required.")
     level = forms.CharField(max_length=250,help_text = "Level Field is required.")
+    course = forms.ModelChoiceField(queryset=Course.objects.all(), empty_label=None)
     name = forms.CharField(max_length=250,help_text = "Class Name Field is required.")
 
     class Meta:
         model= Class
-        fields = ('assigned_faculty', 'school_year','level','name')
+        fields = ('assigned_faculty', 'course', 'school_year','level','name')
 
     def clean_assigned_faculty(self):
         assigned_faculty = self.cleaned_data['assigned_faculty']

@@ -19,6 +19,23 @@
                 {% endfor %}
             </select>
         </div>
+
+        <div class="form-group mb-3 ">
+            <label for="school_year" class="control-label">Select Course</label>
+            <select name="course" id="course" class="form-select rounded-0 select2" required>
+            <option value="" {% if not class.course %}selected{% endif %}>Select Course</option>
+            {% for course in courses %}
+              <option value="{{ course.id }}" {% if class.course and class.course.id == course.id %}selected{% endif %}>
+                {{ course.name }}
+              </option>
+            {% endfor %}
+
+        </select>
+        </div>
+
+
+
+
         <div class="form-group mb-3 ">
             <label for="school_year" class="control-label">School Year</label>
             <input type="text" class="form-control rounded-0" id="school_year" name="school_year" value="{{ class.school_year }}" required>

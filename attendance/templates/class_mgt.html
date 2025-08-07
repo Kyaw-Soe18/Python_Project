@@ -16,11 +16,11 @@
                 <table class="table table-bordered" id="class-list">
                     <colgroup>
                         <col width="5%">
-                        <col width="20%">
-                        <col width="20%">
-                        <col width="20%">
-                        <col width="20%">
                         <col width="15%">
+                        <col width="15%">
+                        <col width="15%">
+                        <col width="15%">
+                        <col width="20%">
                     </colgroup>
                     <thead>
                         <tr class="bg-gradient bg-primary bg-opacity-50 text-light">
@@ -28,6 +28,7 @@
                             <th class="px-2 py-2 text-center">Teacher</th>
                             <th class="px-2 py-2 text-center">Scool Year</th>
                             <th class="px-2 py-2 text-center">Semester</th>
+                             <th class="px-2 py-2 text-center">Course</th> <!-- NEW COLUMN -->
                             <th class="px-2 py-2 text-center">Subject</th>
                             <th class="px-2 py-2 text-center">Action</th>
                         </tr>
@@ -39,6 +40,12 @@
                             <td class="px-2 py-1 align-middle">{{ class.assigned_faculty.user.first_name }} {{ class.assigned_faculty.user.last_name }}</td>
                             <td class="px-2 py-1 align-middle">{{ class.school_year }}</td>
                             <td class="px-2 py-1 align-middle">{{ class.level }}</td>
+                            <td class="px-2 py-1 align-middle">{% if class.course %}
+                                    {{ class.course.name }}
+                                  {% else %}
+                                    N/A
+                                  {% endif %}
+                            </td>  <!-- NEW COLUMN -->
                             <td class="px-2 py-1 align-middle">{{ class.name }}</td>
                             <td class="px-2 py-1 align-middle text-center">
                                 <a class="btn btn-outline-info btn-sm" href="{% url 'class-page' class.pk %}" title="View">

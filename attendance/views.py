@@ -1,4 +1,8 @@
+from .models import Course
+from collections import OrderedDict
+from attendance.models import Course
 
+from django.db.models import Min
 from .models import Student, Course
 from unicodedata import category
 from aiohttp import request
@@ -406,10 +410,10 @@ def delete_faculty(request):
 @login_required
 def classPage(request):
     if request.user.profile.user_type == 1:
-        classes = Class.objects.all()
+        classes = Class.objects.select_related('assigned_faculty__user', 'course').all()
     else:
-        classes = Class.objects.filter(assigned_faculty = request.user.profile).all()
-
+        classes = Class.objects.select_related('assigned_faculty__user', 'course').filter(assigned_faculty=request.user.profile).all()
+    context = {}
     context['page_title'] = "Class Management"
     context['classes'] = classes
     return render(request, 'class_mgt.html',context)
@@ -417,14 +421,19 @@ def classPage(request):
 @login_required
 def manage_class(request,pk=None):
     faculty = UserProfile.objects.filter(user_type= 2).all()
+    courses = Course.objects.filter(status=1).values('name').annotate(id=Min('id')).order_by('name')
+    unique_courses = Course.objects.filter(id__in=[c['id'] for c in courses])
+
     if pk == None:
         _class = {}
     elif pk > 0:
         _class = Class.objects.filter(id=pk).first()
     else:
         _class = {}
+    context = {}
     context['page_title'] = "Manage Class"
     context['faculties'] = faculty
+    context['courses'] =  unique_courses # 👈 Pass courses to template
     context['class'] = _class
 
     return render(request, 'manage_class.html',context)
