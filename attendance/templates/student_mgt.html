@@ -52,8 +52,8 @@
                         <tr>
                             <td class="px-2 py-1 align-middle">{{ student.id }}</td>
                             <td class="px-2 py-1 align-middle">{{ student.student_code }}</td>
-                            <td class="px-2 py-1 align-middle">{{ student.course }}</td>
-                            <td class="px-2 py-1 align-middle">{{ student.first_name }} {{ student.middle_name }} {{ student.last_name }}</td>
+                            <td class="px-2 py-1 align-middle">{{ student.course.name }}</td>
+                            <td class="px-2 py-1 align-middle">{{ student.first_name }} </td>
                             <td class="px-2 py-1 align-middle text-center">
                                 <a class="btn btn-outline-info btn-sm view-data" href="javascript:void(0)" data-url="{% url 'view-student-modal' student.pk %}" title="View Details">
                                     <i class="fa fa-eye"></i>

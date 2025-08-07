@@ -534,12 +534,23 @@ def delete_class_student(request):
 #Student
 @login_required
 def student(request):
-    students = Student.objects.select_related('course').all()
-    courses = Course.objects.values_list('name', flat=True).distinct()
     context['page_title'] = "Student Management"
+
+    if request.user.profile.user_type == 1:
+        # Admin sees all students
+        students = Student.objects.select_related('course').all()
+    else:
+        # Faculty: show only students for their assigned course(s)
+        faculty_classes = Class.objects.filter(assigned_faculty=request.user.profile)
+        faculty_courses = faculty_classes.values_list('course_id', flat=True).distinct()
+        students = Student.objects.select_related('course').filter(course_id__in=faculty_courses)
+
+    # Optional: For displaying course names in dropdowns or filters
+    courses = Course.objects.values_list('name', flat=True).distinct()
+
     context['students'] = students
-    context['courses'] = courses  # ✅ Add this line
-    return render(request, 'student_mgt.html',context)
+    context['courses'] = courses
+    return render(request, 'student_mgt.html', context)
 
 
 @login_required
