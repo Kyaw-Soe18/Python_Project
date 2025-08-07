@@ -3,7 +3,7 @@
         {% csrf_token %}
         <input type="hidden" name="id" value="{{ class.id }}">
         <div class="form-group mb-3">
-            <label for="assigned_faculty" class="control-label">Faculty</label>
+            <label for="assigned_faculty" class="control-label">Teacher</label>
             <select name="assigned_faculty" id="assigned_faculty" class="form-select rounded-0 select2" required>
                 {% if not class.assigned_faculty %}
                 <option value="" selected></option>
@@ -19,16 +19,33 @@
                 {% endfor %}
             </select>
         </div>
+
+        <div class="form-group mb-3 ">
+            <label for="school_year" class="control-label">Select Course</label>
+            <select name="course" id="course" class="form-select rounded-0 select2" required>
+            <option value="" {% if not class.course %}selected{% endif %}>Select Course</option>
+            {% for course in courses %}
+              <option value="{{ course.id }}" {% if class.course and class.course.id == course.id %}selected{% endif %}>
+                {{ course.name }}
+              </option>
+            {% endfor %}
+
+        </select>
+        </div>
+
+
+
+
         <div class="form-group mb-3 ">
             <label for="school_year" class="control-label">School Year</label>
             <input type="text" class="form-control rounded-0" id="school_year" name="school_year" value="{{ class.school_year }}" required>
         </div>
         <div class="form-group mb-3 ">
-            <label for="level" class="control-label">Level</label>
+            <label for="level" class="control-label">Semester</label>
             <input type="text" class="form-control rounded-0" id="level" name="level" value="{{ class.level }}" required>
         </div>
         <div class="form-group mb-3 ">
-            <label for="name" class="control-label">Class Name</label>
+            <label for="name" class="control-label">Subject</label>
             <input type="text" class="form-control rounded-0" id="name" name="name" value="{{ class.name }}" required>
         </div>
     </form>

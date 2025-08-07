@@ -1,1 +1,1306 @@
-[{"model": "admin.logentry", "pk": 1, "fields": {"action_time": "2022-03-11T02:11:59.542Z", "user": 1, "content_type": 9, "object_id": "1", "object_repr": "admin", "action_flag": 2, "change_message": "[{\"changed\": {\"fields\": [\"User type\"]}}]"}}, {"model": "admin.logentry", "pk": 2, "fields": {"action_time": "2022-03-11T02:53:49.183Z", "user": 1, "content_type": 4, "object_id": "2", "object_repr": "cblake", "action_flag": 3, "change_message": ""}}, {"model": "admin.logentry", "pk": 3, "fields": {"action_time": "2022-03-11T03:19:34.322Z", "user": 1, "content_type": 4, "object_id": "5", "object_repr": "cblake", "action_flag": 3, "change_message": ""}}, {"model": "admin.logentry", "pk": 4, "fields": {"action_time": "2022-03-11T03:21:36.965Z", "user": 1, "content_type": 4, "object_id": "6", "object_repr": "cblake", "action_flag": 3, "change_message": ""}}, {"model": "admin.logentry", "pk": 5, "fields": {"action_time": "2022-03-11T03:22:39.749Z", "user": 1, "content_type": 4, "object_id": "7", "object_repr": "cblake", "action_flag": 3, "change_message": ""}}, {"model": "admin.logentry", "pk": 6, "fields": {"action_time": "2022-03-11T03:25:56.658Z", "user": 1, "content_type": 4, "object_id": "8", "object_repr": "cblake", "action_flag": 3, "change_message": ""}}, {"model": "admin.logentry", "pk": 7, "fields": {"action_time": "2022-03-11T03:29:29.798Z", "user": 1, "content_type": 4, "object_id": "10", "object_repr": "cblake", "action_flag": 3, "change_message": ""}}, {"model": "admin.logentry", "pk": 8, "fields": {"action_time": "2022-03-11T03:30:18.365Z", "user": 1, "content_type": 4, "object_id": "11", "object_repr": "cblake", "action_flag": 3, "change_message": ""}}, {"model": "admin.logentry", "pk": 9, "fields": {"action_time": "2022-03-11T03:31:25.216Z", "user": 1, "content_type": 4, "object_id": "12", "object_repr": "cblake", "action_flag": 3, "change_message": ""}}, {"model": "admin.logentry", "pk": 10, "fields": {"action_time": "2022-03-11T03:31:50.593Z", "user": 1, "content_type": 4, "object_id": "13", "object_repr": "cblake", "action_flag": 3, "change_message": ""}}, {"model": "admin.logentry", "pk": 11, "fields": {"action_time": "2022-03-11T05:40:20.841Z", "user": 1, "content_type": 11, "object_id": "1", "object_repr": "[First Year] First Year-Class 101", "action_flag": 3, "change_message": ""}}, {"model": "admin.logentry", "pk": 12, "fields": {"action_time": "2022-03-12T04:05:24.846Z", "user": 1, "content_type": 4, "object_id": "14", "object_repr": "cblake", "action_flag": 2, "change_message": "[{\"changed\": {\"fields\": [\"password\"]}}]"}}, {"model": "admin.logentry", "pk": 13, "fields": {"action_time": "2022-03-12T04:06:41.463Z", "user": 1, "content_type": 4, "object_id": "14", "object_repr": "cblake", "action_flag": 2, "change_message": "[{\"changed\": {\"fields\": [\"password\"]}}]"}}, {"model": "admin.logentry", "pk": 14, "fields": {"action_time": "2025-08-01T14:55:13.585Z", "user": 1, "content_type": 4, "object_id": "14", "object_repr": "cblake", "action_flag": 2, "change_message": "[{\"changed\": {\"fields\": [\"Staff status\"]}}]"}}, {"model": "admin.logentry", "pk": 15, "fields": {"action_time": "2025-08-01T14:59:36.196Z", "user": 1, "content_type": 4, "object_id": "14", "object_repr": "cblake", "action_flag": 2, "change_message": "[{\"changed\": {\"fields\": [\"Staff status\"]}}]"}}, {"model": "auth.permission", "pk": 1, "fields": {"name": "Can add log entry", "content_type": 1, "codename": "add_logentry"}}, {"model": "auth.permission", "pk": 2, "fields": {"name": "Can change log entry", "content_type": 1, "codename": "change_logentry"}}, {"model": "auth.permission", "pk": 3, "fields": {"name": "Can delete log entry", "content_type": 1, "codename": "delete_logentry"}}, {"model": "auth.permission", "pk": 4, "fields": {"name": "Can view log entry", "content_type": 1, "codename": "view_logentry"}}, {"model": "auth.permission", "pk": 5, "fields": {"name": "Can add permission", "content_type": 2, "codename": "add_permission"}}, {"model": "auth.permission", "pk": 6, "fields": {"name": "Can change permission", "content_type": 2, "codename": "change_permission"}}, {"model": "auth.permission", "pk": 7, "fields": {"name": "Can delete permission", "content_type": 2, "codename": "delete_permission"}}, {"model": "auth.permission", "pk": 8, "fields": {"name": "Can view permission", "content_type": 2, "codename": "view_permission"}}, {"model": "auth.permission", "pk": 9, "fields": {"name": "Can add group", "content_type": 3, "codename": "add_group"}}, {"model": "auth.permission", "pk": 10, "fields": {"name": "Can change group", "content_type": 3, "codename": "change_group"}}, {"model": "auth.permission", "pk": 11, "fields": {"name": "Can delete group", "content_type": 3, "codename": "delete_group"}}, {"model": "auth.permission", "pk": 12, "fields": {"name": "Can view group", "content_type": 3, "codename": "view_group"}}, {"model": "auth.permission", "pk": 13, "fields": {"name": "Can add user", "content_type": 4, "codename": "add_user"}}, {"model": "auth.permission", "pk": 14, "fields": {"name": "Can change user", "content_type": 4, "codename": "change_user"}}, {"model": "auth.permission", "pk": 15, "fields": {"name": "Can delete user", "content_type": 4, "codename": "delete_user"}}, {"model": "auth.permission", "pk": 16, "fields": {"name": "Can view user", "content_type": 4, "codename": "view_user"}}, {"model": "auth.permission", "pk": 17, "fields": {"name": "Can add content type", "content_type": 5, "codename": "add_contenttype"}}, {"model": "auth.permission", "pk": 18, "fields": {"name": "Can change content type", "content_type": 5, "codename": "change_contenttype"}}, {"model": "auth.permission", "pk": 19, "fields": {"name": "Can delete content type", "content_type": 5, "codename": "delete_contenttype"}}, {"model": "auth.permission", "pk": 20, "fields": {"name": "Can view content type", "content_type": 5, "codename": "view_contenttype"}}, {"model": "auth.permission", "pk": 21, "fields": {"name": "Can add session", "content_type": 6, "codename": "add_session"}}, {"model": "auth.permission", "pk": 22, "fields": {"name": "Can change session", "content_type": 6, "codename": "change_session"}}, {"model": "auth.permission", "pk": 23, "fields": {"name": "Can delete session", "content_type": 6, "codename": "delete_session"}}, {"model": "auth.permission", "pk": 24, "fields": {"name": "Can view session", "content_type": 6, "codename": "view_session"}}, {"model": "auth.permission", "pk": 25, "fields": {"name": "Can add course", "content_type": 7, "codename": "add_course"}}, {"model": "auth.permission", "pk": 26, "fields": {"name": "Can change course", "content_type": 7, "codename": "change_course"}}, {"model": "auth.permission", "pk": 27, "fields": {"name": "Can delete course", "content_type": 7, "codename": "delete_course"}}, {"model": "auth.permission", "pk": 28, "fields": {"name": "Can view course", "content_type": 7, "codename": "view_course"}}, {"model": "auth.permission", "pk": 29, "fields": {"name": "Can add department", "content_type": 8, "codename": "add_department"}}, {"model": "auth.permission", "pk": 30, "fields": {"name": "Can change department", "content_type": 8, "codename": "change_department"}}, {"model": "auth.permission", "pk": 31, "fields": {"name": "Can delete department", "content_type": 8, "codename": "delete_department"}}, {"model": "auth.permission", "pk": 32, "fields": {"name": "Can view department", "content_type": 8, "codename": "view_department"}}, {"model": "auth.permission", "pk": 33, "fields": {"name": "Can add user profile", "content_type": 9, "codename": "add_userprofile"}}, {"model": "auth.permission", "pk": 34, "fields": {"name": "Can change user profile", "content_type": 9, "codename": "change_userprofile"}}, {"model": "auth.permission", "pk": 35, "fields": {"name": "Can delete user profile", "content_type": 9, "codename": "delete_userprofile"}}, {"model": "auth.permission", "pk": 36, "fields": {"name": "Can view user profile", "content_type": 9, "codename": "view_userprofile"}}, {"model": "auth.permission", "pk": 37, "fields": {"name": "Can add student", "content_type": 10, "codename": "add_student"}}, {"model": "auth.permission", "pk": 38, "fields": {"name": "Can change student", "content_type": 10, "codename": "change_student"}}, {"model": "auth.permission", "pk": 39, "fields": {"name": "Can delete student", "content_type": 10, "codename": "delete_student"}}, {"model": "auth.permission", "pk": 40, "fields": {"name": "Can view student", "content_type": 10, "codename": "view_student"}}, {"model": "auth.permission", "pk": 41, "fields": {"name": "Can add class", "content_type": 11, "codename": "add_class"}}, {"model": "auth.permission", "pk": 42, "fields": {"name": "Can change class", "content_type": 11, "codename": "change_class"}}, {"model": "auth.permission", "pk": 43, "fields": {"name": "Can delete class", "content_type": 11, "codename": "delete_class"}}, {"model": "auth.permission", "pk": 44, "fields": {"name": "Can view class", "content_type": 11, "codename": "view_class"}}, {"model": "auth.permission", "pk": 45, "fields": {"name": "Can add class student", "content_type": 12, "codename": "add_classstudent"}}, {"model": "auth.permission", "pk": 46, "fields": {"name": "Can change class student", "content_type": 12, "codename": "change_classstudent"}}, {"model": "auth.permission", "pk": 47, "fields": {"name": "Can delete class student", "content_type": 12, "codename": "delete_classstudent"}}, {"model": "auth.permission", "pk": 48, "fields": {"name": "Can view class student", "content_type": 12, "codename": "view_classstudent"}}, {"model": "auth.permission", "pk": 49, "fields": {"name": "Can add attendance", "content_type": 13, "codename": "add_attendance"}}, {"model": "auth.permission", "pk": 50, "fields": {"name": "Can change attendance", "content_type": 13, "codename": "change_attendance"}}, {"model": "auth.permission", "pk": 51, "fields": {"name": "Can delete attendance", "content_type": 13, "codename": "delete_attendance"}}, {"model": "auth.permission", "pk": 52, "fields": {"name": "Can view attendance", "content_type": 13, "codename": "view_attendance"}}, {"model": "auth.user", "pk": 1, "fields": {"password": "pbkdf2_sha256$320000$rm2FOv7YTQgkYfmmTBJivG$SKaya70T6Kb9iiSiBnO0ZUlsrgpbDtQKc04rL3t7p3w=", "last_login": "2025-08-05T13:46:21.479Z", "is_superuser": true, "username": "admin", "first_name": "System", "last_name": "Administrator", "email": "admin@gmail.com", "is_staff": true, "is_active": true, "date_joined": "2022-03-10T07:23:41.968Z", "groups": [], "user_permissions": []}}, {"model": "auth.user", "pk": 14, "fields": {"password": "pbkdf2_sha256$320000$uoK90yxn2VtZffP2o5NYKX$eCTSNRbGAfI66aqNNREklZS0jvDcXnuenomUTG7bN+o=", "last_login": "2022-03-12T05:36:00Z", "is_superuser": false, "username": "cblake", "first_name": "Claire", "last_name": "Blake", "email": "cblake@gmail.com", "is_staff": false, "is_active": true, "date_joined": "2022-03-11T03:32:37Z", "groups": [], "user_permissions": []}}, {"model": "auth.user", "pk": 15, "fields": {"password": "pbkdf2_sha256$320000$Fpn5BxM0CX4WLKoCxBrtQF$gvkEVg/b7lQI+XYfT6eTFUOWD+lfZ6oVjGfVjCIrskA=", "last_login": null, "is_superuser": false, "username": "sam", "first_name": "Samantha Jane", "last_name": "Miller", "email": "sam23@gmail.com", "is_staff": false, "is_active": true, "date_joined": "2022-03-11T03:35:57.161Z", "groups": [], "user_permissions": []}}, {"model": "auth.user", "pk": 16, "fields": {"password": "pbkdf2_sha256$320000$xXslW4ExWmjpziuKx5S5DD$ZSMtj4vSza3/cOxA0Yz35wOb6mb2pJj1WnY1sRoIfQ8=", "last_login": "2022-03-12T08:19:26.448Z", "is_superuser": false, "username": "gwilson", "first_name": "Ser George", "last_name": "Wilson", "email": "gwilson@gmail.com", "is_staff": false, "is_active": true, "date_joined": "2022-03-12T08:05:20.137Z", "groups": [], "user_permissions": []}}, {"model": "contenttypes.contenttype", "pk": 1, "fields": {"app_label": "admin", "model": "logentry"}}, {"model": "contenttypes.contenttype", "pk": 2, "fields": {"app_label": "auth", "model": "permission"}}, {"model": "contenttypes.contenttype", "pk": 3, "fields": {"app_label": "auth", "model": "group"}}, {"model": "contenttypes.contenttype", "pk": 4, "fields": {"app_label": "auth", "model": "user"}}, {"model": "contenttypes.contenttype", "pk": 5, "fields": {"app_label": "contenttypes", "model": "contenttype"}}, {"model": "contenttypes.contenttype", "pk": 6, "fields": {"app_label": "sessions", "model": "session"}}, {"model": "contenttypes.contenttype", "pk": 7, "fields": {"app_label": "attendance", "model": "course"}}, {"model": "contenttypes.contenttype", "pk": 8, "fields": {"app_label": "attendance", "model": "department"}}, {"model": "contenttypes.contenttype", "pk": 9, "fields": {"app_label": "attendance", "model": "userprofile"}}, {"model": "contenttypes.contenttype", "pk": 10, "fields": {"app_label": "attendance", "model": "student"}}, {"model": "contenttypes.contenttype", "pk": 11, "fields": {"app_label": "attendance", "model": "class"}}, {"model": "contenttypes.contenttype", "pk": 12, "fields": {"app_label": "attendance", "model": "classstudent"}}, {"model": "contenttypes.contenttype", "pk": 13, "fields": {"app_label": "attendance", "model": "attendance"}}, {"model": "sessions.session", "pk": "0f1krag7h0xfmcpko1t3ag7lro4yqprb", "fields": {"session_data": ".eJxVjDsOwjAQRO_iGllZ2-s1lPScwVr_cAA5UpxUiLuTSCmgmGbem3kLz-tS_drz7MckLgLE6bcLHJ-57SA9uN0nGae2zGOQuyIP2uVtSvl1Pdy_g8q9bmtnMiVUqNGScZEBVFGmDGcmcDZjoEGjhi0WwGikFFxBRckBoAUjPl-i-DXF:1uiBss:4ZCW8dpHT6cL0ciLLoW0O9uXZTKFz5V6iGd5vO6Y4SU", "expire_date": "2025-08-16T13:02:46.215Z"}}, {"model": "sessions.session", "pk": "b1iz69mx5d52rhgxi884s8inzrft8w0g", "fields": {"session_data": ".eJxVjEEOwiAQRe_C2hBgpmhduu8ZCMMMUjU0Ke3KeHdD0oVu_3vvv1WI-1bC3mQNM6ursur0u1FMT6kd8CPW-6LTUrd1Jt0VfdCmp4XldTvcv4MSW-l1yjafDeYE4gEyMBtHlwEJDBKRkRSNYHbi0VkLJN6NMiDm0TKAqM8X_6Y4Rw:1nSEox:IlvFRRk-2yV15dzgfbCSkzoUs-EDuf9BE-z7zuailYg", "expire_date": "2022-03-24T09:10:55.520Z"}}, {"model": "sessions.session", "pk": "daqs0ily7hsts86jst1bjm4qxim2uts2", "fields": {"session_data": ".eJxVjEEOwiAQRe_C2hBgpmhduu8ZCMMMUjU0Ke3KeHdD0oVu_3vvv1WI-1bC3mQNM6ursur0u1FMT6kd8CPW-6LTUrd1Jt0VfdCmp4XldTvcv4MSW-l1yjafDeYE4gEyMBtHlwEJDBKRkRSNYHbi0VkLJN6NMiDm0TKAqM8X_6Y4Rw:1nSE3G:jdNDPfNpCLFZDLJPaQbtage2JjMtK6Q3RZ-nBJiL5EY", "expire_date": "2022-03-24T08:21:38.351Z"}}, {"model": "sessions.session", "pk": "kikbq4z4h4mpoa1rnzwjj2ekkiwit6rd", "fields": {"session_data": ".eJxVjEEOwiAQRe_C2hBgpmhduu8ZCMMMUjU0Ke3KeHdD0oVu_3vvv1WI-1bC3mQNM6ursur0u1FMT6kd8CPW-6LTUrd1Jt0VfdCmp4XldTvcv4MSW-l1yjafDeYE4gEyMBtHlwEJDBKRkRSNYHbi0VkLJN6NMiDm0TKAqM8X_6Y4Rw:1nSuUi:yqLGGiDyI-dQ374oCbBmFOWG5i2r_EqSB719eWY5_5A", "expire_date": "2022-03-26T05:40:48.244Z"}}, {"model": "sessions.session", "pk": "kyoq61g6fksrpgezv26p756ue6f3785q", "fields": {"session_data": ".eJxVjDsOwjAQBe_iGln-bgwlPWew1rs2CSBbipMKcXcSKQW0b2beW0RclzGuPc9xYnER2onT75iQnrnuhB9Y701Sq8s8Jbkr8qBd3hrn1_Vw_w5G7ONWD-BJOcxgIDAlDh4HVmEgBQAhWb9BY9mEM1mtvU3BGy4FyIHjgiQ-X_X2N9k:1nStaY:VDFWL2KP94dV7el1Uy22ymYqO0mS_olxxF1u9m4yOiw", "expire_date": "2022-03-26T04:42:46.412Z"}}, {"model": "sessions.session", "pk": "rff2hri7x47ayb4sbuulqae1kwf87rq3", "fields": {"session_data": ".eJxVjDsOwjAQRO_iGllZ2-s1lPScwVr_cAA5UpxUiLuTSCmgmGbem3kLz-tS_drz7MckLgLE6bcLHJ-57SA9uN0nGae2zGOQuyIP2uVtSvl1Pdy_g8q9bmtnMiVUqNGScZEBVFGmDGcmcDZjoEGjhi0WwGikFFxBRckBoAUjPl-i-DXF:1ujHzh:KemfmpwO7Fk-HF7W_X93psRWToeGu8ElGv6di-O8f4g", "expire_date": "2025-08-19T13:46:21.506Z"}}, {"model": "attendance.department", "pk": 1, "fields": {"name": "CIT", "description": "College of Industrial Technology", "status": 1, "date_added": "2022-03-10T09:09:49.941Z", "date_updated": "2022-03-11T00:49:45.241Z"}}, {"model": "attendance.department", "pk": 2, "fields": {"name": "CoE", "description": "College of Engineering", "status": 1, "date_added": "2022-03-11T00:35:07.614Z", "date_updated": "2022-03-11T00:35:07.615Z"}}, {"model": "attendance.department", "pk": 3, "fields": {"name": "CAS", "description": "College of Arts and Sciences", "status": 1, "date_added": "2022-03-11T00:39:21.657Z", "date_updated": "2022-03-11T00:39:21.658Z"}}, {"model": "attendance.department", "pk": 4, "fields": {"name": "CoB", "description": "College of Business", "status": 1, "date_added": "2022-03-11T00:39:44.504Z", "date_updated": "2022-03-11T00:39:44.505Z"}}, {"model": "attendance.department", "pk": 5, "fields": {"name": "CEHD", "description": "College of Education and Human Development", "status": 1, "date_added": "2022-03-11T00:46:54.794Z", "date_updated": "2022-03-11T00:47:03.409Z"}}, {"model": "attendance.department", "pk": 6, "fields": {"name": "TEST101", "description": "This is a sample Department only", "status": 1, "date_added": "2022-03-12T08:02:28.767Z", "date_updated": "2022-03-12T08:25:15.824Z"}}, {"model": "attendance.userprofile", "pk": 1, "fields": {"user": 1, "contact": "09123456789", "dob": "1997-06-23", "address": "Sample Only", "avatar": "images/avatar.png", "user_type": 1, "gender": null, "department": null}}, {"model": "attendance.userprofile", "pk": 14, "fields": {"user": 14, "contact": "09123456789", "dob": "1997-06-23", "address": "Sample Address", "avatar": "images/avatar_2.png", "user_type": 2, "gender": "Female", "department": 2}}, {"model": "attendance.userprofile", "pk": 15, "fields": {"user": 15, "contact": "09456789123", "dob": "1997-10-14", "address": "Sample Address", "avatar": "images/avatar4.png", "user_type": 2, "gender": "Female", "department": 2}}, {"model": "attendance.userprofile", "pk": 16, "fields": {"user": 16, "contact": "09789456123", "dob": "1990-10-14", "address": "Sample Address Only", "avatar": "images/avatar4_hUbkaup.png", "user_type": 2, "gender": "Male", "department": 6}}, {"model": "attendance.course", "pk": 1, "fields": {"department": 3, "name": "Chemistry and Biochemistry", "description": "Chemistry and Biochemistry", "status": 1, "date_added": "2022-03-11T01:19:55.133Z", "date_updated": "2022-03-11T01:19:55.137Z"}}, {"model": "attendance.course", "pk": 2, "fields": {"department": 3, "name": "Computer Science", "description": "Computer Science", "status": 1, "date_added": "2022-03-11T01:20:12.842Z", "date_updated": "2022-03-11T01:20:12.847Z"}}, {"model": "attendance.course", "pk": 3, "fields": {"department": 3, "name": "English and Modern Languages", "description": "English and Modern Languages", "status": 1, "date_added": "2022-03-11T01:20:28.956Z", "date_updated": "2022-03-11T01:20:28.961Z"}}, {"model": "attendance.course", "pk": 4, "fields": {"department": 3, "name": "University Studies", "description": "University Studies", "status": 1, "date_added": "2022-03-11T01:20:44.373Z", "date_updated": "2022-03-11T01:20:44.377Z"}}, {"model": "attendance.course", "pk": 5, "fields": {"department": 4, "name": "Accounting", "description": "Accounting", "status": 1, "date_added": "2022-03-11T01:20:56.978Z", "date_updated": "2022-03-11T01:20:56.982Z"}}, {"model": "attendance.course", "pk": 6, "fields": {"department": 4, "name": "Construction Management", "description": "Construction Management", "status": 1, "date_added": "2022-03-11T01:21:05.163Z", "date_updated": "2022-03-11T01:21:05.167Z"}}, {"model": "attendance.course", "pk": 7, "fields": {"department": 4, "name": "Economics and Finance", "description": "Economics and Finance", "status": 1, "date_added": "2022-03-11T01:21:17.180Z", "date_updated": "2022-03-11T01:21:17.184Z"}}, {"model": "attendance.course", "pk": 8, "fields": {"department": 2, "name": "Information Systems Analysis", "description": "Information Systems Analysis", "status": 1, "date_added": "2022-03-11T01:21:36.205Z", "date_updated": "2022-03-11T01:21:36.209Z"}}, {"model": "attendance.course", "pk": 9, "fields": {"department": 4, "name": "Marketing and Management", "description": "Marketing and Management", "status": 1, "date_added": "2022-03-11T01:21:46.094Z", "date_updated": "2022-03-11T01:21:46.097Z"}}, {"model": "attendance.course", "pk": 10, "fields": {"department": 2, "name": "Department of Civil & Environmental Engineering", "description": "Department of Civil & Environmental Engineering", "status": 1, "date_added": "2022-03-11T01:22:04.296Z", "date_updated": "2022-03-11T01:22:04.304Z"}}, {"model": "attendance.course", "pk": 11, "fields": {"department": 2, "name": "Department of Mechanical Engineering", "description": "Department of Mechanical Engineering", "status": 1, "date_added": "2022-03-11T01:22:19.160Z", "date_updated": "2022-03-11T01:22:19.162Z"}}, {"model": "attendance.course", "pk": 12, "fields": {"department": 2, "name": "Chemical and Biomolecular Engineering", "description": "Chemical and Biomolecular Engineering", "status": 1, "date_added": "2022-03-11T01:22:55.122Z", "date_updated": "2022-03-11T01:22:55.127Z"}}, {"model": "attendance.course", "pk": 13, "fields": {"department": 5, "name": "Counseling", "description": "Counseling", "status": 1, "date_added": "2022-03-11T01:23:31.295Z", "date_updated": "2022-03-11T01:23:31.300Z"}}, {"model": "attendance.course", "pk": 14, "fields": {"department": 5, "name": "Educational Leadership", "description": "Educational Leadership", "status": 1, "date_added": "2022-03-11T01:23:42.515Z", "date_updated": "2022-03-11T01:23:42.520Z"}}, {"model": "attendance.course", "pk": 15, "fields": {"department": 5, "name": "BSEd", "description": "Bachelor in Secondary Education", "status": 1, "date_added": "2022-03-11T01:24:45.096Z", "date_updated": "2022-03-11T01:24:45.102Z"}}, {"model": "attendance.course", "pk": 16, "fields": {"department": 5, "name": "BEEd", "description": "Bachelor of Elementary Education", "status": 1, "date_added": "2022-03-11T01:25:36.739Z", "date_updated": "2022-03-11T01:25:36.743Z"}}, {"model": "attendance.course", "pk": 17, "fields": {"department": 6, "name": "Course 101", "description": "A Sample Course Only", "status": 1, "date_added": "2022-03-12T08:03:26.586Z", "date_updated": "2022-03-12T08:03:26.590Z"}}, {"model": "attendance.student", "pk": 1, "fields": {"student_code": "22124", "course": 2, "first_name": "Markk", "middle_name": "D", "last_name": "Cooper", "gender": "Male", "dob": "1997-06-23", "contact": "09123456789", "date_added": "2022-03-11T06:33:04.656Z", "date_updated": "2025-08-02T14:51:54.771Z"}}, {"model": "attendance.student", "pk": 2, "fields": {"student_code": "1014", "course": 10, "first_name": "Mike", "middle_name": "C", "last_name": "Williams", "gender": "Male", "dob": "1998-10-14", "contact": "09789456123", "date_added": "2022-03-11T06:37:22.090Z", "date_updated": "2022-03-11T06:37:22.098Z"}}, {"model": "attendance.student", "pk": 3, "fields": {"student_code": "2306141507", "course": 17, "first_name": "Angela", "middle_name": "C", "last_name": "Anthony", "gender": "Female", "dob": "1997-06-23", "contact": "09987564123", "date_added": "2022-03-12T08:07:28.914Z", "date_updated": "2022-03-12T08:07:28.919Z"}}, {"model": "attendance.student", "pk": 4, "fields": {"student_code": "22123", "course": 2, "first_name": "Kake", "middle_name": null, "last_name": "Gyi", "gender": "Male", "dob": "2007-01-01", "contact": "09123456789", "date_added": "2025-08-02T13:14:43.712Z", "date_updated": "2025-08-02T13:14:43.731Z"}}, {"model": "attendance.student", "pk": 5, "fields": {"student_code": "22125", "course": 2, "first_name": "Chou", "middle_name": "Pro", "last_name": "Lay", "gender": "Male", "dob": "2005-01-01", "contact": "0912344321", "date_added": "2025-08-02T14:25:12.847Z", "date_updated": "2025-08-02T14:25:12.862Z"}}, {"model": "attendance.class", "pk": 2, "fields": {"assigned_faculty": 14, "school_year": "2021-2022", "level": "First Year", "name": "Class 101"}}, {"model": "attendance.class", "pk": 4, "fields": {"assigned_faculty": 15, "school_year": "2021-2022", "level": "First Year", "name": "Class 102"}}, {"model": "attendance.class", "pk": 5, "fields": {"assigned_faculty": 16, "school_year": "2021-2022", "level": "First Year", "name": "DBMS 1-A"}}, {"model": "attendance.classstudent", "pk": 1, "fields": {"classIns": 2, "student": 2}}, {"model": "attendance.classstudent", "pk": 3, "fields": {"classIns": 2, "student": 1}}, {"model": "attendance.classstudent", "pk": 4, "fields": {"classIns": 4, "student": 1}}, {"model": "attendance.classstudent", "pk": 6, "fields": {"classIns": 4, "student": 2}}, {"model": "attendance.classstudent", "pk": 7, "fields": {"classIns": 5, "student": 1}}, {"model": "attendance.classstudent", "pk": 8, "fields": {"classIns": 5, "student": 2}}, {"model": "attendance.classstudent", "pk": 9, "fields": {"classIns": 5, "student": 3}}, {"model": "attendance.attendance", "pk": 9, "fields": {"classIns": 2, "student": 1, "attendance_date": "2022-03-10", "type": "2", "date_updated": "2022-03-12T01:25:27.888Z"}}, {"model": "attendance.attendance", "pk": 10, "fields": {"classIns": 2, "student": 2, "attendance_date": "2022-03-10", "type": "1", "date_updated": "2022-03-12T01:25:27.898Z"}}, {"model": "attendance.attendance", "pk": 13, "fields": {"classIns": 2, "student": 1, "attendance_date": "2022-03-09", "type": "3", "date_updated": "2022-03-12T02:13:32.972Z"}}, {"model": "attendance.attendance", "pk": 14, "fields": {"classIns": 2, "student": 2, "attendance_date": "2022-03-09", "type": "2", "date_updated": "2022-03-12T02:13:32.981Z"}}, {"model": "attendance.attendance", "pk": 15, "fields": {"classIns": 4, "student": 1, "attendance_date": "2022-03-15", "type": "1", "date_updated": "2022-03-12T02:40:09.704Z"}}, {"model": "attendance.attendance", "pk": 16, "fields": {"classIns": 4, "student": 2, "attendance_date": "2022-03-15", "type": "2", "date_updated": "2022-03-12T02:40:09.713Z"}}, {"model": "attendance.attendance", "pk": 17, "fields": {"classIns": 2, "student": 1, "attendance_date": "2022-03-11", "type": "1", "date_updated": "2022-03-12T05:39:50.472Z"}}, {"model": "attendance.attendance", "pk": 18, "fields": {"classIns": 2, "student": 2, "attendance_date": "2022-03-11", "type": "2", "date_updated": "2022-03-12T05:39:50.482Z"}}, {"model": "attendance.attendance", "pk": 19, "fields": {"classIns": 5, "student": 1, "attendance_date": "2022-03-09", "type": "1", "date_updated": "2022-03-12T08:08:01.750Z"}}, {"model": "attendance.attendance", "pk": 20, "fields": {"classIns": 5, "student": 2, "attendance_date": "2022-03-09", "type": "1", "date_updated": "2022-03-12T08:08:01.776Z"}}, {"model": "attendance.attendance", "pk": 21, "fields": {"classIns": 5, "student": 3, "attendance_date": "2022-03-09", "type": "1", "date_updated": "2022-03-12T08:08:01.787Z"}}, {"model": "attendance.attendance", "pk": 22, "fields": {"classIns": 5, "student": 1, "attendance_date": "2022-03-12", "type": "2", "date_updated": "2022-03-12T08:08:58.480Z"}}, {"model": "attendance.attendance", "pk": 23, "fields": {"classIns": 5, "student": 2, "attendance_date": "2022-03-12", "type": "3", "date_updated": "2022-03-12T08:08:58.502Z"}}, {"model": "attendance.attendance", "pk": 24, "fields": {"classIns": 5, "student": 3, "attendance_date": "2022-03-12", "type": "1", "date_updated": "2022-03-12T08:08:58.511Z"}}, {"model": "attendance.attendance", "pk": 28, "fields": {"classIns": 5, "student": 1, "attendance_date": "2025-08-29", "type": "1", "date_updated": "2025-08-01T14:04:34.694Z"}}, {"model": "attendance.attendance", "pk": 29, "fields": {"classIns": 5, "student": 2, "attendance_date": "2025-08-29", "type": "3", "date_updated": "2025-08-01T14:04:34.713Z"}}, {"model": "attendance.attendance", "pk": 30, "fields": {"classIns": 5, "student": 3, "attendance_date": "2025-08-29", "type": "2", "date_updated": "2025-08-01T14:04:34.729Z"}}, {"model": "attendance.attendance", "pk": 31, "fields": {"classIns": 5, "student": 1, "attendance_date": "2025-08-26", "type": "1", "date_updated": "2025-08-01T14:12:23.580Z"}}, {"model": "attendance.attendance", "pk": 32, "fields": {"classIns": 5, "student": 2, "attendance_date": "2025-08-26", "type": "3", "date_updated": "2025-08-01T14:12:23.600Z"}}, {"model": "attendance.attendance", "pk": 33, "fields": {"classIns": 5, "student": 3, "attendance_date": "2025-08-26", "type": "3", "date_updated": "2025-08-01T14:12:23.619Z"}}]
+[
+{
+  "model": "admin.logentry",
+  "pk": 1,
+  "fields": {
+    "action_time": "2022-03-11T02:11:59.542Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "1",
+    "object_repr": "admin",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"User type\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 2,
+  "fields": {
+    "action_time": "2022-03-11T02:53:49.183Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "2",
+    "object_repr": "cblake",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 3,
+  "fields": {
+    "action_time": "2022-03-11T03:19:34.322Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "5",
+    "object_repr": "cblake",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 4,
+  "fields": {
+    "action_time": "2022-03-11T03:21:36.965Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "6",
+    "object_repr": "cblake",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 5,
+  "fields": {
+    "action_time": "2022-03-11T03:22:39.749Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "7",
+    "object_repr": "cblake",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 6,
+  "fields": {
+    "action_time": "2022-03-11T03:25:56.658Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "8",
+    "object_repr": "cblake",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 7,
+  "fields": {
+    "action_time": "2022-03-11T03:29:29.798Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "10",
+    "object_repr": "cblake",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 8,
+  "fields": {
+    "action_time": "2022-03-11T03:30:18.365Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "11",
+    "object_repr": "cblake",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 9,
+  "fields": {
+    "action_time": "2022-03-11T03:31:25.216Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "12",
+    "object_repr": "cblake",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 10,
+  "fields": {
+    "action_time": "2022-03-11T03:31:50.593Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "13",
+    "object_repr": "cblake",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 11,
+  "fields": {
+    "action_time": "2022-03-11T05:40:20.841Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "1",
+    "object_repr": "[First Year] First Year-Class 101",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 12,
+  "fields": {
+    "action_time": "2022-03-12T04:05:24.846Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "14",
+    "object_repr": "cblake",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"password\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 13,
+  "fields": {
+    "action_time": "2022-03-12T04:06:41.463Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "14",
+    "object_repr": "cblake",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"password\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 14,
+  "fields": {
+    "action_time": "2025-08-01T14:55:13.585Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "14",
+    "object_repr": "cblake",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Staff status\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 15,
+  "fields": {
+    "action_time": "2025-08-01T14:59:36.196Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "14",
+    "object_repr": "cblake",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Staff status\"]}}]"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 1,
+  "fields": {
+    "name": "Can add log entry",
+    "content_type": 1,
+    "codename": "add_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 2,
+  "fields": {
+    "name": "Can change log entry",
+    "content_type": 1,
+    "codename": "change_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 3,
+  "fields": {
+    "name": "Can delete log entry",
+    "content_type": 1,
+    "codename": "delete_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 4,
+  "fields": {
+    "name": "Can view log entry",
+    "content_type": 1,
+    "codename": "view_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 5,
+  "fields": {
+    "name": "Can add permission",
+    "content_type": 2,
+    "codename": "add_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 6,
+  "fields": {
+    "name": "Can change permission",
+    "content_type": 2,
+    "codename": "change_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 7,
+  "fields": {
+    "name": "Can delete permission",
+    "content_type": 2,
+    "codename": "delete_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 8,
+  "fields": {
+    "name": "Can view permission",
+    "content_type": 2,
+    "codename": "view_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 9,
+  "fields": {
+    "name": "Can add group",
+    "content_type": 3,
+    "codename": "add_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 10,
+  "fields": {
+    "name": "Can change group",
+    "content_type": 3,
+    "codename": "change_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 11,
+  "fields": {
+    "name": "Can delete group",
+    "content_type": 3,
+    "codename": "delete_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 12,
+  "fields": {
+    "name": "Can view group",
+    "content_type": 3,
+    "codename": "view_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 13,
+  "fields": {
+    "name": "Can add user",
+    "content_type": 4,
+    "codename": "add_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 14,
+  "fields": {
+    "name": "Can change user",
+    "content_type": 4,
+    "codename": "change_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 15,
+  "fields": {
+    "name": "Can delete user",
+    "content_type": 4,
+    "codename": "delete_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 16,
+  "fields": {
+    "name": "Can view user",
+    "content_type": 4,
+    "codename": "view_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 17,
+  "fields": {
+    "name": "Can add content type",
+    "content_type": 5,
+    "codename": "add_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 18,
+  "fields": {
+    "name": "Can change content type",
+    "content_type": 5,
+    "codename": "change_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 19,
+  "fields": {
+    "name": "Can delete content type",
+    "content_type": 5,
+    "codename": "delete_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 20,
+  "fields": {
+    "name": "Can view content type",
+    "content_type": 5,
+    "codename": "view_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 21,
+  "fields": {
+    "name": "Can add session",
+    "content_type": 6,
+    "codename": "add_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 22,
+  "fields": {
+    "name": "Can change session",
+    "content_type": 6,
+    "codename": "change_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 23,
+  "fields": {
+    "name": "Can delete session",
+    "content_type": 6,
+    "codename": "delete_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 24,
+  "fields": {
+    "name": "Can view session",
+    "content_type": 6,
+    "codename": "view_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 25,
+  "fields": {
+    "name": "Can add course",
+    "content_type": 7,
+    "codename": "add_course"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 26,
+  "fields": {
+    "name": "Can change course",
+    "content_type": 7,
+    "codename": "change_course"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 27,
+  "fields": {
+    "name": "Can delete course",
+    "content_type": 7,
+    "codename": "delete_course"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 28,
+  "fields": {
+    "name": "Can view course",
+    "content_type": 7,
+    "codename": "view_course"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 29,
+  "fields": {
+    "name": "Can add department",
+    "content_type": 8,
+    "codename": "add_department"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 30,
+  "fields": {
+    "name": "Can change department",
+    "content_type": 8,
+    "codename": "change_department"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 31,
+  "fields": {
+    "name": "Can delete department",
+    "content_type": 8,
+    "codename": "delete_department"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 32,
+  "fields": {
+    "name": "Can view department",
+    "content_type": 8,
+    "codename": "view_department"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 33,
+  "fields": {
+    "name": "Can add user profile",
+    "content_type": 9,
+    "codename": "add_userprofile"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 34,
+  "fields": {
+    "name": "Can change user profile",
+    "content_type": 9,
+    "codename": "change_userprofile"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 35,
+  "fields": {
+    "name": "Can delete user profile",
+    "content_type": 9,
+    "codename": "delete_userprofile"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 36,
+  "fields": {
+    "name": "Can view user profile",
+    "content_type": 9,
+    "codename": "view_userprofile"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 37,
+  "fields": {
+    "name": "Can add student",
+    "content_type": 10,
+    "codename": "add_student"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 38,
+  "fields": {
+    "name": "Can change student",
+    "content_type": 10,
+    "codename": "change_student"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 39,
+  "fields": {
+    "name": "Can delete student",
+    "content_type": 10,
+    "codename": "delete_student"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 40,
+  "fields": {
+    "name": "Can view student",
+    "content_type": 10,
+    "codename": "view_student"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 41,
+  "fields": {
+    "name": "Can add class",
+    "content_type": 11,
+    "codename": "add_class"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 42,
+  "fields": {
+    "name": "Can change class",
+    "content_type": 11,
+    "codename": "change_class"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 43,
+  "fields": {
+    "name": "Can delete class",
+    "content_type": 11,
+    "codename": "delete_class"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 44,
+  "fields": {
+    "name": "Can view class",
+    "content_type": 11,
+    "codename": "view_class"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 45,
+  "fields": {
+    "name": "Can add class student",
+    "content_type": 12,
+    "codename": "add_classstudent"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 46,
+  "fields": {
+    "name": "Can change class student",
+    "content_type": 12,
+    "codename": "change_classstudent"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 47,
+  "fields": {
+    "name": "Can delete class student",
+    "content_type": 12,
+    "codename": "delete_classstudent"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 48,
+  "fields": {
+    "name": "Can view class student",
+    "content_type": 12,
+    "codename": "view_classstudent"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 49,
+  "fields": {
+    "name": "Can add attendance",
+    "content_type": 13,
+    "codename": "add_attendance"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 50,
+  "fields": {
+    "name": "Can change attendance",
+    "content_type": 13,
+    "codename": "change_attendance"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 51,
+  "fields": {
+    "name": "Can delete attendance",
+    "content_type": 13,
+    "codename": "delete_attendance"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 52,
+  "fields": {
+    "name": "Can view attendance",
+    "content_type": 13,
+    "codename": "view_attendance"
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$yhBVOEvELTpHk3sPIlPOQ8$GxDpGjkjTH3rsdpzAXqrW5iTi85uqqKTgi++4mOXHZQ=",
+    "last_login": "2025-08-06T05:04:41.736Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "System",
+    "last_name": "Administrator",
+    "email": "admin@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2022-03-10T07:23:41.968Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 14,
+  "fields": {
+    "password": "pbkdf2_sha256$320000$uoK90yxn2VtZffP2o5NYKX$eCTSNRbGAfI66aqNNREklZS0jvDcXnuenomUTG7bN+o=",
+    "last_login": "2022-03-12T05:36:00Z",
+    "is_superuser": false,
+    "username": "cblake",
+    "first_name": "Claire",
+    "last_name": "Blake",
+    "email": "cblake@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2022-03-11T03:32:37Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 15,
+  "fields": {
+    "password": "pbkdf2_sha256$320000$Fpn5BxM0CX4WLKoCxBrtQF$gvkEVg/b7lQI+XYfT6eTFUOWD+lfZ6oVjGfVjCIrskA=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "sam",
+    "first_name": "Samantha Jane",
+    "last_name": "Miller",
+    "email": "sam23@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2022-03-11T03:35:57.161Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 16,
+  "fields": {
+    "password": "pbkdf2_sha256$320000$xXslW4ExWmjpziuKx5S5DD$ZSMtj4vSza3/cOxA0Yz35wOb6mb2pJj1WnY1sRoIfQ8=",
+    "last_login": "2022-03-12T08:19:26.448Z",
+    "is_superuser": false,
+    "username": "gwilson",
+    "first_name": "Ser George",
+    "last_name": "Wilson",
+    "email": "gwilson@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2022-03-12T08:05:20.137Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 17,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$yB0I4Z8Vt7yLqcEm8kGG9y$/fQjvS6kzildwuGFVr0q8J00GNuKaWoJC7kaM6sNLG4=",
+    "last_login": "2025-08-06T04:57:28.301Z",
+    "is_superuser": false,
+    "username": "sora",
+    "first_name": "Sora",
+    "last_name": "",
+    "email": "sora@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-08-05T13:55:33.987Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 18,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$or35aUFnEPsZd3TPPUNgyk$I94YA5A5nq/FqPVeJzkYrG2oOe6Ps3iY2eNhvodR9c4=",
+    "last_login": "2025-08-06T05:07:18.111Z",
+    "is_superuser": false,
+    "username": "xorn",
+    "first_name": "Xorn",
+    "last_name": "",
+    "email": "xorn@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-08-06T04:40:20.578Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 1,
+  "fields": {
+    "app_label": "admin",
+    "model": "logentry"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 2,
+  "fields": {
+    "app_label": "auth",
+    "model": "permission"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 3,
+  "fields": {
+    "app_label": "auth",
+    "model": "group"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 4,
+  "fields": {
+    "app_label": "auth",
+    "model": "user"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 5,
+  "fields": {
+    "app_label": "contenttypes",
+    "model": "contenttype"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 6,
+  "fields": {
+    "app_label": "sessions",
+    "model": "session"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 7,
+  "fields": {
+    "app_label": "attendance",
+    "model": "course"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 8,
+  "fields": {
+    "app_label": "attendance",
+    "model": "department"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 9,
+  "fields": {
+    "app_label": "attendance",
+    "model": "userprofile"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 10,
+  "fields": {
+    "app_label": "attendance",
+    "model": "student"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 11,
+  "fields": {
+    "app_label": "attendance",
+    "model": "class"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 12,
+  "fields": {
+    "app_label": "attendance",
+    "model": "classstudent"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 13,
+  "fields": {
+    "app_label": "attendance",
+    "model": "attendance"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "0f1krag7h0xfmcpko1t3ag7lro4yqprb",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQRO_iGllZ2-s1lPScwVr_cAA5UpxUiLuTSCmgmGbem3kLz-tS_drz7MckLgLE6bcLHJ-57SA9uN0nGae2zGOQuyIP2uVtSvl1Pdy_g8q9bmtnMiVUqNGScZEBVFGmDGcmcDZjoEGjhi0WwGikFFxBRckBoAUjPl-i-DXF:1uiBss:4ZCW8dpHT6cL0ciLLoW0O9uXZTKFz5V6iGd5vO6Y4SU",
+    "expire_date": "2025-08-16T13:02:46.215Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "4ghphq49dgqr0ssfgqgbw19gmgu2mq3g",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQRO_iGllZ2-s1lPScwVr_cAA5UpxUiLuTSCmgmGbem3kLz-tS_drz7MckLgLE6bcLHJ-57SA9uN0nGae2zGOQuyIP2uVtSvl1Pdy_g8q9bmtnMiVUqNGScZEBVFGmDGcmcDZjoEGjhi0WwGikFFxBRckBoAUjPl-i-DXF:1uiBpo:HK5M01eJHmLFlGODiKT9uSfiCRfKXEif0HAIZgHqbz8",
+    "expire_date": "2025-08-16T12:59:36.030Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "594n7nl1iou5d4tihhdr2fb1vbcmze89",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSE8Kgwu3fsNZJihUjWQlHZl_HfbpAvdnnPufYuI61Li2vMcJxYXoUGcfmFCeua6G35gvTdJrS7zlOSeyMN2eWucX9ej_Tso2Mu2xmy1DoyeGRUBEJAHk7xjRQGGbH0a0SCACw7OoJE1JWtM3vio_CA-XyDbOHg:1ujWMw:JvqFqfeLPN2o6ShvfxgA02dKGJTE7YRk0mlbE82oUBU",
+    "expire_date": "2025-08-20T05:07:18.157Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "b1iz69mx5d52rhgxi884s8inzrft8w0g",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2hBgpmhduu8ZCMMMUjU0Ke3KeHdD0oVu_3vvv1WI-1bC3mQNM6ursur0u1FMT6kd8CPW-6LTUrd1Jt0VfdCmp4XldTvcv4MSW-l1yjafDeYE4gEyMBtHlwEJDBKRkRSNYHbi0VkLJN6NMiDm0TKAqM8X_6Y4Rw:1nSEox:IlvFRRk-2yV15dzgfbCSkzoUs-EDuf9BE-z7zuailYg",
+    "expire_date": "2022-03-24T09:10:55.520Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "daqs0ily7hsts86jst1bjm4qxim2uts2",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2hBgpmhduu8ZCMMMUjU0Ke3KeHdD0oVu_3vvv1WI-1bC3mQNM6ursur0u1FMT6kd8CPW-6LTUrd1Jt0VfdCmp4XldTvcv4MSW-l1yjafDeYE4gEyMBtHlwEJDBKRkRSNYHbi0VkLJN6NMiDm0TKAqM8X_6Y4Rw:1nSE3G:jdNDPfNpCLFZDLJPaQbtage2JjMtK6Q3RZ-nBJiL5EY",
+    "expire_date": "2022-03-24T08:21:38.351Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "kikbq4z4h4mpoa1rnzwjj2ekkiwit6rd",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2hBgpmhduu8ZCMMMUjU0Ke3KeHdD0oVu_3vvv1WI-1bC3mQNM6ursur0u1FMT6kd8CPW-6LTUrd1Jt0VfdCmp4XldTvcv4MSW-l1yjafDeYE4gEyMBtHlwEJDBKRkRSNYHbi0VkLJN6NMiDm0TKAqM8X_6Y4Rw:1nSuUi:yqLGGiDyI-dQ374oCbBmFOWG5i2r_EqSB719eWY5_5A",
+    "expire_date": "2022-03-26T05:40:48.244Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "kyoq61g6fksrpgezv26p756ue6f3785q",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQBe_iGln-bgwlPWew1rs2CSBbipMKcXcSKQW0b2beW0RclzGuPc9xYnER2onT75iQnrnuhB9Y701Sq8s8Jbkr8qBd3hrn1_Vw_w5G7ONWD-BJOcxgIDAlDh4HVmEgBQAhWb9BY9mEM1mtvU3BGy4FyIHjgiQ-X_X2N9k:1nStaY:VDFWL2KP94dV7el1Uy22ymYqO0mS_olxxF1u9m4yOiw",
+    "expire_date": "2022-03-26T04:42:46.412Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "qqtkcatt5tqbgjzcapl6iueotpmxm8fh",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQRO_iGllZ2-s1lPScwVr_cAA5UpxUiLuTSCmgmGbem3kLz-tS_drz7MckLgLE6bcLHJ-57SA9uN0nGae2zGOQuyIP2uVtSvl1Pdy_g8q9bmtnMiVUqNGScZEBVFGmDGcmcDZjoEGjhi0WwGikFFxBRckBoAUjPl-i-DXF:1uioGd:uyDaWbVB0RdBMkgSnp1Z5YAg2D3JnvaNFliyY3idpGQ",
+    "expire_date": "2025-08-18T06:01:51.765Z"
+  }
+},
+{
+  "model": "attendance.department",
+  "pk": 1,
+  "fields": {
+    "name": "Software Department",
+    "description": "SE",
+    "status": 1,
+    "date_added": "2022-03-10T09:09:49.941Z",
+    "date_updated": "2025-08-06T03:37:12.086Z"
+  }
+},
+{
+  "model": "attendance.department",
+  "pk": 2,
+  "fields": {
+    "name": "Business Information System Department",
+    "description": "BIS",
+    "status": 1,
+    "date_added": "2022-03-11T00:35:07.614Z",
+    "date_updated": "2025-08-06T03:37:37.117Z"
+  }
+},
+{
+  "model": "attendance.department",
+  "pk": 3,
+  "fields": {
+    "name": "Knowledge Engineering Department",
+    "description": "KE",
+    "status": 1,
+    "date_added": "2022-03-11T00:39:21.657Z",
+    "date_updated": "2025-08-06T03:37:57.545Z"
+  }
+},
+{
+  "model": "attendance.department",
+  "pk": 4,
+  "fields": {
+    "name": "High Performance Computing Department",
+    "description": "HPC",
+    "status": 1,
+    "date_added": "2022-03-11T00:39:44.504Z",
+    "date_updated": "2025-08-06T03:39:27.507Z"
+  }
+},
+{
+  "model": "attendance.department",
+  "pk": 5,
+  "fields": {
+    "name": "Cyber Security Forensis Department",
+    "description": "CSF",
+    "status": 1,
+    "date_added": "2022-03-11T00:46:54.794Z",
+    "date_updated": "2025-08-06T03:39:39.743Z"
+  }
+},
+{
+  "model": "attendance.department",
+  "pk": 6,
+  "fields": {
+    "name": "TEST101",
+    "description": "This is a sample Department only",
+    "status": 1,
+    "date_added": "2022-03-12T08:02:28.767Z",
+    "date_updated": "2022-03-12T08:25:15.824Z"
+  }
+},
+{
+  "model": "attendance.department",
+  "pk": 8,
+  "fields": {
+    "name": "Computer Technology Department",
+    "description": "CT",
+    "status": 1,
+    "date_added": "2025-08-06T03:39:17.689Z",
+    "date_updated": "2025-08-06T03:39:17.691Z"
+  }
+},
+{
+  "model": "attendance.userprofile",
+  "pk": 1,
+  "fields": {
+    "user": 1,
+    "contact": "09123456789",
+    "dob": "1997-06-23",
+    "address": "Sample Only",
+    "avatar": "images/avatar.png",
+    "user_type": 1,
+    "gender": null,
+    "department": null
+  }
+},
+{
+  "model": "attendance.userprofile",
+  "pk": 14,
+  "fields": {
+    "user": 14,
+    "contact": "09123456789",
+    "dob": "1997-06-23",
+    "address": "Sample Address",
+    "avatar": "images/avatar_2.png",
+    "user_type": 2,
+    "gender": "Female",
+    "department": 2
+  }
+},
+{
+  "model": "attendance.userprofile",
+  "pk": 15,
+  "fields": {
+    "user": 15,
+    "contact": "09456789123",
+    "dob": "1997-10-14",
+    "address": "Sample Address",
+    "avatar": "images/avatar4.png",
+    "user_type": 2,
+    "gender": "Female",
+    "department": 2
+  }
+},
+{
+  "model": "attendance.userprofile",
+  "pk": 16,
+  "fields": {
+    "user": 16,
+    "contact": "09789456123",
+    "dob": "1990-10-14",
+    "address": "Sample Address Only",
+    "avatar": "images/avatar4_hUbkaup.png",
+    "user_type": 2,
+    "gender": "Male",
+    "department": 6
+  }
+},
+{
+  "model": "attendance.userprofile",
+  "pk": 17,
+  "fields": {
+    "user": 17,
+    "contact": "09791017918",
+    "dob": "2004-10-08",
+    "address": "Hpa-an",
+    "avatar": "images/images_4.jpg",
+    "user_type": 2,
+    "gender": "Female",
+    "department": 6
+  }
+},
+{
+  "model": "attendance.userprofile",
+  "pk": 18,
+  "fields": {
+    "user": 18,
+    "contact": "09675901448",
+    "dob": "2004-03-15",
+    "address": "Kyaik-Hto",
+    "avatar": "images/rabbit.jpg",
+    "user_type": 2,
+    "gender": "Male",
+    "department": 2
+  }
+},
+{
+  "model": "attendance.course",
+  "pk": 17,
+  "fields": {
+    "department": 6,
+    "name": "Course 101",
+    "description": "A Sample Course Only",
+    "status": 1,
+    "date_added": "2022-03-12T08:03:26.586Z",
+    "date_updated": "2022-03-12T08:03:26.590Z"
+  }
+},
+{
+  "model": "attendance.course",
+  "pk": 19,
+  "fields": {
+    "department": 2,
+    "name": "BIS",
+    "description": "E-004",
+    "status": 1,
+    "date_added": "2025-08-06T04:38:43.210Z",
+    "date_updated": "2025-08-06T04:38:43.218Z"
+  }
+},
+{
+  "model": "attendance.student",
+  "pk": 3,
+  "fields": {
+    "student_code": "2306141507",
+    "course": 17,
+    "first_name": "Angela",
+    "gender": "Female",
+    "dob": "1997-06-23",
+    "contact": "09987564123",
+    "date_added": "2022-03-12T08:07:28.914Z",
+    "date_updated": "2022-03-12T08:07:28.919Z"
+  }
+},
+{
+  "model": "attendance.student",
+  "pk": 7,
+  "fields": {
+    "student_code": "22543",
+    "course": 19,
+    "first_name": "Kyaw Soe",
+    "gender": "Male",
+    "dob": "2004-03-15",
+    "contact": "09962270911",
+    "date_added": "2025-08-06T04:43:05.994Z",
+    "date_updated": "2025-08-06T04:45:24.692Z"
+  }
+},
+{
+  "model": "attendance.student",
+  "pk": 8,
+  "fields": {
+    "student_code": "22373",
+    "course": 19,
+    "first_name": "Hnin Htet Htet Sam",
+    "gender": "Female",
+    "dob": "2004-05-08",
+    "contact": "09787348341",
+    "date_added": "2025-08-06T04:46:28.447Z",
+    "date_updated": "2025-08-06T04:46:28.462Z"
+  }
+},
+{
+  "model": "attendance.class",
+  "pk": 2,
+  "fields": {
+    "assigned_faculty": 18,
+    "school_year": "2025-2026",
+    "level": "Sem-7",
+    "name": "Python"
+  }
+},
+{
+  "model": "attendance.class",
+  "pk": 4,
+  "fields": {
+    "assigned_faculty": 15,
+    "school_year": "2021-2022",
+    "level": "First Year",
+    "name": "Class 102"
+  }
+},
+{
+  "model": "attendance.class",
+  "pk": 5,
+  "fields": {
+    "assigned_faculty": 16,
+    "school_year": "2021-2022",
+    "level": "First Year",
+    "name": "DBMS 1-A"
+  }
+},
+{
+  "model": "attendance.class",
+  "pk": 6,
+  "fields": {
+    "assigned_faculty": 17,
+    "school_year": "20225-2026",
+    "level": "third year",
+    "name": "Php"
+  }
+},
+{
+  "model": "attendance.classstudent",
+  "pk": 9,
+  "fields": {
+    "classIns": 5,
+    "student": 3
+  }
+},
+{
+  "model": "attendance.classstudent",
+  "pk": 11,
+  "fields": {
+    "classIns": 2,
+    "student": 7
+  }
+},
+{
+  "model": "attendance.classstudent",
+  "pk": 12,
+  "fields": {
+    "classIns": 2,
+    "student": 8
+  }
+},
+{
+  "model": "attendance.classstudent",
+  "pk": 13,
+  "fields": {
+    "classIns": 6,
+    "student": 3
+  }
+},
+{
+  "model": "attendance.attendance",
+  "pk": 21,
+  "fields": {
+    "classIns": 5,
+    "student": 3,
+    "attendance_date": "2022-03-09",
+    "type": "1",
+    "date_updated": "2022-03-12T08:08:01.787Z"
+  }
+},
+{
+  "model": "attendance.attendance",
+  "pk": 24,
+  "fields": {
+    "classIns": 5,
+    "student": 3,
+    "attendance_date": "2022-03-12",
+    "type": "1",
+    "date_updated": "2022-03-12T08:08:58.511Z"
+  }
+},
+{
+  "model": "attendance.attendance",
+  "pk": 30,
+  "fields": {
+    "classIns": 5,
+    "student": 3,
+    "attendance_date": "2025-08-29",
+    "type": "2",
+    "date_updated": "2025-08-01T14:04:34.729Z"
+  }
+},
+{
+  "model": "attendance.attendance",
+  "pk": 33,
+  "fields": {
+    "classIns": 5,
+    "student": 3,
+    "attendance_date": "2025-08-26",
+    "type": "3",
+    "date_updated": "2025-08-01T14:12:23.619Z"
+  }
+},
+{
+  "model": "attendance.attendance",
+  "pk": 48,
+  "fields": {
+    "classIns": 2,
+    "student": 7,
+    "attendance_date": "2025-08-06",
+    "type": "1",
+    "date_updated": "2025-08-06T04:55:17.759Z"
+  }
+},
+{
+  "model": "attendance.attendance",
+  "pk": 49,
+  "fields": {
+    "classIns": 2,
+    "student": 8,
+    "attendance_date": "2025-08-06",
+    "type": "1",
+    "date_updated": "2025-08-06T04:55:17.784Z"
+  }
+}
+]

@@ -60,8 +60,7 @@ class Student(models.Model):
     student_code = models.CharField(max_length=250,blank=True, null= True)
     course=models.ForeignKey(Course,on_delete=models.CASCADE)
     first_name = models.CharField(max_length=250)
-    middle_name = models.CharField(max_length=250, blank=True, null= True)
-    last_name = models.CharField(max_length=250)
+
     gender = models.CharField(max_length=100, choices=[('Male','Male'),('Female','Female')], blank=True, null= True)
     dob = models.DateField(blank=True, null= True)
     contact = models.CharField(max_length=250, blank=True, null= True)
@@ -72,13 +71,13 @@ class Student(models.Model):
         parts = [
             self.student_code or '',
             self.first_name or '',
-            self.middle_name or '',
-            self.last_name or ''
+
         ]
         return ' - '.join(parts)
 
 class Class(models.Model):
     assigned_faculty = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=True)  # 👈 Add this
     school_year = models.CharField(max_length=250)
     level = models.CharField(max_length=250)
     name = models.CharField(max_length=250)
