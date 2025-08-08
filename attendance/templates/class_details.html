@@ -41,7 +41,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="d-flex w-100">
-                                <div class="col-auto pe-2 text-muted">Name:</div>
+                                <div class="col-auto pe-2 text-muted">Subject:</div>
                                 <div class="col-auto flex-shrink-1 flex-grow-1">
                                     <p class="m-0 fw-bold">{{ class.name }}</p>
                                 </div>
@@ -49,7 +49,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="d-flex w-100">
-                                <div class="col-auto pe-2 text-muted">Faculty:</div>
+                                <div class="col-auto pe-2 text-muted">Teacher:</div>
                                 <div class="col-auto flex-shrink-1 flex-grow-1">
                                     <p class="m-0 fw-bold">{{ class.assigned_faculty.user.first_name }} {{ class.assigned_faculty.user.last_name }}</p>
                                 </div>
@@ -72,13 +72,12 @@
                         </colgroup>
                         <thead>
                             <tr>
-                                <th class="text-ceter">#</th>
-                                <th class="text-ceter">Roll No.</th>
-                                <th class="text-ceter">Student Name</th>
-                                <th class="text-ceter">Total Tardy</th>
-                                <th class="text-ceter">Total Absent</th>
-                                <th class="text-ceter">Total Present</th>
-                                <th class="text-ceter">Actions</th>
+                                <th class="text-center">#</th>
+                                <th class="text-center">Roll No.</th>
+                                <th class="text-center">Student Name</th>
+                                <th class="text-center">Total Absent</th>
+                                <th class="text-center">Total Present</th>
+                                <th class="text-center">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -89,7 +88,6 @@
                                 <td>{{ student.student.first_name }} {{ student.student.middle_name }} {{ student.student.last_name }}</td>
                                 <td class="text-center">{{ student.get_present|intcomma }}</td>
                                 <td class="text-center">{{ student.get_tardy|intcomma }}</td>
-                                <td class="text-center">{{ student.get_absent|intcomma }}</td>
                                 <td class="text-center">
                                     <button class="btn btn-outline-danger btn-sm delete-data" type="button" data-id="{{ student.pk }}" title="Delete">
                                         <i class="fa fa-trash"></i>

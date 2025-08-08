@@ -34,7 +34,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="d-flex w-100">
-                                    <div class="col-auto pe-2 text-muted">Level:</div>
+                                    <div class="col-auto pe-2 text-muted">Semester:</div>
                                     <div class="col-auto flex-shrink-1 flex-grow-1">
                                         <p class="m-0 fw-bold">{{ class.level }}</p>
                                     </div>
@@ -42,7 +42,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="d-flex w-100">
-                                    <div class="col-auto pe-2 text-muted">Name:</div>
+                                    <div class="col-auto pe-2 text-muted">Subject:</div>
                                     <div class="col-auto flex-shrink-1 flex-grow-1">
                                         <p class="m-0 fw-bold">{{ class.name }}</p>
                                     </div>
@@ -50,7 +50,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="d-flex w-100">
-                                    <div class="col-auto pe-2 text-muted">Faculty:</div>
+                                    <div class="col-auto pe-2 text-muted">Teacher:</div>
                                     <div class="col-auto flex-shrink-1 flex-grow-1">
                                         <p class="m-0 fw-bold">{{ class.assigned_faculty.user.first_name }} {{ class.assigned_faculty.user.last_name }}</p>
                                     </div>
@@ -79,14 +79,13 @@
                                 <col width="15%">
                                 <col width="15%">
                             </colgroup>
-                            <thead>
+                           <thead>
                                 <tr>
-                                    <th class="text-ceter">#</th>
-                                    <th class="text-ceter">Student Code</th>
-                                    <th class="text-ceter">Student Name</th>
-                                    <th class="text-ceter">Total Tardy</th>
-                                    <th class="text-ceter">Total Absent</th>
-                                    <th class="text-ceter">Total Present</th>
+                                    <th class="text-center">#</th>
+                                    <th class="text-center">Student Code</th>
+                                    <th class="text-center">Student Name</th>
+                                    <th class="text-center">Present</th>
+                                    <th class="text-center">Absent</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -103,10 +102,6 @@
                                     <td class="text-center">
                                         <input type="radio" class="btn-check" name="type[{{ student.data.pk }}]" value="2" id="btnradio-2-{{ student.data.pk }}" {% if student.type == '2' %} checked="checked" {% endif %} autocomplete="off">
                                         <label class="btn btn-outline-warning btn-sm px-1 py-0" for="btnradio-2-{{ student.data.pk }}"><i class="fa fa-check text-light"></label>
-                                    </td>
-                                    <td class="text-center">
-                                        <input type="radio" class="btn-check" name="type[{{ student.data.pk }}]" value="3" id="btnradio-3-{{ student.data.pk }}" {% if student.type == '3' %} checked="checked" {% endif %} autocomplete="off">
-                                        <label class="btn btn-outline-danger btn-sm px-1 py-0" for="btnradio-3-{{ student.data.pk }}"><i class="fa fa-check text-light"></label>
                                     </td>
                                 </tr>
                                 {% endfor %}

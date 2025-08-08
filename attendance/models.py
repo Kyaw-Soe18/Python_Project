@@ -86,45 +86,41 @@ class Class(models.Model):
         return "[" + self.level + "] "+ self.level+ '-' +self.name
 
 class ClassStudent(models.Model):
-    classIns = models.ForeignKey(Class,on_delete=models.CASCADE)
-    student = models.ForeignKey(Student, on_delete=models.CASCADE) 
+    classIns = models.ForeignKey(Class, on_delete=models.CASCADE)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.student.student_code
 
     def get_present(self):
-        student =  self.student
-        _class =  self.classIns
+        student = self.student
+        _class = self.classIns
         try:
-            present = Attendance.objects.filter(classIns= _class, student=student, type = 1).count()
-            return present
-        except:
-            return 0
-    
-    def get_tardy(self):
-        student =  self.student
-        _class =  self.classIns
-        try:
-            present = Attendance.objects.filter(classIns= _class, student=student, type = 2).count()
-            return present
+            return Attendance.objects.filter(classIns=_class, student=student, type='1').count()
         except:
             return 0
 
     def get_absent(self):
-        student =  self.student
-        _class =  self.classIns
+        student = self.student
+        _class = self.classIns
         try:
-            present = Attendance.objects.filter(classIns= _class, student=student, type = 3).count()
-            return present
+            return Attendance.objects.filter(classIns=_class, student=student, type='2').count()
         except:
             return 0
 
+
 class Attendance(models.Model):
-    classIns = models.ForeignKey(Class,on_delete=models.CASCADE)
+    classIns = models.ForeignKey(Class, on_delete=models.CASCADE)
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     attendance_date = models.DateField()
-    type = models.CharField(max_length=250, choices = [('1','Present'),('2','Tardy'),('1','Absent')] )
+    type = models.CharField(
+        max_length=250,
+        choices=[
+            ('1', 'Present'),
+            ('2', 'Absent'),
+        ]
+    )
     date_updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.classIns.name + "  " +self.student.student_code
+        return f"{self.classIns.name}  {self.student.student_code}"
