@@ -654,28 +654,39 @@ def attendance_class(request):
 
 @login_required
 def attendance(request,classPK = None, date=None):
-    _class = Class.objects.get(id = classPK)
-    students = Student.objects.filter(id__in = ClassStudent.objects.filter(classIns = _class).values_list('student')).all()
+    _class = Class.objects.get(id=classPK)
+
+    # Try to get students assigned specifically to this class
+    assigned_students = Student.objects.filter(
+        id__in=ClassStudent.objects.filter(classIns=_class).values_list('student', flat=True)
+    )
+
+    if assigned_students.exists():
+        students = assigned_students
+    else:
+        # Fallback: all students in the same course as the class
+        students = Student.objects.filter(course=_class.course)
+
     context['page_title'] = "Attendance Management"
     context['class'] = _class
     context['date'] = date
-    att_data = {}
-    for student in students:
-        att_data[student.id] = {}
-        att_data[student.id]['data'] = student
-    if not date is None:
-        date = datetime.strptime(date, '%Y-%m-%d')
-        year = date.strftime('%Y')
-        month = date.strftime('%m')
-        day = date.strftime('%d')
-        attendance = Attendance.objects.filter(attendance_date__year = year, attendance_date__month = month, attendance_date__day = day, classIns = _class).all()
-        for att in attendance:
+
+    # Prepare attendance data structure
+    att_data = {student.id: {'data': student} for student in students}
+
+    if date is not None:
+        date_obj = datetime.strptime(date, '%Y-%m-%d')
+        attendance_records = Attendance.objects.filter(
+            attendance_date=date_obj,
+            classIns=_class
+        )
+        for att in attendance_records:
             att_data[att.student.pk]['type'] = att.type
-    print(list(att_data.values()))
+
     context['att_data'] = list(att_data.values())
     context['students'] = students
 
-    return render(request, 'attendance_mgt.html',context)
+    return render(request, 'attendance_mgt.html', context)
 
 @login_required
 def save_attendance(request):
