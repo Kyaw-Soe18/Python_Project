@@ -59,21 +59,29 @@ def home(request):
     context['page_title'] = 'Home'
     departments = Department.objects.count()
     courses = Course.objects.count()
-    faculty = UserProfile.objects.filter(user_type = 2).count()
+    faculty = UserProfile.objects.filter(user_type=2).count()
+
     if request.user.profile.user_type == 1:
+        # Admin
         students = Student.objects.count()
         classes = Class.objects.count()
     else:
-        classes = Class.objects.filter(assigned_faculty = request.user.profile).count()
-        students = ClassStudent.objects.filter(classIns__in = Class.objects.filter(assigned_faculty = request.user.profile).values_list('id')).count()
+        # Faculty logic that matches student view
+        faculty_classes = Class.objects.filter(assigned_faculty=request.user.profile)
+        faculty_courses = faculty_classes.values_list('course_id', flat=True).distinct()
+
+        # ✅ EXACTLY like your student() view logic:
+        students = Student.objects.filter(course_id__in=faculty_courses).count()
+
+        classes = faculty_classes.count()
+
     context['departments'] = departments
     context['courses'] = courses
     context['faculty'] = faculty
     context['students'] = students
     context['classes'] = classes
 
-    # context['posts'] = posts
-    return render(request, 'home.html',context)
+    return render(request, 'home.html', context)
 
 def registerUser(request):
     user = request.user
