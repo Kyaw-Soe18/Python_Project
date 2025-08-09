@@ -47,7 +47,8 @@ def save_user_profile(sender, instance, **kwargs):
 class Course(models.Model):
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
     name = models.CharField(max_length=250)
-    description = models.TextField(blank=True, null=True)
+    section = models.CharField(max_length=250)
+
     status = models.IntegerField(default = 1)
     date_added = models.DateTimeField(default=timezone.now)
     date_updated = models.DateTimeField(auto_now=True)

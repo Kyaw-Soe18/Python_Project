@@ -25,7 +25,8 @@
         </div>
         <div class="form-group mb-3">
             <label for="description" class="control-label">Section</label>
-            <textarea class="form-control rounded-0" placeholder="eg- E-001 , E-002" name="description" id="description" rows="5" required>{{ course.description }}</textarea>
+            <input type="text" name="section" value="{{ course.section }}" class="form-control rounded-0" id="section" placeholder="Enter Section. Eg - E-001, E -002 ,..." required>
+
         </div>
         <div class="form-group mb-3">
             <label for="status" class="control-label">Status</label>

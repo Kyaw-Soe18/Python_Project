@@ -157,11 +157,11 @@ class SaveDepartment(forms.ModelForm):
 class SaveCourse(forms.ModelForm):
     department = forms.IntegerField()
     name = forms.CharField(max_length=250,help_text = "Course Name Field is required.")
-    description = forms.Textarea()
+    section = forms.CharField(max_length=250,help_text = "Enter Section. Eg - E-001, E -002 ,...")
 
     class Meta:
         model= Course
-        fields = ('department', 'name','description','status')
+        fields = ('department', 'name','section','status')
 
     def clean_department(self):
         department = self.cleaned_data['department']
