@@ -12,19 +12,40 @@
             </div>
         </div>
         <div class="card-body">
-             <div class="row mb-3">
+             {% if user.profile.user_type == 1 %}
+                    <!-- Admin: Course + Section filters -->
                     <div class="col-md-4">
                         <label for="courseFilter" class="form-label fw-bold">Filter by Course:</label>
                         <select id="courseFilter" class="form-select form-select-sm">
-                            <option value="">All Courses </option>
-                           {% for course_name in courses %}
-                                <option value="{{ course_name }}">{{ course_name }}</option>
+                            <option value="">All Courses</option>
+                            {% for course in courses %}
+                                <option value="{{ course.name }}">{{ course.name }}</option>
                             {% endfor %}
-
-
                         </select>
                     </div>
-                </div>
+                    <div class="col-md-4">
+                        <label for="sectionFilter" class="form-label fw-bold">Filter by Section:</label>
+                        <select id="sectionFilter" class="form-select form-select-sm" disabled>
+                            <option value="">All Sections</option>
+                        </select>
+                    </div>
+                {% else %}
+                    <!-- Faculty: Section filter only -->
+                    <div class="col-md-4">
+                        <label for="sectionFilter" class="form-label fw-bold">Filter by Section:</label>
+                        <select id="sectionFilter" class="form-select form-select-sm">
+                            <option value="">All Sections</option>
+                            {% for course, section_list in sections_by_course.items %}
+                                {% for section in section_list %}
+                                    <option value="{{ section }}">{{ section }}</option>
+                                {% endfor %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                {% endif %}
+
+
+
             <div class="container-fluid">
 
 
@@ -33,16 +54,18 @@
                 <table class="table table-bordered" id="student-list">
                     <colgroup>
                         <col width="5%">
-                        <col width="25%">
-                        <col width="25%">
-                        <col width="25%">
+                        <col width="15%">
                         <col width="20%">
+                        <col width="20%">
+                        <col width="20%">
+                        <col width="30%">
                     </colgroup>
                     <thead>
                         <tr class="bg-gradient bg-primary bg-opacity-50 text-light">
                             <th class="px-2 py-2 text-center">#</th>
                             <th class="px-2 py-2 text-center">Roll No.</th>
                             <th class="px-2 py-2 text-center">Course Name</th>
+                            <th class="px-2 py-2 text-center">Section</th>  <!-- New column -->
                             <th class="px-2 py-2 text-center">Name</th>
                             <th class="px-2 py-2 text-center">Action</th>
                         </tr>
@@ -53,6 +76,13 @@
                             <td class="px-2 py-1 align-middle">{{ student.id }}</td>
                             <td class="px-2 py-1 align-middle">{{ student.student_code }}</td>
                             <td class="px-2 py-1 align-middle">{{ student.course.name }}</td>
+                             <td class="px-2 py-1 align-middle">
+                                  {% if student.section %}
+                                    {{ student.section.name }}
+                                  {% else %}
+                                    N/A
+                                  {% endif %}
+                            </td>
                             <td class="px-2 py-1 align-middle">{{ student.first_name }} </td>
                             <td class="px-2 py-1 align-middle text-center">
                                 <a class="btn btn-outline-info btn-sm view-data" href="javascript:void(0)" data-url="{% url 'view-student-modal' student.pk %}" title="View Details">
@@ -78,80 +108,64 @@
 </div>
 {% endblock pageContent %} {% block ScriptBlock %}
 <script>
-    $(function() {
-        $('#add_new').click(function() {
-            uni_modal('<i class="fa fa-plus"></i> Add Student', '{% url "manage-student-modal" %}', 'modal-lg')
-        })
-        $('.view-data').click(function() {
-            uni_modal('<i class="fa fa-eye"></i> Student Details', $(this).attr('data-url'))
-        })
-
-         $('.edit-data').click(function () {
-            const studentId = $(this).data('id');
-            const url = "{% url 'edit-student-modal' 0 %}".replace('0', studentId); // ✅ this avoids trailing slash bugs
-            uni_modal('<i class="fa fa-edit"></i> Edit Student', url, 'modal-lg');
-        });
-
-
-        $('.delete-data').click(function() {
-            _conf("Are you sure to delete this Student permanently?", "delete_student", [$(this).attr('data-id')])
-        })
-
-        $('#student-list').DataTable({
-            columnDefs: [{
-                orderable: false,
-                targets: 4
-            }],
-            initComplete: function(settings, json) {
-                $('table td, table th').addClass('px-2 py-1')
-            },
-            drawCallback: function(settings) {
-                $('table td, table th').addClass('px-2 py-1')
-            }
-        })
-         const dataTable = $('#student-list').DataTable();
-
-$('#courseFilter').on('change', function() {
-    dataTable.column(2).search(this.value).draw();
-});
+$(function() {
+    $('#add_new').click(function() {
+        uni_modal('<i class="fa fa-plus"></i> Add Student', '{% url "manage-student-modal" %}', 'modal-lg')
+    })
+    $('.view-data').click(function() {
+        uni_modal('<i class="fa fa-eye"></i> Student Details', $(this).attr('data-url'))
+    })
+    $('.edit-data').click(function () {
+        const studentId = $(this).data('id');
+        const url = "{% url 'edit-student-modal' 0 %}".replace('0', studentId);
+        uni_modal('<i class="fa fa-edit"></i> Edit Student', url, 'modal-lg');
+    })
+    $('.delete-data').click(function() {
+        _conf("Are you sure to delete this Student permanently?", "delete_student", [$(this).attr('data-id')])
     })
 
-    function delete_student($id) {
-        start_loader();
-        var _this = $(this)
-        $('.err-msg').remove();
-        var el = $('<div>')
-        el.addClass("alert alert-danger err-msg")
-        el.hide()
-        $.ajax({
-            url: '{% url "delete-student" %}',
-            headers: {
-                'X-CSRFToken': "{{csrf_token}}"
-            },
-            method: 'POST',
-            data: {
-                id: $id
-            },
-            dataType: 'json',
-            error: err => {
-                console.log(err)
-                el.text('An error occurred.')
-                el.show('slow')
-                end_loader()
-            },
-            success: function(resp) {
-                if (resp.status == 'success') {
-                    location.reload()
-                } else if (!!resp.msg) {
-                    el.text('An error occurred.')
-                    el.show('slow')
-                } else {
-                    el.text('An error occurred.')
-                    el.show('slow')
-                }
-                end_loader()
+    const dataTable = $('#student-list').DataTable({
+        columnDefs: [{ orderable: false, targets: 5 }],
+        initComplete: function() {
+            $('table td, table th').addClass('px-2 py-1')
+        },
+        drawCallback: function() {
+            $('table td, table th').addClass('px-2 py-1')
+        }
+    });
+
+    {% if user.profile.user_type == 2 %}
+        // Faculty mode: lock course to SE
+        dataTable.column(2).search("SE").draw();
+        $('#sectionFilter').on('change', function() {
+            dataTable.column(3).search(this.value).draw();
+        });
+    {% else %}
+        // Admin mode: dynamic course + section filtering
+        const sectionsByCourse = {{ sections_by_course|safe }};
+        $('#courseFilter').on('change', function() {
+            const selectedCourse = $(this).val();
+            const $sectionFilter = $('#sectionFilter');
+
+            $sectionFilter.empty().append('<option value="">All Sections</option>');
+            if (selectedCourse && sectionsByCourse[selectedCourse]) {
+                sectionsByCourse[selectedCourse].forEach(function(sectionName) {
+                    $sectionFilter.append(`<option value="${sectionName}">${sectionName}</option>`);
+                });
+                $sectionFilter.prop('disabled', false);
+            } else {
+                $sectionFilter.prop('disabled', true);
             }
-        })
-    }
+            dataTable.column(2).search(selectedCourse).draw();
+            $sectionFilter.val('');
+            dataTable.column(3).search('').draw();
+        });
+
+        $('#sectionFilter').on('change', function() {
+            dataTable.column(3).search(this.value).draw();
+        });
+    {% endif %}
+});
+
 </script>
 {% endblock ScriptBlock %}

@@ -50,4 +50,6 @@ urlpatterns = [
     path(r'attendance/<int:classPK>',views.attendance,name='attendance-page'),
     path(r'attendance/<int:classPK>/<str:date>',views.attendance,name='attendance-page-date'),
     path('save_attendance',views.save_attendance,name='save-attendance'),
+    path('ajax/load-sections/', views.ajax_load_sections, name='ajax_load_sections'),
+
 ]

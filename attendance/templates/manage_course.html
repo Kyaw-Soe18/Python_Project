@@ -1,7 +1,8 @@
 <div class="container-fluid">
     <form action=" " id="course-form">
         {% csrf_token %}
-        <input type="hidden" name="id" value="{{ course.id }}">
+        <input type="hidden" name="id" value="{{ course.id|default:'' }}">
+
         <div class="form-group mb-3">
             <label for="department" class="control-label">Department</label>
             <select name="department" id="department" class="form-select rounded-0 select2" required>
@@ -24,10 +25,13 @@
             <input type="text" class="form-control rounded-0" id="name" name="name" value="{{ course.name }}" required>
         </div>
         <div class="form-group mb-3">
-            <label for="description" class="control-label">Section</label>
-            <input type="text" name="section" value="{{ course.section }}" class="form-control rounded-0" id="section" placeholder="Enter Section. Eg - E-001, E -002 ,..." required>
+            <label for="section" class="control-label">Section</label>
+            <input type="text" name="section_names"
+   value="{% if course.sections.all.count > 0 %}{{ course.sections.all|join:', ' }}{% endif %}"
+   class="form-control rounded-0" id="section" placeholder="Enter Sections separated by commas..." required>
 
         </div>
+
         <div class="form-group mb-3">
             <label for="status" class="control-label">Status</label>
             <select name="status" id="status" class="form-select rounded-0" required>

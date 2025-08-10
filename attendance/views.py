@@ -21,6 +21,10 @@ from ams.settings import MEDIA_ROOT, MEDIA_URL
 from attendance.models import Attendance, UserProfile,Course, Department,Student, Class, ClassStudent
 
 from attendance.forms import UserRegistration, UpdateProfile, UpdateProfileMeta, UpdateProfileAvatar, AddAvatar, SaveDepartment, SaveCourse, SaveClass, SaveStudent, SaveClassStudent, UpdatePasswords, UpdateFaculty
+from django.http import JsonResponse
+from attendance.models import Section
+from .models import Section
+from django.db import transaction
 
 deparment_list = Department.objects.exclude(status = 2).all()
 context = {
@@ -28,6 +32,14 @@ context = {
     'deparment_list' : deparment_list,
     'deparment_list_limited' : deparment_list[:3]
 }
+
+@login_required
+def ajax_load_sections(request):
+    course_id = request.GET.get('course_id')
+    sections = []
+    if course_id:
+        sections = Section.objects.filter(course_id=course_id).values('id', 'name')
+    return JsonResponse({'sections': list(sections)})
 #login
 def login_user(request):
     logout(request)
@@ -263,46 +275,79 @@ def course(request):
 
 @login_required
 def manage_course(request,pk=None):
-    # course = course.objects.all()
-    if pk == None:
-        course = {}
-        department = Department.objects.filter(status=1).all()
-    elif pk > 0:
-        course = Course.objects.filter(id=pk).first()
-        department = Department.objects.filter(Q(status=1) or Q(id = course.id)).all()
-    else:
-        department = Department.objects.filter(status=1).all()
-        course = {}
-    context['page_title'] = "Manage Course"
-    context['departments'] = department
-    context['course'] = course
+    context = {}
+    try:
+        if pk is None:
+            course = {}
+            department = Department.objects.filter(status=1).all()
+            section_names = ''
+        elif pk > 0:
+            course = Course.objects.filter(id=pk).first()
+            department = Department.objects.filter(
+                Q(status=1) | Q(id=course.department_id if course and course.department else 0)
+            ).all()
+            if course:
+                section_names = ', '.join(course.sections.values_list('name', flat=True))
+            else:
+                section_names = ''
+        else:
+            department = Department.objects.filter(status=1).all()
+            course = {}
+            section_names = ''
 
-    return render(request, 'manage_course.html',context)
+        context['page_title'] = "Manage Course"
+        context['departments'] = department
+        context['course'] = course
+        context['section_names'] = section_names
+
+        return render(request, 'manage_course.html', context)
+    except Exception as e:
+        import traceback
+        print("ERROR in manage_course:", e)
+        traceback.print_exc()
+        raise
 
 @login_required
 def save_course(request):
-    resp = { 'status':'failed' , 'msg' : '' }
+    resp = {'status': 'failed', 'msg': ''}
     if request.method == 'POST':
-        course = None
-        print(not request.POST['id'] == '')
-        if not request.POST['id'] == '':
-            course = Course.objects.filter(id=request.POST['id']).first()
-        if not course == None:
-            form = SaveCourse(request.POST,instance = course)
-        else:
-            form = SaveCourse(request.POST)
-    if form.is_valid():
-        form.save()
-        resp['status'] = 'success'
-        messages.success(request, 'Course has been saved successfully')
-    else:
-        for field in form:
-            for error in field.errors:
-                resp['msg'] += str(error + '<br>')
-        if not course == None:
-            form = SaveCourse(instance = course)
-       
-    return HttpResponse(json.dumps(resp),content_type="application/json")
+        with transaction.atomic():
+            course = None
+            if request.POST.get('id'):
+                course = Course.objects.filter(id=request.POST['id']).first()
+
+            if course:
+                form = SaveCourse(request.POST, instance=course)
+            else:
+                form = SaveCourse(request.POST)
+
+            if form.is_valid():
+                saved_course = form.save()
+
+                section_names_str = request.POST.get('section_names', '').strip()
+                # Normalize and split section names by comma
+                section_names = [name.strip() for name in section_names_str.split(',') if name.strip()]
+
+                # Existing sections linked to this course
+                existing_sections = saved_course.sections.all()
+
+                # Delete sections no longer in the list
+                for sec in existing_sections:
+                    if sec.name not in section_names:
+                        sec.delete()
+
+                # Add or update sections
+                for name in section_names:
+                    section_obj, created = Section.objects.get_or_create(course=saved_course, name=name)
+
+                resp['status'] = 'success'
+                messages.success(request, 'Course has been saved successfully')
+            else:
+                for field in form:
+                    for error in field.errors:
+                        resp['msg'] += str(error + '<br>')
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
 
 @login_required
 def delete_course(request):
@@ -556,28 +601,35 @@ def delete_class_student(request):
 #Student
 @login_required
 def student(request):
+    context = {}
     context['page_title'] = "Student Management"
 
-    if request.user.profile.user_type == 1:
-        # Admin sees all students
-        students = Student.objects.select_related('course').all()
-    else:
-        # Faculty: show only students for their assigned course(s)
-        faculty_classes = Class.objects.filter(assigned_faculty=request.user.profile)
-        faculty_courses = faculty_classes.values_list('course_id', flat=True).distinct()
-        students = Student.objects.select_related('course').filter(course_id__in=faculty_courses)
+    if request.user.profile.user_type == 1:  # Admin
+        students = Student.objects.select_related('course', 'section').all()
+        courses = Course.objects.filter(status=1).order_by('name')
+        sections = Section.objects.filter(course__in=courses).order_by('course__name', 'name')
 
-    # Optional: For displaying course names in dropdowns or filters
-    unique_course_ids = (
-        Course.objects.filter(status=1)
-        .values('name')
-        .annotate(id=Min('id'))
-        .values_list('id', flat=True)
-    )
-    courses = Course.objects.filter(id__in=unique_course_ids).order_by('name')
+    else:  # Faculty
+        faculty_classes = Class.objects.filter(assigned_faculty=request.user.profile)
+        faculty_courses = Course.objects.filter(
+            id__in=faculty_classes.values_list('course_id', flat=True)
+        )
+        students = Student.objects.select_related('course', 'section').filter(course__in=faculty_courses)
+        courses = faculty_courses  # Only their courses
+        sections = Section.objects.filter(course__in=faculty_courses).order_by('name')
+
+    # Build sections_by_course dict
+    sections_by_course = {}
+    for section in sections:
+        course_name = section.course.name
+        if course_name not in sections_by_course:
+            sections_by_course[course_name] = []
+        sections_by_course[course_name].append(section.name)
 
     context['students'] = students
     context['courses'] = courses
+    context['sections_by_course'] = sections_by_course
+
     return render(request, 'student_mgt.html', context)
 
 
@@ -586,13 +638,11 @@ def manage_student(request, pk=None):
     context = {}
     student = Student.objects.filter(id=pk).first() if pk else None
 
-    unique_course_ids = Course.objects.filter(status=1).values('name').annotate(id=Min('id')).values_list('id',
-                                                                                                          flat=True)
-    unique_courses = Course.objects.filter(id__in=unique_course_ids).order_by('name')
+    courses = Course.objects.filter(status=1).order_by('name')
 
     context.update({
         'page_title': "Manage Student",
-        'courses': unique_courses,
+        'courses': courses,
         'student': student,
     })
 

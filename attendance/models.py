@@ -32,8 +32,8 @@ class UserProfile(models.Model):
         return self.user.username
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        UserProfile.objects.create(user=instance)
+   if created:
+       UserProfile.objects.create(user=instance)
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
@@ -47,8 +47,6 @@ def save_user_profile(sender, instance, **kwargs):
 class Course(models.Model):
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
     name = models.CharField(max_length=250)
-    section = models.CharField(max_length=250)
-
     status = models.IntegerField(default = 1)
     date_added = models.DateTimeField(default=timezone.now)
     date_updated = models.DateTimeField(auto_now=True)
@@ -56,12 +54,18 @@ class Course(models.Model):
     def __str__(self):
         return self.name
 
+class Section(models.Model):
+    name = models.CharField(max_length=100)
+    course = models.ForeignKey(Course, related_name='sections', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
 
 class Student(models.Model):
     student_code = models.CharField(max_length=250,blank=True, null= True)
     course=models.ForeignKey(Course,on_delete=models.CASCADE)
     first_name = models.CharField(max_length=250)
-
+    section = models.ForeignKey(Section, on_delete=models.CASCADE, blank=True, null=True)  # ✅ Add this
     gender = models.CharField(max_length=100, choices=[('Male','Male'),('Female','Female')], blank=True, null= True)
     dob = models.DateField(blank=True, null= True)
     contact = models.CharField(max_length=250, blank=True, null= True)

@@ -807,71 +807,6 @@
     }
   },
   {
-    "model": "contenttypes.contenttype",
-    "pk": 1,
-    "fields": { "app_label": "admin", "model": "logentry" }
-  },
-  {
-    "model": "contenttypes.contenttype",
-    "pk": 2,
-    "fields": { "app_label": "auth", "model": "permission" }
-  },
-  {
-    "model": "contenttypes.contenttype",
-    "pk": 3,
-    "fields": { "app_label": "auth", "model": "group" }
-  },
-  {
-    "model": "contenttypes.contenttype",
-    "pk": 4,
-    "fields": { "app_label": "auth", "model": "user" }
-  },
-  {
-    "model": "contenttypes.contenttype",
-    "pk": 5,
-    "fields": { "app_label": "contenttypes", "model": "contenttype" }
-  },
-  {
-    "model": "contenttypes.contenttype",
-    "pk": 6,
-    "fields": { "app_label": "sessions", "model": "session" }
-  },
-  {
-    "model": "contenttypes.contenttype",
-    "pk": 7,
-    "fields": { "app_label": "attendance", "model": "course" }
-  },
-  {
-    "model": "contenttypes.contenttype",
-    "pk": 8,
-    "fields": { "app_label": "attendance", "model": "department" }
-  },
-  {
-    "model": "contenttypes.contenttype",
-    "pk": 9,
-    "fields": { "app_label": "attendance", "model": "userprofile" }
-  },
-  {
-    "model": "contenttypes.contenttype",
-    "pk": 10,
-    "fields": { "app_label": "attendance", "model": "student" }
-  },
-  {
-    "model": "contenttypes.contenttype",
-    "pk": 11,
-    "fields": { "app_label": "attendance", "model": "class" }
-  },
-  {
-    "model": "contenttypes.contenttype",
-    "pk": 12,
-    "fields": { "app_label": "attendance", "model": "classstudent" }
-  },
-  {
-    "model": "contenttypes.contenttype",
-    "pk": 13,
-    "fields": { "app_label": "attendance", "model": "attendance" }
-  },
-  {
     "model": "sessions.session",
     "pk": "0f1krag7h0xfmcpko1t3ag7lro4yqprb",
     "fields": {
@@ -1162,7 +1097,6 @@
     "fields": {
       "department": 2,
       "name": "BIS",
-      "section": "E-004",
       "status": 1,
       "date_added": "2025-08-06T04:38:43.210Z",
       "date_updated": "2025-08-09T02:41:21.924Z"
@@ -1174,7 +1108,6 @@
     "fields": {
       "department": 1,
       "name": "SE",
-      "section": "E-001",
       "status": 1,
       "date_added": "2025-08-06T05:51:34.699Z",
       "date_updated": "2025-08-09T02:41:30.561Z"
@@ -1186,7 +1119,6 @@
     "fields": {
       "department": 3,
       "name": "KE",
-      "section": "E-005",
       "status": 1,
       "date_added": "2025-08-06T05:56:28.301Z",
       "date_updated": "2025-08-09T02:41:45.683Z"
@@ -1198,7 +1130,6 @@
     "fields": {
       "department": 1,
       "name": "SE",
-      "section": "E-003",
       "status": 1,
       "date_added": "2025-08-06T05:56:58.482Z",
       "date_updated": "2025-08-09T02:41:55.478Z"
@@ -1210,7 +1141,6 @@
     "fields": {
       "department": 1,
       "name": "SE",
-      "section": "E-002",
       "status": 1,
       "date_added": "2025-08-06T05:57:15.415Z",
       "date_updated": "2025-08-09T02:42:05.619Z"
@@ -1222,7 +1152,6 @@
     "fields": {
       "department": 4,
       "name": "HPC",
-      "section": "E-105",
       "status": 1,
       "date_added": "2025-08-06T06:00:16.268Z",
       "date_updated": "2025-08-09T02:42:16.317Z"
@@ -1234,7 +1163,6 @@
     "fields": {
       "department": 5,
       "name": "CSF",
-      "section": "E-102",
       "status": 1,
       "date_added": "2025-08-06T06:01:28.357Z",
       "date_updated": "2025-08-09T02:42:26.341Z"
@@ -1246,7 +1174,6 @@
     "fields": {
       "department": 8,
       "name": "CT",
-      "section": "E-101",
       "status": 1,
       "date_added": "2025-08-06T06:01:54.165Z",
       "date_updated": "2025-08-09T02:42:34.488Z"

@@ -85,9 +85,9 @@
                             <tr class="">
                                 <td class="text-center">{{ forloop.counter }}</td>
                                 <td>{{ student.student.student_code }}</td>
-                                <td>{{ student.student.first_name }} {{ student.student.middle_name }} {{ student.student.last_name }}</td>
+                                <td>{{ student.student.first_name }}</td>
                                 <td class="text-center">{{ student.get_present|intcomma }}</td>
-                                <td class="text-center">{{ student.get_tardy|intcomma }}</td>
+                                <td class="text-center">{{ student.get_absent|intcomma }}</td>
                                 <td class="text-center">
                                     <button class="btn btn-outline-danger btn-sm delete-data" type="button" data-id="{{ student.pk }}" title="Delete">
                                         <i class="fa fa-trash"></i>

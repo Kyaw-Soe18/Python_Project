@@ -53,76 +53,110 @@
                         {% endfor %}
                     </select>
                 </div>
+                <div class="form-group mb-3">
+                    <label for="section" class="control-label">Section</label>
+                    <select name="section" id="section" class="form-select rounded-0 select2" required>
+                        {% if student.section %}
+                            <option value="{{ student.section.id }}" selected>{{ student.section.name }}</option>
+                        {% else %}
+                            <option disabled selected>Select a section</option>
+                        {% endif %}
+                    </select>
+                </div>
             </div>
         </div>
     </form>
 </div>
 <script>
-    function DisplayImage(input) {
-        console.log(input.files)
-        if (event.target.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function() {
-                var output = $('#user-avatar-modal');
-                output.attr('src', reader.result)
-            };
-            reader.readAsDataURL(input.files[0]);
+$(function() {
+    // Init Select2
+    $('#uni_modal').on('shown.bs.modal', function() {
+        $('.select2').select2({
+            placeholder: 'Please Select Here',
+            width: '100%',
+            dropdownParent: $('#uni_modal')
+        });
+    });
+
+    // Handle form submit
+    $('#student-form').submit(function(e) {
+        e.preventDefault();
+        var _this = $(this);
+        $('.err-msg').remove();
+        var el = $('<div>').addClass("alert alert-danger err-msg").hide();
+
+        if (_this[0].checkValidity() == false) {
+            _this[0].reportValidity();
+            return false;
         }
-
-    };
-    $(function() {
-        $('#uni_modal').on('shown.bs.modal', function() {
-            $('.select2').select2({
-                placeholder: 'Please Select Here',
-                width: '100%',
-                dropdownParent: $('#uni_modal')
-            })
-        })
-        $('#student-form').submit(function(e) {
-            e.preventDefault();
-            var _this = $(this)
-            $('.err-msg').remove();
-            var el = $('<div>')
-            el.addClass("alert alert-danger err-msg")
-            el.hide()
-            if (_this[0].checkValidity() == false) {
-                _this[0].reportValidity();
-                return false;
-            }
-            start_loader();
-            $.ajax({
-                url: "{% url 'save-student' %}",
-                data: new FormData($(this)[0]),
-                cache: false,
-                contentType: false,
-                processData: false,
-                method: 'POST',
-                type: 'POST',
-                dataType: 'json',
-                error: function(xhr, status, error) {
-                    console.error("AJAX Error:", status, error);
-                    console.error("Response Text:", xhr.responseText);
-                    alert("An error occurred: " + error);
-                    end_loader();
-                },
-
-                success: function(resp) {
-                    if (typeof resp == 'object' && resp.status == 'success') {
-                        el.removeClass("alert alert-danger err-msg ")
-                        location.reload()
-                    } else if (resp.status == 'failed' && !!resp.msg) {
-                        el.html(resp.msg)
-                    } else {
-                        el.text("An error occurred ", 'error');
-                        end_loader();
-                        console.err(resp)
-                    }
-                    _this.prepend(el)
-                    el.show('slow')
-                    $("html, body, .modal ").scrollTop(0);
-                    end_loader()
+        start_loader();
+        $.ajax({
+            url: "{% url 'save-student' %}",
+            data: new FormData(this),
+            cache: false,
+            contentType: false,
+            processData: false,
+            method: 'POST',
+            dataType: 'json',
+            error: function(xhr, status, error) {
+                console.error("AJAX Error:", status, error);
+                console.error("Response Text:", xhr.responseText);
+                alert("An error occurred: " + error);
+                end_loader();
+            },
+            success: function(resp) {
+                if (typeof resp == 'object' && resp.status == 'success') {
+                    el.removeClass("alert alert-danger err-msg ");
+                    location.reload();
+                } else if (resp.status == 'failed' && !!resp.msg) {
+                    el.html(resp.msg);
+                } else {
+                    el.text("An error occurred");
+                    console.error(resp);
                 }
-            })
-        })
-    })
+                _this.prepend(el);
+                el.show('slow');
+                $("html, body, .modal").scrollTop(0);
+                end_loader();
+            }
+        });
+    });
+
+    // Load sections when course changes
+    $('#course').change(function() {
+        var courseId = $(this).val();
+        var selectedSectionId = "{{ student.section.id|default:'' }}";  // for edit mode
+
+        if (!courseId) {
+            $('#section').html('<option value="">Select a section</option>').prop('disabled', true);
+            return;
+        }
+        $.ajax({
+            url: "{% url 'ajax_load_sections' %}",
+            data: { 'course_id': courseId },
+            dataType: 'json',
+            success: function(data) {
+                var options = '<option value="">Select a section</option>';
+                if (data.sections && data.sections.length > 0) {
+                    data.sections.forEach(function(section) {
+                        var selected = section.id == selectedSectionId ? ' selected' : '';
+                        options += '<option value="' + section.id + '"' + selected + '>' + section.name + '</option>';
+                    });
+                    $('#section').prop('disabled', false);
+                } else {
+                    options = '<option value="">No sections available</option>';
+                    $('#section').prop('disabled', true);
+                }
+                $('#section').html(options);
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX Error:', status, error);
+                alert("An error occurred while loading sections: " + error);
+            }
+        });
+    });
+
+    // Trigger change to load sections in edit mode
+    $('#course').trigger('change');
+});
 </script>

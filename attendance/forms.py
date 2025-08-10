@@ -6,7 +6,7 @@ from django.contrib.auth.forms import UserCreationForm,PasswordChangeForm, UserC
 
 from django.contrib.auth.models import User
 from attendance.models import ClassStudent, UserProfile, Department, Course, Student, Class
-
+from .models import Section
 class UserRegistration(UserCreationForm):
     email = forms.EmailField(max_length=250,help_text="The email field is required.")
     first_name = forms.CharField(max_length=250,help_text="The First Name field is required.")
@@ -155,32 +155,42 @@ class SaveDepartment(forms.ModelForm):
         raise forms.ValidationError(f'{department.name} Department Already Exists.')
 
 class SaveCourse(forms.ModelForm):
-    department = forms.IntegerField()
-    name = forms.CharField(max_length=250,help_text = "Course Name Field is required.")
-    section = forms.CharField(max_length=250,help_text = "Enter Section. Eg - E-001, E -002 ,...")
+    department = forms.ModelChoiceField(queryset=Department.objects.all(), empty_label=None)
+    name = forms.CharField(max_length=250, help_text="Course Name Field is required.")
+    section_names = forms.CharField(
+        max_length=500,
+        required=False,
+        help_text="Enter sections separated by commas. Eg: E-001, E-002, E-003"
+    )
 
     class Meta:
-        model= Course
-        fields = ('department', 'name','section','status')
-
-    def clean_department(self):
-        department = self.cleaned_data['department']
-        try:
-            dept = Department.objects.get(id = department)
-            return dept
-        except:
-            raise forms.ValidationError(f'Department value is invalid.')
+        model = Course
+        fields = ('department', 'name', 'section_names', 'status')
 
     def clean_name(self):
-        id = self.instance.id if not self.instance == None else 0
+        id = self.instance.id if self.instance else 0
         try:
-            if id.isnumeric() and id > 0:
-                 course = Course.objects.exclude(id = id).get(name = self.cleaned_data['name'])
+            if id and str(id).isnumeric() and int(id) > 0:
+                course = Course.objects.exclude(id=id).get(name=self.cleaned_data['name'])
             else:
-                 course = Course.objects.get(name = self.cleaned_data['name'])
-        except:
+                course = Course.objects.get(name=self.cleaned_data['name'])
+        except Course.DoesNotExist:
             return self.cleaned_data['name']
         raise forms.ValidationError(f'{course.name} course Already Exists.')
+
+    def save(self, commit=True):
+        course = super().save(commit=commit)
+        section_names_str = self.cleaned_data.get('section_names', '')
+        new_sections = [s.strip() for s in section_names_str.split(',') if s.strip()]
+
+        # Delete old sections not in new_sections
+        course.sections.exclude(name__in=new_sections).delete()
+
+        # Create new sections if not exist
+        for sec_name in new_sections:
+            Section.objects.get_or_create(course=course, name=sec_name)
+
+        return course
 
 class SaveClass(forms.ModelForm):
     assigned_faculty = forms.IntegerField()
@@ -202,22 +212,24 @@ class SaveClass(forms.ModelForm):
             raise forms.ValidationError(f'Assigned Faculty value is invalid.')
 
 class SaveStudent(forms.ModelForm):
-    course = forms.ModelChoiceField(queryset=Course.objects.all(), empty_label=None)
+    course = forms.ModelChoiceField(queryset=Course.objects.all(), empty_label="Select a course", required=True)
+    section = forms.ModelChoiceField(queryset=Section.objects.none(), empty_label="Select a section", required=True)
 
     class Meta:
         model = Student
-        fields = ('student_code','first_name','gender','dob','course','contact')
+        fields = ('student_code', 'first_name', 'gender', 'dob', 'course', 'section', 'contact')
 
-    def clean_student_code(self):
-        code = self.cleaned_data['student_code']
-        try:
-            if self.instance.id:
-                student = Student.objects.exclude(id=self.instance.id).get(student_code=code)
-            else:
-                student = Student.objects.get(student_code=code)
-        except Student.DoesNotExist:
-            return code
-        raise forms.ValidationError(f"Student Code {code} already exists.")
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if 'course' in self.data:
+            try:
+                course_id = int(self.data.get('course'))
+                self.fields['section'].queryset = Section.objects.filter(course_id=course_id).order_by('name')
+            except (ValueError, TypeError):
+                self.fields['section'].queryset = Section.objects.none()
+        elif self.instance.pk and self.instance.section:
+            self.fields['section'].queryset = Section.objects.filter(course=self.instance.course).order_by('name')
+            self.fields['section'].initial = self.instance.section
 
 class SaveClassStudent(forms.ModelForm):
     classIns = forms.IntegerField()
