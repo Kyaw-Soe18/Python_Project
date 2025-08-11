@@ -604,6 +604,8 @@ def student(request):
     context = {}
     context['page_title'] = "Student Management"
 
+    faculty_course_name = ""  # Default for JS
+
     if request.user.profile.user_type == 1:  # Admin
         students = Student.objects.select_related('course', 'section').all()
         courses = Course.objects.filter(status=1).order_by('name')
@@ -614,9 +616,14 @@ def student(request):
         faculty_courses = Course.objects.filter(
             id__in=faculty_classes.values_list('course_id', flat=True)
         )
+
         students = Student.objects.select_related('course', 'section').filter(course__in=faculty_courses)
-        courses = faculty_courses  # Only their courses
+        courses = faculty_courses
         sections = Section.objects.filter(course__in=faculty_courses).order_by('name')
+
+        # If faculty has one course, store its name for JS filtering
+        if faculty_courses.exists():
+            faculty_course_name = faculty_courses.first().name
 
     # Build sections_by_course dict
     sections_by_course = {}
@@ -629,6 +636,7 @@ def student(request):
     context['students'] = students
     context['courses'] = courses
     context['sections_by_course'] = sections_by_course
+    context['faculty_course_name'] = faculty_course_name  # Pass to template
 
     return render(request, 'student_mgt.html', context)
 

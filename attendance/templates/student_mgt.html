@@ -136,7 +136,10 @@ $(function() {
 
     {% if user.profile.user_type == 2 %}
         // Faculty mode: lock course to SE
-        dataTable.column(2).search("SE").draw();
+        const facultyCourseName = "{{ faculty_course_name|escapejs }}";
+        if (facultyCourseName) {
+            dataTable.column(2).search(facultyCourseName).draw();
+        }
         $('#sectionFilter').on('change', function() {
             dataTable.column(3).search(this.value).draw();
         });
