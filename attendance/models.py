@@ -129,3 +129,41 @@ class Attendance(models.Model):
 
     def __str__(self):
         return f"{self.classIns.name}  {self.student.student_code}"
+
+class SectionSchedule(models.Model):
+    section = models.OneToOneField(
+        Section,
+        on_delete=models.CASCADE,
+        related_name='schedule',
+
+    )
+    monday_hours = models.PositiveSmallIntegerField(default=0)
+    tuesday_hours = models.PositiveSmallIntegerField(default=0)
+    wednesday_hours = models.PositiveSmallIntegerField(default=0)
+    thursday_hours = models.PositiveSmallIntegerField(default=0)
+    friday_hours = models.PositiveSmallIntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def total_weekly_hours(self):
+        return self.monday_hours + self.tuesday_hours + self.wednesday_hours + self.thursday_hours + self.friday_hours
+
+    def __str__(self):
+        return f"Schedule({self.section})"
+
+
+class SectionDailyAttendance(models.Model):
+    """
+    Section-level အတွက် နေ့တိုင်းတက်ခဲ့တဲ့ စာအချိန်ကို number input နဲ့ သိမ်းမယ်
+    (checkbox မဟုတ်) — student x date တစ်ကြောင်းစီ
+    """
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='section_attendance')
+    section = models.ForeignKey(Section, on_delete=models.CASCADE, related_name='daily_attendance')
+    date = models.DateField()
+    attended_hours = models.DecimalField(max_digits=6, decimal_places=2, default=0)
+
+    class Meta:
+        unique_together = ('student', 'section', 'date')  # တနေ့တစ်ယောက်တစ်ကြောင်းသာ
+        ordering = ['-date', 'student_id']
+
+    def __str__(self):
+        return f"{self.date} - {self.student} ({self.section}) = {self.attended_hours}"

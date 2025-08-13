@@ -1,0 +1,56 @@
+{% extends 'base.html' %} {% block pageContent %}
+    <div class="container mt-4">
+  <h3>Monthly Roll-Call % (Section)</h3>
+
+  <form method="get" class="row g-2 mb-3">
+    <div class="col-md-4">
+      <label class="form-label">Section</label>
+      <select name="section" class="form-select">
+        {% for sec in sections %}
+          <option value="{{ sec.id }}" {% if selected_section and sec.id == selected_section.id %}selected{% endif %}>{{ sec }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-2">
+      <label class="form-label">Year</label>
+      <input type="number" class="form-control" name="year" value="{{ year }}">
+    </div>
+    <div class="col-md-2">
+      <label class="form-label">Month</label>
+      <input type="number" class="form-control" name="month" value="{{ month }}" min="1" max="12">
+    </div>
+    <div class="col-md-2 align-self-end">
+      <button class="btn btn-primary">Show</button>
+    </div>
+  </form>
+
+  {% if selected_section %}
+    {% if results %}
+      <table class="table table-hover table-sm">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Student</th>
+            <th>Attended</th>
+            <th>Expected</th>
+            <th>%</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for r in results %}
+            <tr>
+              <td>{{ forloop.counter }}</td>
+              <td>{{ r.student }}</td>
+              <td>{{ r.attended }}</td>
+              <td>{{ r.expected }}</td>
+              <td>{% if r.percent is not None %}{{ r.percent }}%{% else %}-{% endif %}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <div class="alert alert-info">No data for {{ month }}/{{ year }}.</div>
+    {% endif %}
+  {% endif %}
+</div>
+{% endblock pageContent %}

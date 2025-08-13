@@ -25,7 +25,19 @@ from django.http import JsonResponse
 from attendance.models import Section
 from .models import Section
 from django.db import transaction
+from datetime import date as _date, datetime as _datetime, timedelta
+from calendar import monthrange
+from decimal import Decimal
 
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.db.models import Sum
+from django.shortcuts import render, redirect, get_object_or_404
+
+# ❗️ Adjust these imports to your project structure if needed
+from .models import SectionSchedule, SectionDailyAttendance
+from attendance.models import Section, Student, UserProfile   # if these live elsewhere, change path
+from .forms import SectionScheduleForm
 deparment_list = Department.objects.exclude(status = 2).all()
 context = {
     'page_title' : 'Simple Blog Site',
@@ -772,3 +784,176 @@ def save_attendance(request):
         resp['status'] = 'success'
         messages.success(request,"Attendance has been saved successfully.")
     return HttpResponse(json.dumps(resp),content_type="application/json")
+
+# ---------- helpers ----------
+def _weekday_map(schedule: SectionSchedule):
+    if not schedule:
+        return {0:0,1:0,2:0,3:0,4:0}
+    return {
+        0: schedule.monday_hours,
+        1: schedule.tuesday_hours,
+        2: schedule.wednesday_hours,
+        3: schedule.thursday_hours,
+        4: schedule.friday_hours,
+    }
+
+def _expected_hours_in_month(section, year:int, month:int):
+    schedule = getattr(section, 'schedule', None)
+    m = _weekday_map(schedule)
+    days_in_month = monthrange(year, month)[1]
+    total = 0
+    for d in range(1, days_in_month+1):
+        wk = _date(year, month, d).weekday()  # 0=Mon..6=Sun
+        total += m.get(wk, 0)
+    return total
+
+def _attended_hours_for_student_in_month(section, student, year:int, month:int):
+    qs = SectionDailyAttendance.objects.filter(
+        section=section, student=student,
+        date__year=year, date__month=month
+    ).aggregate(total=Sum('attended_hours'))
+    return float(qs['total'] or 0)
+
+
+# ---------- 1) Super Admin: Section-wise schedule manage ----------
+@login_required
+def section_schedule_manage(request):
+    """
+    Dropdown နဲ့ Section ရွေး → Mon–Fri hours သတ်မှတ်/ပြင်
+    """
+    # super admin/staff only (change logic to your role system if needed)
+    if not (request.user.is_staff or request.user.is_superuser):
+        messages.error(request, "Only admin/staff can manage section schedule.")
+        return redirect('home')
+
+    sections = Section.objects.all().order_by('id')  # show all sections from DB
+    section_id = request.GET.get('section') or request.POST.get('section')
+    selected_section = Section.objects.filter(id=section_id).first() if section_id else None
+    form = None
+
+    if request.method == 'POST' and selected_section:
+        schedule, _ = SectionSchedule.objects.get_or_create(section=selected_section)
+        form = SectionScheduleForm(request.POST, instance=schedule)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f"Schedule saved for Section {selected_section}.")
+            return redirect(f"{request.path}?section={selected_section.id}")
+    elif selected_section:
+        schedule, _ = SectionSchedule.objects.get_or_create(section=selected_section)
+        form = SectionScheduleForm(instance=schedule)
+
+    return render(request, 'section_schedule_manage.html', {
+        'sections': sections,
+        'selected_section': selected_section,
+        'form': form,
+    })
+
+
+# ---------- 2) Admin: Daily attendance marking (section-level) ----------
+@login_required
+def section_attendance_mark(request):
+    """
+    Section တစ်ခုရွေးပြီး → နေ့တစ်နေ့စာ students list + number input (0..max) နဲ့ သိမ်း
+    """
+    # Admin/faculty 都အလုပ်လုပ်စေချင်ရင် permission လျှော့နိုင်
+    sections = Section.objects.all().order_by('id')
+    section_id = request.GET.get('section') or request.POST.get('section')
+    the_date_str = request.GET.get('date') or request.POST.get('date')
+    the_date = _date.today()
+    if the_date_str:
+        try:
+            the_date = _datetime.strptime(the_date_str, '%Y-%m-%d').date()
+        except Exception:
+            pass
+
+    selected_section = Section.objects.filter(id=section_id).first() if section_id else None
+    students = Student.objects.none()
+    max_today = 0
+    schedule = None
+
+    if selected_section:
+        students = Student.objects.filter(section=selected_section).order_by('id')  # ❗️ adjust field if different
+        schedule = getattr(selected_section, 'schedule', None)
+        if schedule:
+            wk = the_date.weekday()
+            max_today = _weekday_map(schedule).get(wk, 0)
+
+    if request.method == 'POST' and selected_section:
+        # save each student's hours (clamp to max_today)
+        for s in students:
+            raw = (request.POST.get(f"hours[{s.id}]") or "0").strip()
+            try:
+                val = Decimal(raw)
+            except Exception:
+                val = Decimal('0')
+            if val < 0: val = Decimal('0')
+            if max_today and val > max_today:
+                val = Decimal(str(max_today))
+
+            SectionDailyAttendance.objects.update_or_create(
+                student=s, section=selected_section, date=the_date,
+                defaults={'attended_hours': val}
+            )
+        messages.success(request, f"Attendance saved for {selected_section} on {the_date}.")
+        # stay on same page
+        return redirect(f"{request.path}?section={selected_section.id}&date={the_date.strftime('%Y-%m-%d')}")
+
+    # preload existing for that day
+    existing = {
+        (a.student_id): a.attended_hours
+        for a in SectionDailyAttendance.objects.filter(section=selected_section, date=the_date)
+    } if selected_section else {}
+
+    return render(request, 'section_attendance_mark.html', {
+        'sections': sections,
+        'selected_section': selected_section,
+        'students': students,
+        'date': the_date,
+        'schedule': schedule,
+        'max_today': max_today,
+        'existing': existing,
+    })
+
+
+# ---------- 3) Faculty: Monthly roll-call % (read-only) ----------
+@login_required
+def section_rollcall_monthly(request):
+    """
+    Faculty လော့ဂ်အင်း → သူ့ course 里的 sections တွေပဲ dropdown မှာ ပြ
+    Month/year ရွေးပြီး → roll call % table ပြ
+    """
+    # faculty's course သတ်မှတ်ပုံ — your project ရဲ့ UserProfile model အတိုင်းပြင်ရန်
+    try:
+        profile = UserProfile.objects.get(user=request.user)
+        faculty_course = getattr(profile, 'course', None)
+    except UserProfile.DoesNotExist:
+        faculty_course = None
+
+    if request.user.is_staff or request.user.is_superuser or not faculty_course:
+        sections = Section.objects.all().order_by('id')
+    else:
+        sections = Section.objects.filter(course=faculty_course).order_by('id')  # ❗️ adjust field if different
+
+    section_id = request.GET.get('section')
+    year = int(request.GET.get('year') or _date.today().year)
+    month = int(request.GET.get('month') or _date.today().month)
+
+    selected_section = Section.objects.filter(id=section_id).first() if section_id else None
+    results = []
+
+    if selected_section:
+        expected = _expected_hours_in_month(selected_section, year, month)
+        studs = Student.objects.filter(section=selected_section).order_by('id')  # ❗️ adjust field if different
+        for s in studs:
+            attended = _attended_hours_for_student_in_month(selected_section, s, year, month)
+            percent = round((attended/expected)*100, 2) if expected > 0 else None
+            results.append({
+                'student': s, 'attended': attended, 'expected': expected, 'percent': percent
+            })
+
+    return render(request, 'section_rollcall_monthly.html', {
+        'sections': sections,
+        'selected_section': selected_section,
+        'year': year, 'month': month,
+        'results': results,
+    })

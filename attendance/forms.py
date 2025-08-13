@@ -7,6 +7,7 @@ from django.contrib.auth.forms import UserCreationForm,PasswordChangeForm, UserC
 from django.contrib.auth.models import User
 from attendance.models import ClassStudent, UserProfile, Department, Course, Student, Class
 from .models import Section
+from .models import SectionSchedule
 class UserRegistration(UserCreationForm):
     email = forms.EmailField(max_length=250,help_text="The email field is required.")
     first_name = forms.CharField(max_length=250,help_text="The First Name field is required.")
@@ -257,4 +258,15 @@ class SaveClassStudent(forms.ModelForm):
                 raise forms.ValidationError(f"Student already exists in the Class List.")
         except:
             return student
-       
+
+class SectionScheduleForm(forms.ModelForm):
+    class Meta:
+        model = SectionSchedule
+        fields = ('monday_hours','tuesday_hours','wednesday_hours','thursday_hours','friday_hours')
+        widgets = {
+            'monday_hours': forms.NumberInput(attrs={'min':0}),
+            'tuesday_hours': forms.NumberInput(attrs={'min':0}),
+            'wednesday_hours': forms.NumberInput(attrs={'min':0}),
+            'thursday_hours': forms.NumberInput(attrs={'min':0}),
+            'friday_hours': forms.NumberInput(attrs={'min':0}),
+        }

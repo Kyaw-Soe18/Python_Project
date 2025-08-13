@@ -51,5 +51,12 @@ urlpatterns = [
     path(r'attendance/<int:classPK>/<str:date>',views.attendance,name='attendance-page-date'),
     path('save_attendance',views.save_attendance,name='save-attendance'),
     path('ajax/load-sections/', views.ajax_load_sections, name='ajax_load_sections'),
+    # Super Admin: Section-wise schedule setting
+    path('section-schedule/', views.section_schedule_manage, name='section_schedule_manage'),
 
+    # Admin: Daily attendance marking (section-level)
+    path('section-attendance/', views.section_attendance_mark, name='section_attendance_mark'),
+
+    # Faculty: Monthly roll-call % view (read-only)
+    path('section-rollcall/', views.section_rollcall_monthly, name='section_rollcall_monthly'),
 ]

@@ -1,0 +1,75 @@
+{% extends 'base.html' %} {% block pageContent %}
+
+    <div class="container mt-4">
+  <h3>Section Attendance (Daily)</h3>
+
+  {% for m in messages %}
+    <div class="alert alert-{{ m.tags }}">{{ m }}</div>
+  {% endfor %}
+
+  <form method="get" class="row g-2 mb-3">
+    <div class="col-md-4">
+      <label class="form-label">Section</label>
+      <select name="section" class="form-select" onchange="this.form.submit()">
+        <option value="">-- choose section --</option>
+        {% for sec in sections %}
+          <option value="{{ sec.id }}" {% if selected_section and sec.id == selected_section.id %}selected{% endif %}>{{ sec }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">Date</label>
+      <input type="date" class="form-control" name="date" value="{{ date|date:'Y-m-d' }}" onchange="this.form.submit()">
+    </div>
+  </form>
+
+  {% if selected_section %}
+    {% if schedule %}
+      <div class="alert alert-info">
+        <strong>Weekly Schedule:</strong>
+        Mon {{schedule.monday_hours}} | Tue {{schedule.tuesday_hours}} |
+        Wed {{schedule.wednesday_hours}} | Thu {{schedule.thursday_hours}} | Fri {{schedule.friday_hours}}
+        <br>
+        <strong>Today Max:</strong> {{ max_today }}
+      </div>
+    {% else %}
+      <div class="alert alert-warning">No schedule set for this section yet.</div>
+    {% endif %}
+
+    <form method="post" class="card p-3">
+      {% csrf_token %}
+      <input type="hidden" name="section" value="{{ selected_section.id }}">
+      <input type="hidden" name="date" value="{{ date|date:'Y-m-d' }}">
+
+      <table class="table table-bordered table-sm">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Student</th>
+            <th>Attended Hours (max {{ max_today }})</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for s in students %}
+            <tr>
+              <td>{{ forloop.counter }}</td>
+              <td>{{ s }}</td>
+              <td style="max-width:160px;">
+                {% load dict_extras %}
+                <input type="number"
+                       class="form-control form-control-sm"
+                       name="hours[{{ s.id }}]"
+
+                       value="{{ existing|get_item:s.id|default:0 }}"
+                       min="0" max="{{ max_today }}" step="1">
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <button class="btn btn-success">Save Attendance</button>
+    </form>
+  {% endif %}
+</div>
+{% endblock pageContent %}
