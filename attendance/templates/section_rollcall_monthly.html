@@ -1,32 +1,46 @@
-{% extends 'base.html' %} {% block pageContent %}
+{% extends 'base.html' %}
+{% block pageContent %}
 
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
-
     <div class="card card-default rounded-0 shadow ">
        <div class="card-header">
             <div class="d-flex w-100 align-items-center justify-content-between">
                 <h4 class="card-title fw-bold">Monthly Roll-Call % (Section)</h4>
+                <button type="button" onclick="printReport()" class="btn btn-default border rounded-0 bg-gradient btn-sm" id="print_attendance_report">
+                    <i class="fa fa-print"></i> Print Attendance Report
+                </button>
             </div>
         </div>
         <div class="card-body">
-          <div class="container mt-1" >
+          <div class="container mt-1">
 
   <form method="get" class="row g-2 mb-3">
     <div class="col-md-4">
       <label class="form-label">Section</label>
-      <select name="section" class="form-select">
+      <select id="sectionSelect" name="section" class="form-select">
         {% for sec in sections %}
-          <option value="{{ sec.id }}" {% if selected_section and sec.id == selected_section.id %}selected{% endif %}>{{ sec }}</option>
+          <option value="{{ sec.id }}" data-course="{{ sec.course.name }}"
+            {% if selected_section and sec.id == selected_section.id %}selected{% endif %}>
+            {{ sec }}
+          </option>
         {% endfor %}
       </select>
     </div>
     <div class="col-md-2">
       <label class="form-label">Year</label>
-      <input type="number" class="form-control" name="year" value="{{ year }}">
+      <input id="yearInput" type="number" class="form-control" name="year" value="{{ year }}">
     </div>
     <div class="col-md-2">
       <label class="form-label">Month</label>
-      <input type="number" class="form-control" name="month" value="{{ month }}" min="1" max="12">
+      <input id="monthInput" type="number" class="form-control" name="month" value="{{ month }}" min="1" max="12">
+    </div>
+    <div class="col-md-2">
+      <label class="form-label">Start Month</label>
+      <input type="number" class="form-control" name="start_month" value="{{ start_month }}" min="1" max="12">
+    </div>
+    <div class="col-md-2">
+      <label class="form-label">End Month</label>
+      <input type="number" class="form-control" name="end_month" value="{{ end_month }}" min="1" max="12">
     </div>
     <div class="col-md-2 align-self-end">
       <button class="btn btn-primary">Show</button>
@@ -35,37 +49,104 @@
 
   {% if selected_section %}
     {% if results %}
-      <table class="table table-hover table-sm">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Student</th>
-            <th>Attended</th>
-            <th>Expected</th>
-            <th>%</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for r in results %}
+      <div id="printArea">
+        <table class="table table-hover table-sm">
+          <thead>
             <tr>
-              <td>{{ forloop.counter }}</td>
-              <td>{{ r.student }}</td>
-              <td>{{ r.attended }}</td>
-              <td>{{ r.expected }}</td>
-              <td>{% if r.percent is not None %}{{ r.percent }}%{% else %}-{% endif %}</td>
+              <th>#</th>
+              <th>Student</th>
+              <th>Attended</th>
+              <th>Expected</th>
+              <th>%</th>
             </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {% for r in results %}
+              <tr style="{% if r.percent is not None and r.percent < 75 %}background-color: #ff9999;{% endif %}">
+                <td>{{ forloop.counter }}</td>
+                <td>{{ r.student }}</td>
+                <td>{{ r.attended }}</td>
+                <td>{{ r.expected }}</td>
+                <td>{% if r.percent is not None %}{{ r.percent }}%{% else %}-{% endif %}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
     {% else %}
-      <div class="alert alert-info">No data for {{ month }}/{{ year }}.</div>
+      <div class="alert alert-info">No data for selected month(s)/year.</div>
     {% endif %}
   {% endif %}
 </div>
         </div>
-
     </div>
-
 </div>
 
 {% endblock pageContent %}
+
+{% block ScriptBlock %}
+<script>
+function printReport() {
+    let sectionEl = document.getElementById("sectionSelect");
+    let sectionText = sectionEl.options[sectionEl.selectedIndex].text;
+    let courseName = sectionEl.options[sectionEl.selectedIndex].getAttribute("data-course");
+    let year = document.getElementById("yearInput").value;
+
+    let monthNum = parseInt(document.getElementById("monthInput").value);
+    let startMonth = parseInt(document.querySelector('input[name="start_month"]').value);
+    let endMonth = parseInt(document.querySelector('input[name="end_month"]').value);
+
+    let monthNames = ["January", "February", "March", "April", "May", "June",
+                      "July", "August", "September", "October", "November", "December"];
+
+    let monthDisplay = "";
+    if (startMonth && endMonth) {
+        monthDisplay = monthNames[startMonth - 1] + " - " + monthNames[endMonth - 1];
+    } else {
+        monthDisplay = monthNames[monthNum - 1];
+    }
+
+    // Build table HTML using Django-rendered percents
+    let tableHTML = `
+    <table style="border-collapse: collapse; width: 100%;" border="1">
+      <thead>
+        <tr>
+          <th style="padding:5px;">No</th>
+          <th style="padding:5px;">Student</th>
+          <th style="padding:5px;">Roll Call %</th>
+          <th style="padding:5px;">Sign</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in results %}
+          <tr data-percent="{{ r.percent|default:0 }}" style="background-color: {% if r.percent is not None and r.percent < 75 %}#ff4d4d{% else %}white{% endif %};">
+            <td style="text-align:center; padding:5px;">{{ forloop.counter }}</td>
+            <td style="padding:5px;">{{ r.student }}</td>
+            <td style="text-align:center; padding:5px;">{% if r.percent is not None %}{{ r.percent }}%{% else %}-{% endif %}</td>
+            <td style="padding:5px;"></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    `;
+
+    let printContents = `
+        <div style="text-align:center; margin-bottom:20px; font-family:Arial, sans-serif;">
+            <h2 style="margin:0;">University of Computer Studies, Yangon</h2>
+            <h4 style="margin:5px 0;">Semester-7 (B.C.Sc)</h4>
+            <h4 style="margin:5px 0;">Year - ${year} &nbsp;&nbsp; Month - ${monthDisplay} &nbsp;&nbsp; Roll Call Percent %</h4>
+            <h4 style="margin:5px 0;">Section - ${sectionText} (${courseName})</h4>
+        </div>
+        ${tableHTML}
+    `;
+
+    let newWindow = window.open('', '', 'width=900,height=650');
+    newWindow.document.write('<html><head><title>Print</title></head><body>');
+    newWindow.document.write(printContents);
+    newWindow.document.write('</body></html>');
+    newWindow.document.close();
+    newWindow.print();
+}
+</script>
+{% endblock ScriptBlock %}
+

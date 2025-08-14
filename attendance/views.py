@@ -866,28 +866,50 @@ def section_rollcall_monthly(request):
     if request.user.is_staff or request.user.is_superuser or not faculty_course:
         sections = Section.objects.all().order_by('id')
     else:
-        sections = Section.objects.filter(course=faculty_course).order_by('id')  # ❗️ adjust field if different
+        sections = Section.objects.filter(course=faculty_course).order_by('id')
 
     section_id = request.GET.get('section')
     year = int(request.GET.get('year') or _date.today().year)
-    month = int(request.GET.get('month') or _date.today().month)
+    month = request.GET.get('month')  # single month
+    start_month = request.GET.get('start_month')
+    end_month = request.GET.get('end_month')
 
     selected_section = Section.objects.filter(id=section_id).first() if section_id else None
     results = []
 
     if selected_section:
-        expected = _expected_hours_in_month(selected_section, year, month)
-        studs = Student.objects.filter(section=selected_section).order_by('id')  # ❗️ adjust field if different
+        studs = Student.objects.filter(section=selected_section).order_by('id')
+
+        # Determine month range
+        if start_month and end_month:
+            month_list = list(range(int(start_month), int(end_month) + 1))
+        elif month:
+            month_list = [int(month)]
+        else:
+            month_list = [_date.today().month]
+
         for s in studs:
-            attended = _attended_hours_for_student_in_month(selected_section, s, year, month)
-            percent = round((attended/expected)*100, 2) if expected > 0 else None
+            total_attended = 0
+            total_expected = 0
+            for m in month_list:
+                expected = _expected_hours_in_month(selected_section, year, m)
+                attended = _attended_hours_for_student_in_month(selected_section, s, year, m)
+                total_attended += attended
+                total_expected += expected
+            percent = round((total_attended / total_expected) * 100, 2) if total_expected > 0 else None
             results.append({
-                'student': s, 'attended': attended, 'expected': expected, 'percent': percent
+                'student': s,
+                'attended': total_attended,
+                'expected': total_expected,
+                'percent': percent
             })
 
     return render(request, 'section_rollcall_monthly.html', {
         'sections': sections,
         'selected_section': selected_section,
-        'year': year, 'month': month,
+        'year': year,
+        'month': month,
+        'start_month': start_month,
+        'end_month': end_month,
         'results': results,
     })
