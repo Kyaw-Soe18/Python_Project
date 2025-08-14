@@ -1,104 +1,132 @@
 {% load static %}
 <header>
-    <!-- Intro settings -->
     <style>
         #intro {
-            /* Margin to fix overlapping fixed navbar */
             margin-top: 58px;
         }
-        
         @media (max-width: 991px) {
             #intro {
-                /* Margin to fix overlapping fixed navbar */
                 margin-top: 45px;
             }
         }
+
+        /* Prevent wrapping of nav links */
+        .navbar .nav-link {
+            white-space: nowrap;
+            font-weight: 500;
+        }
+
+        /* Smaller logo */
+        .navbar-brand img {
+            height: 50px;
+            width: auto;
+            margin-left: 15px;
+        }
+
+        /* Avatar image */
+        .img-thumbnail {
+            height: 32px;
+            width: 32px;
+            object-fit: cover;
+        }
+
+      /* Bring left and right sections closer together */
+    .navbar .container-fluid {
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+
+/* Tighten right section */
+    .navbar .right-section .nav-link {
+        padding-right: 20px;
+        padding-left: 5px;
+    }
+
     </style>
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow border-bottom">
-        <div class="container">
-            <!-- Navbar brand -->
-            <a class="navbar-brand">
-                <img src="{{ MEDIA_URL }}/default/ucsy-logo.png" height="100%" alt="" loading="lazy" style="margin-top: -3px;" />
-            </a>
-            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarExample01" aria-controls="navbarExample01" aria-expanded="false" aria-label="Toggle navigation">
-      <i class="fas fa-bars"></i>
-    </button>
-            <div class="collapse navbar-collapse" id="navbarExample01">
-                {% if user.id %}
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="topNav">
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="{% url 'home-page' %}">Home</a>
-                    </li>
-                    {% if user.profile.user_type == 1 %}
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="{% url 'department-page' %}">Department</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="{% url 'course-page' %}">Course</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="{% url 'faculty-page' %}">Teacher</a>
-                    </li>
-                    {% endif %}
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="{% url 'class-page' %}">Class</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="{% url 'student-page' %}">Students</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="{% url 'section_schedule_manage' %}">Section Schedule</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="{% url 'section_attendance_mark' %}">Section Attendance (Daily)</a>
-                    </li>
-                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="{%  url 'section_rollcall_monthly' %}">“Monthly Roll-Call %</a>
-                    </li>
-                </ul>
+        <div class="container-fluid justify-content-between">
 
-                <ul class="navbar-nav d-flex flex-row">
-                    {% if user.id %} {% if user.profile.user_type == 1 %} {% endif %}
-                    <li class="nav-item me-3 me-lg-0">
-                        <a class="nav-link" href="{% url 'profile' %}">
-                            <span class="me-1"><img src="{% if user.profile.avatar %}{{ user.profile.avatar.url }}{% else %}{{ MEDIA_URL }}/default/default-avatar.png{% endif %}" alt="User Avatar" data-url="{% if user.profile.avatar %}{{ user.profile.avatar.url }}{% else %}{{ MEDIA_URL }}/default/default-avatar.png{% endif %}" id="user-avatar" class="img-thumbnail rounded-circle"></span>
-                            {{ user.first_name }}
-                        </a>
-                        <!-- <a class="nav-link" href="{% url 'logout' %}">Logout</a> -->
-                    </li>
-                    <li class="nav-item me-3 me-lg-0">
-                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-                    </li>
-                    {% else %}
-                    <li class="nav-item me-3 me-lg-0">
-                        <a class="nav-link" href="{% url 'login' %}">Login</a>
-                    </li>
+            <!-- LEFT SECTION: Logo + Links -->
+            <div class="d-flex align-items-center">
+                <!-- Logo -->
+                <a class="navbar-brand me-3" href="{% url 'home-page' %}">
+                    <img src="{{ MEDIA_URL }}/default/ucsy-logo.png" alt="Logo" loading="lazy">
+                </a>
+
+                <!-- Nav Links -->
+                <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+                    data-mdb-target="#navbarExample01" aria-controls="navbarExample01"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarExample01">
+                    {% if user.id %}
+                    <ul class="navbar-nav mb-0" id="topNav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'home-page' %}">Home</a>
+                        </li>
+                        {% if user.profile.user_type == 1 %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'department-page' %}">Department</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'course-page' %}">Course</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'faculty-page' %}">Teacher</a>
+                        </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'class-page' %}">Class</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'student-page' %}">Students</a>
+                        </li>
+                        {% if user.profile.user_type == 1 %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'section_schedule_manage' %}">Section Schedule</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'section_attendance_mark' %}">Attendance (Daily)</a>
+                        </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'section_rollcall_monthly' %}">Monthly Roll-Call %</a>
+                        </li>
+                    </ul>
                     {% endif %}
-                </ul>
-                {% endif %}
+                </div>
             </div>
+
+            <!-- RIGHT SECTION: Profile + Logout -->
+            {% if user.id %}
+            <div class="d-flex align-items-center right-section">
+                <a class="nav-link" href="{% url 'profile' %}">
+                    <img src="{% if user.profile.avatar %}{{ user.profile.avatar.url }}{% else %}{{ MEDIA_URL }}/default/default-avatar.png{% endif %}"
+                        alt="User Avatar"
+                        id="user-avatar"
+                        class="img-thumbnail rounded-circle">
+                    {{ user.first_name }}
+                </a>
+                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            </div>
+            {% endif %}
+
         </div>
     </nav>
-    <!-- Navbar -->
-
-    <!-- Jumbotron -->
-    <div id="intro" class="pt-2 text-center bg-light">
-        <!-- <h1 class="mb-3 h2">Learn Bootstrap 5 with MDB</h1>
-        <p class="mb-3">Best & free guide of responsive web design</p>
-        <a class="btn btn-primary m-2" href="https://www.youtube.com/watch?v=c9B4TPnak1A" role="button" rel="nofollow" target="_blank">Start tutorial</a>
-        <a class="btn btn-primary m-2" href="https://mdbootstrap.com/docs/standard/" target="_blank" role="button">Download MDB UI KIT</a> -->
-    </div>
-    <!-- Jumbotron -->
+    <div style="height: 40px;"></div>
 </header>
+
 <script>
     $(function() {
         $('#topNav .nav-link').each(function() {
-            var current = '{{ request.get_full_path | urlencode }}'
+            var current = '{{ request.get_full_path | urlencode }}';
             if (current == $(this).attr('href')) {
-                $(this).parent().addClass('active')
+                $(this).parent().addClass('active');
             }
-        })
-    })
+        });
+    });
 </script>
