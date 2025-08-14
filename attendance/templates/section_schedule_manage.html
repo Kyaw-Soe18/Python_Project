@@ -1,6 +1,14 @@
 {% extends 'base.html' %} {% block pageContent %}
-    <div class="container mt-4">
-  <h3>Section Weekly Schedule (Super Admin)</h3>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+  <div class="card card-default rounded-0 shadow ">
+            <div class="card-header">
+            <div class="d-flex w-100 align-items-center justify-content-between">
+                <h4 class="card-title fw-bold">Section Weekly Schedule</h4>
+
+            </div>
+        </div>
+        <div class="container mt-4">
 
   {% for m in messages %}
     <div class="alert alert-{{ m.tags }}">{{ m }}</div>
@@ -38,4 +46,7 @@
   </div>
   {% endif %}
 </div>
+  </div>
+</div>
+
 {% endblock pageContent %}
