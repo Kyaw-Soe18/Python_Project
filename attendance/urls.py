@@ -46,10 +46,6 @@ urlpatterns = [
     path('manage_student/<int:pk>', views.manage_student, name='edit-student-modal'),
     path('save_student',views.save_student,name='save-student'),
     path('delete_student',views.delete_student,name='delete-student'),
-    path('attendance_class',views.attendance_class,name='attendance-class'),
-    path(r'attendance/<int:classPK>',views.attendance,name='attendance-page'),
-    path(r'attendance/<int:classPK>/<str:date>',views.attendance,name='attendance-page-date'),
-    path('save_attendance',views.save_attendance,name='save-attendance'),
     path('ajax/load-sections/', views.ajax_load_sections, name='ajax_load_sections'),
     # Super Admin: Section-wise schedule setting
     path('section-schedule/', views.section_schedule_manage, name='section_schedule_manage'),
