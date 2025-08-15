@@ -1,47 +1,123 @@
 {% extends 'base.html' %}{% load static %}{% block pageContent %}
-<div class="d-flex flex-column w-100 justify-content-center align-items-center">
-    <div class="mb-4">
-        <center>
-<!--            <img src="{{ MEDIA_URL }}/default/ams-logo.jpg" alt="">-->
-        </center>
-    </div>
-    <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-        <div class="card card-default rounded-0 shadow">
-            <div class="card-header">
-                <h5 class="card-title"><b>Attendance Management System</b></h5>
+<style>
+.glass-card {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.glass-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+}
+
+.form-group {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.form-control {
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    color: black; /* input text black */
+    background: transparent;
+    padding: 12px 15px;
+}
+
+.form-control:focus {
+    background: rgba(255,255,255,0.15);
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(0,0,0,0.15);
+    color: black;
+}
+
+label {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(0,0,0,0.7); /* label color black-ish */
+    pointer-events: none;
+    transition: 0.2s ease all, text-shadow 0.2s ease;
+}
+
+/* Floating label on focus or when input has value */
+.form-control:focus + label,
+.form-control:not(:placeholder-shown) + label {
+    top: -8px;
+    font-size: 0.8rem;
+    color: black; /* label black */
+    text-shadow: none; /* remove glow for black */
+    background: none;
+    padding: 0;
+}
+
+.login-btn {
+    display: block;
+    margin: 0 auto;
+    padding: 10px 30px;
+    color: black; /* button text black */
+    background-color: #fff; /* button white for contrast */
+    border: 1px solid rgba(0,0,0,0.2);
+}
+.login-btn:hover {
+    background-color: #000;
+    color: #fff;
+}
+
+/* Sign-up section */
+.signup-text {
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: black;
+}
+.signup-link {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 5px;
+}
+.signup-link:hover {
+    color: #000103;
+    text-decoration: underline;
+}
+
+/* Card title */
+.text-center h4 {
+    color: black;
+}
+</style>
+
+<div class="d-flex justify-content-center align-items-center">
+    <div class="col-lg-4 col-md-6 col-sm-10">
+        <div class="glass-card rounded-4 p-4">
+            <div class="text-center mb-4">
+                <h4 class="fw-bold fs-5">Attendance Management System</h4>
             </div>
-            <div class="card-body">
-                <div class="container-fluid">
-                    <form id="login-user">
-                        {% csrf_token %}
-                        <div class="mdc-layout-grid">
-                            <div class="mdc-layout-grid__inner">
-                                <div class="form-group mb-3">
-                                    <label for="username" class="control-label">Username</label>
-                                    <input type="text" class="form-control rounded-0" name="username" id="username" required="required">
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label for="password" class="control-label">Password</label>
-                                    <input type="password" class="form-control rounded-0" name="password" id="password" required="required">
-                                </div>
-                                <div class="form-group mb-3">
-                                    <div class="d-flex w-100 justify-content-between align-items-center">
-                                        <div class="col-md-4">
-                                            {% comment %} <a href="{% url 'register-user' %}">Signup</a> {% endcomment %}
-                                        </div>
-                                        <button class="btn btn-sm rounded-0 btn-primary">
-                                                Login
-                                            </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
+            <form id="login-user">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input type="text" class="form-control rounded-pill" name="username" id="username" placeholder=" " required>
+                    <label for="username">Username</label>
                 </div>
-            </div>
+                <div class="form-group">
+                    <input type="password" class="form-control rounded-pill" name="password" id="password" placeholder=" " required>
+                    <label for="password">Password</label>
+                </div>
+                <button class="btn rounded-pill fw-bold shadow-sm login-btn">
+                    Login
+                </button>
+                <div class="text-center signup-text">
+                    Don't have an account?
+                    <a href="{% url 'register-user' %}" class="signup-link">Sign up</a>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+
 
 {% endblock pageContent %} {% block ScriptBlock %}
 <script>
