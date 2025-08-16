@@ -4,10 +4,7 @@
         <div class="card-header">
             <div class="d-flex w-100 align-items-center justify-content-between">
                 <h4 class="card-title fw-bold">Class Information</h4>
-                <div class="tools">
-                    <button type="button" class="btn btn-defualt border rounded-0 bg-gradient btn-sm" id='print_attendance_report'><i class="fa fa-print"></i> Print Attendance Report</button>
-                    <button type="button" class="btn btn-primary rounded-0 bg-gradient btn-sm" id='add_new'><i class="fa fa-plus"></i> Add Student</button>
-                </div>
+
             </div>
         </div>
         <div class="card-body">
@@ -58,46 +55,7 @@
                     </div>
                 </fieldset>
                 <hr>
-                <fieldset>
-                    <legend>Class Student List</legend>
-                    <table class="table tables-bordered" id="student-list">
-                        <colgroup>
-                            <col width="10%">
-                            <col width="25%">
-                            <col width="25%">
-                            <col width="10%">
-                            <col width="10%">
-                            <col width="10%">
-                            <col width="10%">
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th class="text-center">#</th>
-                                <th class="text-center">Roll No.</th>
-                                <th class="text-center">Student Name</th>
-                                <th class="text-center">Total Absent</th>
-                                <th class="text-center">Total Present</th>
-                                <th class="text-center">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for student in students %}
-                            <tr class="">
-                                <td class="text-center">{{ forloop.counter }}</td>
-                                <td>{{ student.student.student_code }}</td>
-                                <td>{{ student.student.first_name }}</td>
-                                <td class="text-center">{{ student.get_present|intcomma }}</td>
-                                <td class="text-center">{{ student.get_absent|intcomma }}</td>
-                                <td class="text-center">
-                                    <button class="btn btn-outline-danger btn-sm delete-data" type="button" data-id="{{ student.pk }}" title="Delete">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </fieldset>
+
             </div>
         </div>
     </div>

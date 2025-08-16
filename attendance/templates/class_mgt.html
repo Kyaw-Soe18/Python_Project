@@ -28,7 +28,7 @@
                             <th class="px-2 py-2 text-center">Teacher</th>
                             <th class="px-2 py-2 text-center">Scool Year</th>
                             <th class="px-2 py-2 text-center">Semester</th>
-                             <th class="px-2 py-2 text-center">Course</th> <!-- NEW COLUMN -->
+                             <th class="px-2 py-2 text-center">Major Name</th> <!-- NEW COLUMN -->
                             <th class="px-2 py-2 text-center">Subject</th>
                             <th class="px-2 py-2 text-center">Action</th>
                         </tr>
@@ -48,9 +48,7 @@
                             </td>  <!-- NEW COLUMN -->
                             <td class="px-2 py-1 align-middle">{{ class.name }}</td>
                             <td class="px-2 py-1 align-middle text-center">
-                                <a class="btn btn-outline-info btn-sm" href="{% url 'class-page' class.pk %}" title="View">
-                                    <i class="fa fa-eye"></i>
-                                </a>
+
                                 {% if user.profile.user_type == 1 %}
                                 <a class="btn btn-outline-primary btn-sm edit-data" href="javascript:void(0)" data-id="{{ class.pk }}" title="Edit">
                                     <i class="fa fa-edit"></i>

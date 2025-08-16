@@ -54,7 +54,8 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>Student</th>
+              <th>Roll Number</th>
+              <th>Student Name</th>
               <th>Attended</th>
               <th>Expected</th>
               <th>%</th>
@@ -64,7 +65,8 @@
             {% for r in results %}
               <tr style="{% if r.percent is not None and r.percent < 75 %}background-color: #ff9999;{% endif %}">
                 <td>{{ forloop.counter }}</td>
-                <td>{{ r.student }}</td>
+                <td> YKPT - {{ r.student.student_code }}</td>
+                <td>{{ r.student.first_name }}</td>
                 <td>{{ r.attended }}</td>
                 <td>{{ r.expected }}</td>
                 <td>{% if r.percent is not None %}{{ r.percent }}%{% else %}-{% endif %}</td>
@@ -112,7 +114,8 @@ function printReport() {
       <thead>
         <tr>
           <th style="padding:5px;">No</th>
-          <th style="padding:5px;">Student</th>
+          <th style="padding:5px;">Roll Number</th>
+          <th style="padding:5px;">Name</th>
           <th style="padding:5px;">Roll Call %</th>
           <th style="padding:5px;">Sign</th>
         </tr>
@@ -121,7 +124,8 @@ function printReport() {
         {% for r in results %}
           <tr data-percent="{{ r.percent|default:0 }}" style="background-color: {% if r.percent is not None and r.percent < 75 %}#ff4d4d{% else %}white{% endif %};">
             <td style="text-align:center; padding:5px;">{{ forloop.counter }}</td>
-            <td style="padding:5px;">{{ r.student }}</td>
+            <td style="padding:5px;"> YKPT - {{ r.student.student_code }}</td>
+            <td style="padding:5px;">{{ r.student.first_name }}</td>
             <td style="text-align:center; padding:5px;">{% if r.percent is not None %}{{ r.percent }}%{% else %}-{% endif %}</td>
             <td style="padding:5px;"></td>
           </tr>
@@ -134,7 +138,7 @@ function printReport() {
         <div style="text-align:center; margin-bottom:20px; font-family:Arial, sans-serif;">
             <h2 style="margin:0;">University of Computer Studies, Yangon</h2>
             <h4 style="margin:5px 0;">Semester-7 (B.C.Sc)</h4>
-            <h4 style="margin:5px 0;">Year - ${year} &nbsp;&nbsp; Month - ${monthDisplay} &nbsp;&nbsp; Roll Call Percent %</h4>
+            <h4 style="margin:5px 0;">Year : ${year} &nbsp;&nbsp; Month : ${monthDisplay} &nbsp;&nbsp; Roll Call Percent %</h4>
             <h4 style="margin:5px 0;">Section - ${sectionText} (${courseName})</h4>
         </div>
         ${tableHTML}

@@ -18,7 +18,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.db.models import Q
 from ams.settings import MEDIA_ROOT, MEDIA_URL
-from attendance.models import Attendance, UserProfile,Course, Department,Student, Class, ClassStudent
+from attendance.models import UserProfile,Course, Department,Student, Class, ClassStudent
 
 from attendance.forms import UserRegistration, UpdateProfile, UpdateProfileMeta, UpdateProfileAvatar, AddAvatar, SaveDepartment, SaveCourse, SaveClass, SaveStudent, SaveClassStudent, UpdatePasswords, UpdateFaculty
 from django.http import JsonResponse

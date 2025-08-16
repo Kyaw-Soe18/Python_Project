@@ -114,22 +114,6 @@ class ClassStudent(models.Model):
             return 0
 
 
-class Attendance(models.Model):
-    classIns = models.ForeignKey(Class, on_delete=models.CASCADE)
-    student = models.ForeignKey(Student, on_delete=models.CASCADE)
-    attendance_date = models.DateField()
-    type = models.CharField(
-        max_length=250,
-        choices=[
-            ('1', 'Present'),
-            ('2', 'Absent'),
-        ]
-    )
-    date_updated = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return f"{self.classIns.name}  {self.student.student_code}"
-
 class SectionSchedule(models.Model):
     section = models.OneToOneField(
         Section,
@@ -152,10 +136,6 @@ class SectionSchedule(models.Model):
 
 
 class SectionDailyAttendance(models.Model):
-    """
-    Section-level အတွက် နေ့တိုင်းတက်ခဲ့တဲ့ စာအချိန်ကို number input နဲ့ သိမ်းမယ်
-    (checkbox မဟုတ်) — student x date တစ်ကြောင်းစီ
-    """
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='section_attendance')
     section = models.ForeignKey(Section, on_delete=models.CASCADE, related_name='daily_attendance')
     date = models.DateField()

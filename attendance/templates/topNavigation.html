@@ -38,14 +38,22 @@
 
 /* Tighten right section */
     .navbar .right-section .nav-link {
+        color: inherit; /* same as other nav links */
+        font-weight: 500; /* match left side */
+        white-space: nowrap;
         padding-right: 20px;
         padding-left: 5px;
     }
 
+    .navbar .nav-item .right-section .nav-link:hover {
+    color: black;          /* Bootstrap primary hover color */
+    text-decoration: none;
+}
+
     </style>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow border-bottom">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light  fixed-top shadow border-bottom">
         <div class="container-fluid justify-content-between">
 
             <!-- LEFT SECTION: Logo + Links -->
@@ -73,7 +81,7 @@
                             <a class="nav-link" href="{% url 'department-page' %}">Department</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'course-page' %}">Course</a>
+                            <a class="nav-link" href="{% url 'course-page' %}">Major</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'faculty-page' %}">Teacher</a>
@@ -122,11 +130,21 @@
 
 <script>
     $(function() {
+        var current = '{{ request.get_full_path | urlencode }}';
+
+        // Highlight main nav links
         $('#topNav .nav-link').each(function() {
-            var current = '{{ request.get_full_path | urlencode }}';
             if (current == $(this).attr('href')) {
                 $(this).parent().addClass('active');
             }
         });
+
+        // Highlight right-section links (Profile & Logout)
+        $('.right-section .nav-link').each(function() {
+            if (current == $(this).attr('href')) {
+                $(this).css('font-weight', 'bolder'); // Make bold when active
+            }
+        });
     });
 </script>
+

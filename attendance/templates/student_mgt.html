@@ -15,9 +15,9 @@
              {% if user.profile.user_type == 1 %}
                     <!-- Admin: Course + Section filters -->
                     <div class="col-md-4">
-                        <label for="courseFilter" class="form-label fw-bold">Filter by Course:</label>
+                        <label for="courseFilter" class="form-label fw-bold">Filter by Major:</label>
                         <select id="courseFilter" class="form-select form-select-sm">
-                            <option value="">All Courses</option>
+                            <option value="">All Majors</option>
                             {% for course in courses %}
                                 <option value="{{ course.name }}">{{ course.name }}</option>
                             {% endfor %}
@@ -64,7 +64,7 @@
                         <tr class="bg-gradient bg-primary bg-opacity-50 text-light">
                             <th class="px-2 py-2 text-center">#</th>
                             <th class="px-2 py-2 text-center">Roll No.</th>
-                            <th class="px-2 py-2 text-center">Course Name</th>
+                            <th class="px-2 py-2 text-center">Major Name</th>
                             <th class="px-2 py-2 text-center">Section</th>  <!-- New column -->
                             <th class="px-2 py-2 text-center">Name</th>
                             <th class="px-2 py-2 text-center">Action</th>
@@ -74,7 +74,7 @@
                         {% for student in students %}
                         <tr>
                             <td class="px-2 py-1 align-middle">{{ student.id }}</td>
-                            <td class="px-2 py-1 align-middle">{{ student.student_code }}</td>
+                            <td class="px-2 py-1 align-middle">YKPT - {{ student.student_code }}</td>
                             <td class="px-2 py-1 align-middle">{{ student.course.name }}</td>
                              <td class="px-2 py-1 align-middle">
                                   {% if student.section %}

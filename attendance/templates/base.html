@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> {% if page_title %}
     <title>{{ page_title }} | Attendance Management System</title>
     {% else %}
-    <title>Attendance Management System</title> # comment
+    <title>Attendance Management System</title>
     {% endif %}
     <link rel="icon" href="{{ MEDIA_URL }}/default/ams-icon.png">
     <link rel="stylesheet" href="{% static 'assets/font-awesome/css/all.min.css' %}">
@@ -29,7 +29,7 @@
     {% block headerContent %} {% endblock headerContent %}
 </head>
 
-<body class=" bg-dark bg-gradient bg-opacity-50">
+<body class=" bg bg-secondary bg-gradient bg-opacity-50">
 
     {% block TopNavigation %} {% include "TopNavigation.html" %} {% endblock TopNavigation %}
     <main class="py-5">

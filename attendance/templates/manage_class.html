@@ -21,9 +21,9 @@
         </div>
 
         <div class="form-group mb-3 ">
-            <label for="school_year" class="control-label">Select Course</label>
+            <label for="school_year" class="control-label">Select Major</label>
             <select name="course" id="course" class="form-select rounded-0 select2" required>
-            <option value="" {% if not class.course %}selected{% endif %}>Select Course</option>
+            <option value="" {% if not class.course %}selected{% endif %}>Select Major</option>
             {% for course in courses %}
               <option value="{{ course.id }}" {% if class.course and class.course.id == course.id %}selected{% endif %}>
                 {{ course.name }}
