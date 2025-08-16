@@ -30,30 +30,29 @@
             object-fit: cover;
         }
 
-      /* Bring left and right sections closer together */
-    .navbar .container-fluid {
-        padding-left: 50px;
-        padding-right: 50px;
-    }
+        /* Bring left and right sections closer together */
+        .navbar .container-fluid {
+            padding-left: 50px;
+            padding-right: 50px;
+        }
 
-/* Tighten right section */
-    .navbar .right-section .nav-link {
-        color: inherit; /* same as other nav links */
-        font-weight: 500; /* match left side */
-        white-space: nowrap;
-        padding-right: 20px;
-        padding-left: 5px;
-    }
+        /* Tighten right section */
+        .navbar .right-section .nav-link {
+            color: inherit; /* same as other nav links */
+            font-weight: 500; /* match left side */
+            white-space: nowrap;
+            padding-right: 20px;
+            padding-left: 5px;
+        }
 
-    .navbar .nav-item .right-section .nav-link:hover {
-    color: black;          /* Bootstrap primary hover color */
-    text-decoration: none;
-}
-
+        .navbar .nav-item .right-section .nav-link:hover {
+            color: black; /* Bootstrap primary hover color */
+            text-decoration: none;
+        }
     </style>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light  fixed-top shadow border-bottom">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow border-bottom">
         <div class="container-fluid justify-content-between">
 
             <!-- LEFT SECTION: Logo + Links -->
@@ -129,22 +128,24 @@
 </header>
 
 <script>
-    $(function() {
-        var current = '{{ request.get_full_path | urlencode }}';
+$(function() {
+    // Only use pathname (ignore query parameters)
+    var currentPath = window.location.pathname;
 
-        // Highlight main nav links
-        $('#topNav .nav-link').each(function() {
-            if (current == $(this).attr('href')) {
-                $(this).parent().addClass('active');
-            }
-        });
-
-        // Highlight right-section links (Profile & Logout)
-        $('.right-section .nav-link').each(function() {
-            if (current == $(this).attr('href')) {
-                $(this).css('font-weight', 'bolder'); // Make bold when active
-            }
-        });
+    // Highlight main nav links
+    $('#topNav .nav-link').each(function() {
+        var linkPath = $(this).attr('href');
+        if (currentPath.startsWith(linkPath)) {
+            $(this).parent().addClass('active');
+        }
     });
-</script>
 
+    // Highlight right-section links (Profile & Logout)
+    $('.right-section .nav-link').each(function() {
+        var linkPath = $(this).attr('href');
+        if (currentPath.startsWith(linkPath)) {
+            $(this).css('font-weight', 'bolder'); // Make bold when active
+        }
+    });
+});
+</script>
