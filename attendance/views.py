@@ -5,7 +5,7 @@ from attendance.models import Course
 from django.db.models import Min
 from .models import Student, Course
 from unicodedata import category
-from aiohttp import request
+#from aiohttp import request
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -853,20 +853,19 @@ def section_attendance_mark(request):
 @login_required
 def section_rollcall_monthly(request):
     """
-    Faculty လော့ဂ်အင်း → သူ့ course 里的 sections တွေပဲ dropdown မှာ ပြ
-    Month/year ရွေးပြီး → roll call % table ပြ
+    - Admin → can see all sections
+    - Teacher → only sections belonging to their department
     """
-    # faculty's course သတ်မှတ်ပုံ — your project ရဲ့ UserProfile model အတိုင်းပြင်ရန်
     try:
         profile = UserProfile.objects.get(user=request.user)
-        faculty_course = getattr(profile, 'course', None)
+        faculty_dept = profile.department  # 🔹 use department
     except UserProfile.DoesNotExist:
-        faculty_course = None
+        faculty_dept = None
 
-    if request.user.is_staff or request.user.is_superuser or not faculty_course:
+    if request.user.is_staff or request.user.is_superuser or not faculty_dept:
         sections = Section.objects.all().order_by('id')
     else:
-        sections = Section.objects.filter(course=faculty_course).order_by('id')
+        sections = Section.objects.filter(course__department=faculty_dept).order_by('id')
 
     section_id = request.GET.get('section')
     year = int(request.GET.get('year') or _date.today().year)
@@ -874,7 +873,7 @@ def section_rollcall_monthly(request):
     start_month = request.GET.get('start_month')
     end_month = request.GET.get('end_month')
 
-    selected_section = Section.objects.filter(id=section_id).first() if section_id else None
+    selected_section = sections.filter(id=section_id).first() if section_id else None
     results = []
 
     if selected_section:
