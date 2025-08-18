@@ -13,7 +13,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-4">
-            <img id="faculty-avatar" class="bg-gradient bg-dark img-thumbnail img-fluid" src="{% if faculty.avatar %}{{ faculty.avatar.url }}{% else %}{{ MEDIA_URL }}default/default-avatar.png{% endif %}" alt="">
+            <img id="faculty-avatar"style=" width: 200px; height: 350px; object-fit: cover;" class="bg-gradient bg-dark img-fluid" src="{% if faculty.avatar %}{{ faculty.avatar.url }}{% else %}{{ MEDIA_URL }}default/default-avatar.png{% endif %}" alt="">
         </div>
         <div class="col-md-8">
             <dl>

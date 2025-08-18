@@ -39,11 +39,12 @@
                 <input type="hidden" name="section" value="{{ selected_section.id }}">
                 <input type="hidden" name="date" value="{{ date|date:'Y-m-d' }}">
 
-                <table class="table table-bordered table-sm text-center align-middle">
+                <table class="table table-bordered table-hover table-sm text-center align-middle">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th class="text-start">Student</th>
+                            <th>Roll Number</th>
+                            <th class="text-start">Student Name</th>
                             {% if not is_admin %}
                                 {% for h in max_today|to_range %}
                                     <th>{{ h }}</th>
@@ -57,10 +58,13 @@
                         {% for s in students %}
                         <tr>
                             <td>{{ forloop.counter }}</td>
-                            <td class="text-start">{{ s }}</td>
+                            <td>YKPT - {{ s.student_code }}</td>
+                            <td class="text-start">{{ s.first_name }}</td>
                             {% if is_admin %}
                                 <td>
-                                    <input type="number" name="hours[{{ s.id }}]" value="{{ existing|get_item:s.id }}" min="0" max="{{ max_today }}">
+                                    <input type="number" name="hours[{{ s.id }}]"
+                                           value="{{ existing|get_item:s.id }}"
+                                           min="0" max="{{ max_today }}">
                                 </td>
                             {% else %}
                                 {% for h in max_today|to_range %}
@@ -74,6 +78,7 @@
                         {% endfor %}
                     </tbody>
                 </table>
+
 
                 <button class="btn btn-primary mt-3">Save Attendance</button>
             </form>
