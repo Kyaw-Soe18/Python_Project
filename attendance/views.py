@@ -38,6 +38,12 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import SectionSchedule, SectionDailyAttendance
 from attendance.models import Section, Student, UserProfile   # if these live elsewhere, change path
 from .forms import SectionScheduleForm
+
+from decimal import Decimal
+from datetime import date as _date, datetime as _datetime
+from django.shortcuts import render, redirect
+from django.contrib import messages
+
 deparment_list = Department.objects.exclude(status = 2).all()
 context = {
     'page_title' : 'Simple Blog Site',
@@ -775,7 +781,7 @@ def section_schedule_manage(request):
 @login_required
 def section_attendance_mark(request):
     """
-    Section တစ်ခုရွေးပြီး → နေ့တစ်နေ့စာ students list + number input (0..max) နဲ့ သိမ်း
+    Section attendance: faculty uses checkboxes, admin sees counts (editable numbers)
     """
 
     # --- Filter sections by user ---
@@ -812,25 +818,31 @@ def section_attendance_mark(request):
             max_today = _weekday_map(schedule).get(wk, 0)
 
     if request.method == 'POST' and selected_section:
+        # Loop through students and save attendance
         for s in students:
-            raw = (request.POST.get(f"hours[{s.id}]") or "0").strip()
-            try:
-                val = Decimal(raw)
-            except Exception:
-                val = Decimal('0')
-            if val < 0: val = Decimal('0')
+            if request.user.is_staff or request.user.is_superuser:
+                # Admin input: numeric
+                val = int(request.POST.get(f"hours[{s.id}]", 0))
+            else:
+                # Faculty input: checkboxes
+                raw_vals = request.POST.getlist(f"hours[{s.id}][]")
+                val = len(raw_vals)
+
+            if val < 0:
+                val = 0
             if max_today and val > max_today:
-                val = Decimal(str(max_today))
+                val = max_today
 
             SectionDailyAttendance.objects.update_or_create(
                 student=s, section=selected_section, date=the_date,
-                defaults={'attended_hours': val}
+                defaults={'attended_hours': Decimal(val)}
             )
+
         messages.success(request, f"Attendance saved for {selected_section} on {the_date}.")
         return redirect(f"{request.path}?section={selected_section.id}&date={the_date.strftime('%Y-%m-%d')}")
 
     existing = {
-        (a.student_id): a.attended_hours
+        a.student_id: int(a.attended_hours)
         for a in SectionDailyAttendance.objects.filter(section=selected_section, date=the_date)
     } if selected_section else {}
 
@@ -842,10 +854,9 @@ def section_attendance_mark(request):
         'schedule': schedule,
         'max_today': max_today,
         'existing': existing,
-        'page_title': 'Attendance(daily)'
+        'page_title': 'Attendance(daily)',
+        'is_admin': request.user.is_staff or request.user.is_superuser
     })
-
-
 
 # ---------- 3) Faculty: Monthly roll-call % (read-only) ----------
 @login_required
