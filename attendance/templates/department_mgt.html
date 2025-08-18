@@ -59,7 +59,7 @@
 <script>
     $(function() {
         $('#add_new').click(function() {
-            uni_modal('<i class="fa fa-plus"></i> Add Departmnet', '{% url "manage-department-modal" %}', 'modal-md')
+            uni_modal('<i class="fa fa-plus"></i> Add Department', '{% url "manage-department-modal" %}', 'modal-md')
         })
         $('.edit-data').click(function() {
             uni_modal('<i class="fa fa-edit"></i> Edit Department', '{% url "manage-department-modal" %}/' + $(this).attr('data-id'), 'modal-md')

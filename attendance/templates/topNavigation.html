@@ -96,10 +96,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'section_schedule_manage' %}">Section Schedule</a>
                         </li>
+                        {% endif %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'section_attendance_mark' %}">Attendance (Daily)</a>
                         </li>
-                        {% endif %}
+
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'section_rollcall_monthly' %}">Monthly Roll-Call %</a>
                         </li>

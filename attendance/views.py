@@ -281,7 +281,7 @@ def delete_department(request):
 @login_required
 def course(request):
     courses = Course.objects.all()
-    context['page_title'] = "Course Management"
+    context['page_title'] = "Major Management"
     context['courses'] = courses
     return render(request, 'course_mgt.html',context)
 
@@ -379,7 +379,7 @@ def delete_course(request):
 @login_required
 def faculty(request):
     user = UserProfile.objects.filter(user_type = 2).all()
-    context['page_title'] = "Faculty Management"
+    context['page_title'] = "Teacher Management"
     context['faculties'] = user
     return render(request, 'faculty_mgt.html',context)
 
@@ -506,19 +506,6 @@ def manage_class(request,pk=None):
     }
 
     return render(request, 'manage_class.html', context)
-
-@login_required
-def view_class(request, pk= None):
-    if pk is None:
-        return redirect('home-page')
-    else:
-        _class = Class.objects.filter(id=pk).first()
-        students = ClassStudent.objects.filter(classIns = _class).all()
-        context['class'] = _class
-        context['students'] = students
-        context['page_title'] = "Class Information"
-    return render(request, 'class_details.html',context)
-
 
 @login_required
 def save_class(request):
@@ -780,6 +767,7 @@ def section_schedule_manage(request):
         'sections': sections,
         'selected_section': selected_section,
         'form': form,
+        'page_title' : "Section_Schedule",
     })
 
 
@@ -846,6 +834,7 @@ def section_attendance_mark(request):
         'schedule': schedule,
         'max_today': max_today,
         'existing': existing,
+        'page_title': 'Attendance(daily)'
     })
 
 
@@ -911,4 +900,5 @@ def section_rollcall_monthly(request):
         'start_month': start_month,
         'end_month': end_month,
         'results': results,
+        'page_title': 'Monthly %',
     })

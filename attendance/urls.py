@@ -36,7 +36,6 @@ urlpatterns = [
     path(r'manage_class/<int:pk>',views.manage_class,name='edit-class-modal'),
     path(r'manage_class_student/<int:classPK>',views.manage_class_student,name='class-student-modal'),
     path('save_class_student/',views.save_class_student,name='save-class-student'),
-    path(r'view_class/<int:pk>',views.view_class,name='class-page'),
     path('save_class',views.save_class,name='save-class'),
     path('delete_class',views.delete_class,name='delete-class'),
     path('delete_class_student',views.delete_class_student,name='delete-class-student'),
