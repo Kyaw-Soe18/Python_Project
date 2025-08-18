@@ -126,7 +126,13 @@ function printReport() {
             <td style="text-align:center; padding:5px;">{{ forloop.counter }}</td>
             <td style="padding:5px;"> YKPT - {{ r.student.student_code }}</td>
             <td style="padding:5px;">{{ r.student.first_name }}</td>
-            <td style="text-align:center; padding:5px;">{% if r.percent is not None %}{{ r.percent }}%{% else %}-{% endif %}</td>
+            <td style="text-align:center; padding:5px;">
+                {% if r.percent is not None %}
+                    {{ r.percent|floatformat:0 }}%
+                {% else %}
+                    -
+                {% endif %}
+            </td>
             <td style="padding:5px;"></td>
           </tr>
         {% endfor %}
