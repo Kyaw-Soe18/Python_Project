@@ -777,8 +777,19 @@ def section_attendance_mark(request):
     """
     Section တစ်ခုရွေးပြီး → နေ့တစ်နေ့စာ students list + number input (0..max) နဲ့ သိမ်း
     """
-    # Admin/faculty 都အလုပ်လုပ်စေချင်ရင် permission လျှော့နိုင်
-    sections = Section.objects.all().order_by('id')
+
+    # --- Filter sections by user ---
+    try:
+        profile = UserProfile.objects.get(user=request.user)
+        faculty_dept = profile.department
+    except UserProfile.DoesNotExist:
+        faculty_dept = None
+
+    if request.user.is_staff or request.user.is_superuser or not faculty_dept:
+        sections = Section.objects.all().order_by('id')
+    else:
+        sections = Section.objects.filter(course__department=faculty_dept).order_by('id')
+
     section_id = request.GET.get('section') or request.POST.get('section')
     the_date_str = request.GET.get('date') or request.POST.get('date')
     the_date = _date.today()
@@ -788,20 +799,19 @@ def section_attendance_mark(request):
         except Exception:
             pass
 
-    selected_section = Section.objects.filter(id=section_id).first() if section_id else None
+    selected_section = sections.filter(id=section_id).first() if section_id else None
     students = Student.objects.none()
     max_today = 0
     schedule = None
 
     if selected_section:
-        students = Student.objects.filter(section=selected_section).order_by('id')  # ❗️ adjust field if different
+        students = Student.objects.filter(section=selected_section).order_by('id')
         schedule = getattr(selected_section, 'schedule', None)
         if schedule:
             wk = the_date.weekday()
             max_today = _weekday_map(schedule).get(wk, 0)
 
     if request.method == 'POST' and selected_section:
-        # save each student's hours (clamp to max_today)
         for s in students:
             raw = (request.POST.get(f"hours[{s.id}]") or "0").strip()
             try:
@@ -817,10 +827,8 @@ def section_attendance_mark(request):
                 defaults={'attended_hours': val}
             )
         messages.success(request, f"Attendance saved for {selected_section} on {the_date}.")
-        # stay on same page
         return redirect(f"{request.path}?section={selected_section.id}&date={the_date.strftime('%Y-%m-%d')}")
 
-    # preload existing for that day
     existing = {
         (a.student_id): a.attended_hours
         for a in SectionDailyAttendance.objects.filter(section=selected_section, date=the_date)
@@ -836,6 +844,7 @@ def section_attendance_mark(request):
         'existing': existing,
         'page_title': 'Attendance(daily)'
     })
+
 
 
 # ---------- 3) Faculty: Monthly roll-call % (read-only) ----------
