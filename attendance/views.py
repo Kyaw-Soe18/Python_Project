@@ -861,13 +861,9 @@ def section_attendance_mark(request):
 # ---------- 3) Faculty: Monthly roll-call % (read-only) ----------
 @login_required
 def section_rollcall_monthly(request):
-    """
-    - Admin → can see all sections
-    - Teacher → only sections belonging to their department
-    """
     try:
         profile = UserProfile.objects.get(user=request.user)
-        faculty_dept = profile.department  # 🔹 use department
+        faculty_dept = profile.department
     except UserProfile.DoesNotExist:
         faculty_dept = None
 
@@ -878,9 +874,11 @@ def section_rollcall_monthly(request):
 
     section_id = request.GET.get('section')
     year = int(request.GET.get('year') or _date.today().year)
-    month = request.GET.get('month')  # single month
+    month = request.GET.get('month')
     start_month = request.GET.get('start_month')
     end_month = request.GET.get('end_month')
+    min_percent = request.GET.get('min_percent')
+    max_percent = request.GET.get('max_percent')
 
     selected_section = sections.filter(id=section_id).first() if section_id else None
     results = []
@@ -888,7 +886,6 @@ def section_rollcall_monthly(request):
     if selected_section:
         studs = Student.objects.filter(section=selected_section).order_by('id')
 
-        # Determine month range
         if start_month and end_month:
             month_list = list(range(int(start_month), int(end_month) + 1))
         elif month:
@@ -905,6 +902,14 @@ def section_rollcall_monthly(request):
                 total_attended += attended
                 total_expected += expected
             percent = round((total_attended / total_expected) * 100, 2) if total_expected > 0 else None
+
+            # apply percentage filter
+            if percent is not None:
+                if min_percent and percent < float(min_percent):
+                    continue
+                if max_percent and percent > float(max_percent):
+                    continue
+
             results.append({
                 'student': s,
                 'attended': total_attended,
@@ -919,6 +924,8 @@ def section_rollcall_monthly(request):
         'month': month,
         'start_month': start_month,
         'end_month': end_month,
+        'min_percent': min_percent,
+        'max_percent': max_percent,
         'results': results,
         'page_title': 'Monthly %',
     })
