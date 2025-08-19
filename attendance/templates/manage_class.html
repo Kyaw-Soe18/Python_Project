@@ -1,107 +1,151 @@
 <div class="container-fluid">
-    <form action=" " id="class-form">
+    <form id="class-form"  action="">
         {% csrf_token %}
-        <input type="hidden" name="id" value="{{ class.id }}">
-        <div class="form-group mb-3">
-            <label for="assigned_faculty" class="control-label">Faculty</label>
-            <select name="assigned_faculty" id="assigned_faculty" class="form-select rounded-0 select2" required>
-                {% if not class.assigned_faculty %}
-                <option value="" selected></option>
-                {% else %}
-                <option value=""></option>
-                {% endif %}
-                {% for faculty in faculties %}
-                {% if class.assigned_faculty == faculty %}
-                <option value="{{ faculty.id }}" selected>{{ faculty.user.first_name }} {{ faculty.user.last_name }}</option>
-                {% else %}
-                <option value="{{ faculty.id }}">{{ faculty.user.first_name }} {{ faculty.user.last_name }}</option>
-                {% endif %}
-                {% endfor %}
-            </select>
+        <input type="hidden" name="id" value="{{ class.id|default:'' }}">
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group mb-3">
+                    <label for="assigned_faculty" class="control-label">Assigned Faculty</label>
+                    <select name="assigned_faculty" id="assigned_faculty" class="form-select rounded-0 select2" required>
+                        <option value="">Select Faculty</option>
+                        {% for f in faculties %}
+                            <option value="{{ f.id }}" {% if class.assigned_faculty and class.assigned_faculty.id == f.id %}selected{% endif %}>
+                                {{ f.user.username }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="name" class="control-label">Subject</label>
+                    <input type="text" name="name" id="name" class="form-control rounded-0" value="{{ class.name|default:'' }}" required>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="level" class="control-label">Semester</label>
+                    <input type="text" name="level" id="level" class="form-control rounded-0" value="{{ class.level|default:'' }}" required>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="school_year" class="control-label">School Year</label>
+                    <input type="text" name="school_year" id="school_year" class="form-control rounded-0" value="{{ class.school_year|default:'' }}" required>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group mb-3">
+                    <label for="course" class="control-label">Course</label>
+                    <select name="course" id="course" class="form-select rounded-0 select2" required>
+                        <option value="">Select Course</option>
+                        {% for c in courses %}
+                            <option value="{{ c.id }}" {% if class.course and class.course.id == c.id %}selected{% endif %}>{{ c.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="section" class="control-label">Section</label>
+                    <select name="section" id="section" class="form-select rounded-0 select2" required>
+                        <option value="">Select Section</option>
+                        {% if class.section %}
+                            <option value="{{ class.section.id }}" selected>{{ class.section.name }}</option>
+                        {% endif %}
+                    </select>
+                </div>
+            </div>
         </div>
 
-        <div class="form-group mb-3 ">
-            <label for="school_year" class="control-label">Select Major</label>
-            <select name="course" id="course" class="form-select rounded-0 select2" required>
-            <option value="" {% if not class.course %}selected{% endif %}>Select Major</option>
-            {% for course in courses %}
-              <option value="{{ course.id }}" {% if class.course and class.course.id == course.id %}selected{% endif %}>
-                {{ course.name }}
-              </option>
-            {% endfor %}
 
-        </select>
-        </div>
-
-
-
-
-        <div class="form-group mb-3 ">
-            <label for="school_year" class="control-label">School Year</label>
-            <input type="text" class="form-control rounded-0" id="school_year" name="school_year" value="{{ class.school_year }}" required>
-        </div>
-        <div class="form-group mb-3 ">
-            <label for="level" class="control-label">Semester</label>
-            <input type="text" class="form-control rounded-0" id="level" name="level" value="{{ class.level }}" required>
-        </div>
-        <div class="form-group mb-3 ">
-            <label for="name" class="control-label">Subject</label>
-            <input type="text" class="form-control rounded-0" id="name" name="name" value="{{ class.name }}" required>
-        </div>
     </form>
 </div>
+
 <script>
-    $(function() {
-        $('#uni_modal').on('shown.bs.modal', function() {
-            $('.select2').select2({
-                placeholder: 'Please Select Here',
-                width: '100%',
-                dropdownParent: $('#uni_modal')
-            })
-        })
-        $('#class-form').submit(function(e) {
-            e.preventDefault();
-            var _this = $(this)
-            $('.err-msg').remove();
-            var el = $('<div>')
-            el.addClass("alert alert-danger err-msg")
-            el.hide()
-            if (_this[0].checkValidity() == false) {
-                _this[0].reportValidity();
-                return false;
+$(function() {
+    // Initialize Select2 inside modal
+    $('#uni_modal').on('shown.bs.modal', function() {
+        $('.select2').select2({
+            placeholder: 'Please Select Here',
+            width: '100%',
+            dropdownParent: $('#uni_modal')
+        });
+    });
+
+    // Load sections for course selection
+    const $course = $('#course');
+    const $section = $('#section');
+
+    function loadSections(courseId, selectedSectionId = null) {
+        $section.empty().append('<option value="">Loading...</option>');
+        if (!courseId) {
+            $section.empty().append('<option value="">Select Section</option>').prop('disabled', true);
+            return;
+        }
+
+        $.ajax({
+            url: "{% url 'ajax_load_sections' %}",
+            data: { 'course_id': courseId },
+            dataType: 'json',
+            success: function(data) {
+                $section.empty().append('<option value="">Select Section</option>');
+                data.sections.forEach(function(sec) {
+                    const isSelected = selectedSectionId && selectedSectionId == sec.id ? 'selected' : '';
+                    $section.append(`<option value="${sec.id}" ${isSelected}>${sec.name}</option>`);
+                });
+                $section.prop('disabled', false);
+            },
+            error: function() {
+                $section.empty().append('<option value="">Error loading sections</option>');
             }
-            start_loader();
-            $.ajax({
-                url: "{% url 'save-class' %}",
-                data: new FormData($(this)[0]),
-                cache: false,
-                contentType: false,
-                processData: false,
-                method: 'POST',
-                type: 'POST',
-                dataType: 'json',
-                error: err => {
-                    console.log(err)
-                    alert("An error occured ", 'error');
-                    end_loader();
-                },
-                success: function(resp) {
-                    if (typeof resp == 'object' && resp.status == 'success') {
-                        el.removeClass("alert alert-danger err-msg ")
-                        location.reload()
-                    } else if (resp.status == 'failed' && !!resp.msg) {
-                        el.html(resp.msg)
-                    } else {
-                        el.text("An error occured ", 'error');
-                        end_loader();
-                        console.err(resp)
-                    }
-                    _this.prepend(el)
-                    el.show('slow')
-                    $("html, body, .modal ").scrollTop(0);
-                    end_loader()
+        });
+    }
+
+    $course.on('change', function() {
+        loadSections($(this).val());
+    });
+
+    {% if class and class.course %}
+        loadSections("{{ class.course.id }}", "{{ class.section.id|default:'' }}");
+    {% endif %}
+
+    // AJAX form submit
+    $('#class-form').submit(function(e) {
+        e.preventDefault();
+        var _this = $(this);
+        $('.err-msg').remove();
+        var el = $('<div>').addClass("alert alert-danger err-msg").hide();
+
+        if (_this[0].checkValidity() === false) {
+            _this[0].reportValidity();
+            return false;
+        }
+        start_loader();
+        $.ajax({
+            url: "{% url 'save-class' %}",
+            data: new FormData(this),
+            cache: false,
+            contentType: false,
+            processData: false,
+            method: 'POST',
+            dataType: 'json',
+            success: function(resp) {
+                if (resp.status == 'success') {
+                    location.reload();
+                } else if (resp.status == 'failed' && resp.msg) {
+                    el.html(resp.msg);
+                } else {
+                    el.text("An error occurred");
                 }
-            })
-        })
-    })
+                _this.prepend(el);
+                el.show('slow');
+                $("html, body, .modal").scrollTop(0);
+                end_loader();
+            },
+            error: function(xhr, status, error) {
+                console.error("AJAX Error:", status, error);
+                end_loader();
+            }
+        });
+    });
+});
 </script>
