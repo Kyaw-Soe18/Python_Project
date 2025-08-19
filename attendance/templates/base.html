@@ -2,6 +2,24 @@
 <html lang="en">
 
 <head>
+
+    <style>
+body {
+    background: linear-gradient(-45deg, #ffffff, #dbeafe, #e0f7fa, #f0f4ff);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+</style>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> {% if page_title %}
@@ -27,7 +45,7 @@
     {% block headerContent %} {% endblock headerContent %}
 </head>
 
-<body class=" bg bg-secondary bg-gradient bg-opacity-50">
+<body>
 
     {% block TopNavigation %} {% include "TopNavigation.html" %} {% endblock TopNavigation %}
     <main class="py-5">
