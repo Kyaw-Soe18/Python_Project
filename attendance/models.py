@@ -83,6 +83,7 @@ class Student(models.Model):
 class Class(models.Model):
     assigned_faculty = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=True)  # 👈 Add this
+    section = models.ForeignKey(Section, on_delete=models.CASCADE, null=True, blank=True)  # ✅ Add this
     school_year = models.CharField(max_length=250)
     level = models.CharField(max_length=250)
     name = models.CharField(max_length=250)
@@ -119,7 +120,8 @@ class SectionSchedule(models.Model):
         Section,
         on_delete=models.CASCADE,
         related_name='schedule',
-
+        null=True,  # <-- add this
+        blank=True  # optional for forms
     )
     monday_hours = models.PositiveSmallIntegerField(default=0)
     tuesday_hours = models.PositiveSmallIntegerField(default=0)

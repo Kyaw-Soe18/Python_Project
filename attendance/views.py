@@ -503,12 +503,14 @@ def manage_class(request,pk=None):
     unique_courses = Course.objects.filter(id__in=unique_course_ids).order_by('name')
 
     _class = Class.objects.filter(id=pk).first() if pk else {}
-
+    # All classes for listing in table, select_related to avoid extra queries
+    classes = Class.objects.select_related('assigned_faculty', 'course', 'section').all()
     context = {
         'page_title': "Manage Class",
         'faculties': faculty,
         'courses': unique_courses,
         'class': _class,
+        'classes': classes,  # ✅ send all classes
     }
 
     return render(request, 'manage_class.html', context)
@@ -523,6 +525,8 @@ def save_class(request):
         level = request.POST.get('level')
         school_year = request.POST.get('school_year')
         course_id = request.POST.get('course')
+        section_id = request.POST.get('section')  # Add this line
+
         faculty_id = request.POST.get('assigned_faculty')
 
         try:
@@ -538,6 +542,7 @@ def save_class(request):
             _class.level = level
             _class.school_year = school_year
             _class.course = course
+            _class.section = Section.objects.get(id=section_id) if section_id else None
             _class.assigned_faculty = faculty
 
             _class.save()

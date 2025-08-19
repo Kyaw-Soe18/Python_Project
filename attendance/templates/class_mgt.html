@@ -18,9 +18,11 @@
                         <col width="5%">
                         <col width="15%">
                         <col width="15%">
+                        <col width="10%">
                         <col width="15%">
+                        <col width="14%">
+                         <col width="15%">
                         <col width="15%">
-                        <col width="20%">
                     </colgroup>
                     <thead>
                         <tr class="bg-gradient bg-primary bg-opacity-50 text-light">
@@ -29,6 +31,7 @@
                             <th class="px-2 py-2 text-center">School Year</th>
                             <th class="px-2 py-2 text-center">Semester</th>
                              <th class="px-2 py-2 text-center">Major Name</th> <!-- NEW COLUMN -->
+                            <th class="px-2 py-2 text-center">Section</th> <!-- NEW COLUMN -->
                             <th class="px-2 py-2 text-center">Subject</th>
                             <th class="px-2 py-2 text-center">Action</th>
                         </tr>
@@ -46,6 +49,13 @@
                                     N/A
                                   {% endif %}
                             </td>  <!-- NEW COLUMN -->
+                            <td class="px-2 py-1 align-middle">
+                                {% if class.section %}
+                                    {{ class.section.name }}
+                                {% else %}
+                                    N/A
+                                {% endif %}
+                            </td>
                             <td class="px-2 py-1 align-middle">{{ class.name }}</td>
                             <td class="px-2 py-1 align-middle text-center">
 

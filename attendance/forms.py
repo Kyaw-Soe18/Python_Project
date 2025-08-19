@@ -198,6 +198,7 @@ class SaveClass(forms.ModelForm):
     school_year = forms.CharField(max_length=250,help_text = "School Year Field is required.")
     level = forms.CharField(max_length=250,help_text = "Level Field is required.")
     course = forms.ModelChoiceField(queryset=Course.objects.all(), empty_label=None)
+    section = forms.ModelChoiceField(queryset=Section.objects.none(), empty_label="Select a section", required=True)
     name = forms.CharField(max_length=250,help_text = "Class Name Field is required.")
 
     class Meta:
