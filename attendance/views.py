@@ -661,26 +661,18 @@ def student(request):
     context = {}
     context['page_title'] = "Student Management"
 
-    faculty_course_name = ""  # Default for JS
-
     if request.user.profile.user_type == 1:  # Admin
         students = Student.objects.select_related('course', 'section').all()
         courses = Course.objects.filter(status=1).order_by('name')
         sections = Section.objects.filter(course__in=courses).order_by('course__name', 'name')
-
     else:  # Faculty
         faculty_classes = Class.objects.filter(assigned_faculty=request.user.profile)
-        faculty_courses = Course.objects.filter(
-            id__in=faculty_classes.values_list('course_id', flat=True)
-        )
+        faculty_courses = Course.objects.filter(id__in=faculty_classes.values_list('course_id', flat=True))
+        faculty_sections = Section.objects.filter(id__in=faculty_classes.values_list('section_id', flat=True))
 
-        students = Student.objects.select_related('course', 'section').filter(course__in=faculty_courses)
+        students = Student.objects.select_related('course', 'section').filter(section__in=faculty_sections)
         courses = faculty_courses
-        sections = Section.objects.filter(course__in=faculty_courses).order_by('name')
-
-        # If faculty has one course, store its name for JS filtering
-        if faculty_courses.exists():
-            faculty_course_name = faculty_courses.first().name
+        sections = faculty_sections.order_by('name')
 
     # Build sections_by_course dict
     sections_by_course = {}
@@ -693,7 +685,6 @@ def student(request):
     context['students'] = students
     context['courses'] = courses
     context['sections_by_course'] = sections_by_course
-    context['faculty_course_name'] = faculty_course_name  # Pass to template
 
     return render(request, 'student_mgt.html', context)
 
@@ -847,10 +838,12 @@ def section_attendance_mark(request):
     except UserProfile.DoesNotExist:
         faculty_dept = None
 
-    if request.user.is_staff or request.user.is_superuser or not faculty_dept:
+    if request.user.is_staff or request.user.is_superuser:
         sections = Section.objects.all().order_by('id')
     else:
-        sections = Section.objects.filter(course__department=faculty_dept).order_by('id')
+        sections = Section.objects.filter(
+            id__in=Class.objects.filter(assigned_faculty=profile).values_list('section_id', flat=True)
+        ).order_by('id')
 
     section_id = request.GET.get('section') or request.POST.get('section')
     the_date_str = request.GET.get('date') or request.POST.get('date')
@@ -924,10 +917,12 @@ def section_rollcall_monthly(request):
     except UserProfile.DoesNotExist:
         faculty_dept = None
 
-    if request.user.is_staff or request.user.is_superuser or not faculty_dept:
+    if request.user.is_staff or request.user.is_superuser:
         sections = Section.objects.all().order_by('id')
     else:
-        sections = Section.objects.filter(course__department=faculty_dept).order_by('id')
+        sections = Section.objects.filter(
+            id__in=Class.objects.filter(assigned_faculty=profile).values_list('section_id', flat=True)
+        ).order_by('id')
 
     section_id = request.GET.get('section')
     year = int(request.GET.get('year') or _date.today().year)
