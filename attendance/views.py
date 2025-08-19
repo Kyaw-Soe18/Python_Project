@@ -621,17 +621,41 @@ def student(request):
         courses = Course.objects.filter(status=1).order_by('name')
         sections = Section.objects.filter(course__in=courses).order_by('course__name', 'name')
 
+
     else:  # Faculty
+
         faculty_classes = Class.objects.filter(assigned_faculty=request.user.profile)
+
+        # Get both courses and sections this faculty teaches
+
         faculty_courses = Course.objects.filter(
+
             id__in=faculty_classes.values_list('course_id', flat=True)
+
         )
 
-        students = Student.objects.select_related('course', 'section').filter(course__in=faculty_courses)
+        faculty_sections = Section.objects.filter(
+
+            id__in=faculty_classes.values_list('section_id', flat=True)
+
+        )
+
+        # Now filter students by BOTH course + section
+
+        students = Student.objects.select_related('course', 'section').filter(
+
+            course__in=faculty_courses,
+
+            section__in=faculty_sections
+
+        )
+
         courses = faculty_courses
-        sections = Section.objects.filter(course__in=faculty_courses).order_by('name')
+
+        sections = faculty_sections.order_by('name')
 
         # If faculty has one course, store its name for JS filtering
+
         if faculty_courses.exists():
             faculty_course_name = faculty_courses.first().name
 
