@@ -2,7 +2,7 @@
     <form action=" " id="faculty-form">
         {% csrf_token %}
         <input type="hidden" name="id" value="{{ faculty.id }}">
-        <input type="hidden" name="user_type" value="2">
+
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group mb-3">
@@ -38,6 +38,13 @@
                     <label for="address" class="control-label">Address</label>
                     <textarea rows="3" class="form-control rounded-0" name="address" id="address" required="required">{{ faculty.address }}</textarea>
                 </div>
+                <div class="form-group mb-3">
+    <label for="user_type" class="control-label">Role</label>
+    <select name="user_type" id="user_type" class="form-select rounded-0" required>
+        <option value="2" {% if faculty.user_type == 2 %}selected{% endif %}>Teacher</option>
+        <option value="3" {% if faculty.user_type == 3 %}selected{% endif %}>Coordinator</option>
+    </select>
+</div>
             </div>
             <div class="col-md-6">
                 <div class="form-group mb-3">

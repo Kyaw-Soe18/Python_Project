@@ -75,35 +75,56 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'home-page' %}">Home</a>
                         </li>
-                        {% if user.profile.user_type == 1 %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'department-page' %}">Department</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'course-page' %}">Major</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'faculty-page' %}">Faculty</a>
-                        </li>
-                        {% endif %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'class-page' %}">Class</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'student-page' %}">Students</a>
-                        </li>
-                        {% if user.profile.user_type == 1 %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'section_schedule_manage' %}">Section Schedule</a>
-                        </li>
-                        {% endif %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'section_attendance_mark' %}">Attendance (Daily)</a>
-                        </li>
+                        {# ========== ADMIN (1) ========== #}
+    {% if user.profile.user_type == 1 %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'department-page' %}">Department</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'course-page' %}">Major</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'faculty-page' %}">Faculty</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'class-page' %}">Class</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'student-page' %}">Students</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'section_schedule_manage' %}">Section Schedule</a>
+        </li>
+    {% endif %}
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'section_rollcall_monthly' %}">Monthly Roll-Call %</a>
-                        </li>
+    {# ========== TEACHER (2) ========== #}
+    {% if user.profile.user_type == 2 %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'class-page' %}">Class</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'student-page' %}">Students</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'section_attendance_mark' %}">Attendance (Daily)</a>
+        </li>
+    {% endif %}
+
+    {# ========== COORDINATOR (3) ========== #}
+    {% if user.profile.user_type == 3 %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'class-page' %}">Class</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'student-page' %}">Students</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'section_attendance_mark' %}">Attendance (Daily)</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'section_rollcall_monthly' %}">Monthly Roll-Call %</a>
+        </li>
+    {% endif %}
                     </ul>
                     {% endif %}
                 </div>
