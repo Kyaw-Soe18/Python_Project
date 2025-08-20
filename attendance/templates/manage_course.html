@@ -4,7 +4,7 @@
         <input type="hidden" name="id" value="{{ course.id|default:'' }}">
 
         <div class="form-group mb-3">
-            <label for="department" class="control-label">Department</label>
+            <label for="department" class="control-label">Faculty</label>
             <select name="department" id="department" class="form-select rounded-0 select2" required>
                 {% if not course.department %}
                 <option value="" selected></option>

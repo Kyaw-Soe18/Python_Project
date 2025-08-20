@@ -49,7 +49,7 @@ from django.db.models import Q, Min
 
 deparment_list = Department.objects.exclude(status=2).all()
 context = {
-    'page_title': 'Simple Blog Site',
+    'page_title': '',
     'deparment_list': deparment_list,
     'deparment_list_limited': deparment_list[:3]
 }
@@ -96,10 +96,16 @@ def home(request):
     context = {}
     context['page_title'] = 'Home'
 
+    # Count departments and courses
     departments = Department.objects.count()
     courses = Course.objects.count()
-    faculty = UserProfile.objects.filter(user_type=2).count()
 
+    # Count Teachers + Coordinators
+    teacher_count = UserProfile.objects.filter(user_type=2).count()
+    coordinator_count = UserProfile.objects.filter(user_type=3).count()
+    total_faculty = teacher_count + coordinator_count
+
+    # Count students and classes based on user type
     if request.user.profile.user_type == 1:
         # Admin: count everything
         students = Student.objects.count()
@@ -111,21 +117,21 @@ def home(request):
         # Get sections the faculty is assigned to
         faculty_sections = faculty_classes.values_list('section_id', flat=True).distinct()
 
-        # ✅ Only count students from those sections
+        # Only count students from those sections
         students = Student.objects.filter(section_id__in=faculty_sections).count()
 
         classes = faculty_classes.count()
 
+    # Update context
     context.update({
         'departments': departments,
         'courses': courses,
-        'faculty': faculty,
+        'faculty': total_faculty,  # <-- updated
         'students': students,
         'classes': classes,
     })
 
     return render(request, 'home.html', context)
-
 
 def registerUser(request):
     user = request.user
@@ -241,11 +247,11 @@ def update_password(request):
     return render(request, 'update_password.html', context)
 
 
-# Department
+# Faculty
 @login_required
 def department(request):
     departments = Department.objects.all()
-    context['page_title'] = "Department Management"
+    context['page_title'] = "Faculty Management"
     context['departments'] = departments
     return render(request, 'department_mgt.html', context)
 
@@ -259,7 +265,7 @@ def manage_department(request, pk=None):
         department = Department.objects.filter(id=pk).first()
     else:
         department = {}
-    context['page_title'] = "Manage Department"
+    context['page_title'] = "Manage Faculty"
     context['department'] = department
 
     return render(request, 'manage_department.html', context)
@@ -407,11 +413,11 @@ def delete_course(request):
     return HttpResponse(json.dumps(resp), content_type="application/json")
 
 
-# Faculty
+# Faculty Staff
 @login_required
 def faculty(request):
     user = UserProfile.objects.filter(Q(user_type=2) | Q(user_type=3)).all()
-    context['page_title'] = "Teacher Management"
+    context['page_title'] = "Faculty Staff Management"
     context['faculties'] = user
     return render(request, 'faculty_mgt.html', context)
 
@@ -427,7 +433,7 @@ def manage_faculty(request, pk=None):
     else:
         department = Department.objects.filter(status=1).all()
         faculty = {}
-    context['page_title'] = "Manage Faculty"
+    context['page_title'] = "Manage Faculty Staff"
     context['departments'] = department
     context['faculty'] = faculty
     return render(request, 'manage_faculty.html', context)
@@ -441,7 +447,7 @@ def view_faculty(request, pk=None):
         faculty = UserProfile.objects.filter(id=pk).first()
     else:
         faculty = {}
-    context['page_title'] = "Manage Faculty"
+    context['page_title'] = "Manage Faculty Staff"
     context['faculty'] = faculty
     return render(request, 'faculty_details.html', context)
 
@@ -835,8 +841,10 @@ def section_attendance_mark(request):
     """
     Section attendance: faculty uses checkboxes, admin sees counts (editable numbers)
     """
+    from datetime import datetime as _datetime, date as _date
+    from decimal import Decimal
+    from django.contrib import messages
 
-    # --- get profile & department safely ---
     try:
         profile = UserProfile.objects.get(user=request.user)
         faculty_dept = profile.department
@@ -844,32 +852,35 @@ def section_attendance_mark(request):
         profile = None
         faculty_dept = None
 
-    # --- Decide which sections to show ---
+    # --- Sections for filter ---
+    sections = Section.objects.none()
+    assigned_sections = Section.objects.none()
+    coordinator_sections = Section.objects.none()
+
     if request.user.is_staff or request.user.is_superuser:
-        # Admin: all sections
         sections = Section.objects.all().order_by('id')
     elif profile and profile.user_type == 3:
-        # Coordinator: sections assigned to them + all sections in their department
-        assigned_ids_qs = Class.objects.filter(
-            assigned_faculty=profile
-        ).exclude(section__isnull=True).values_list('section_id', flat=True)
-
-        dept_ids_qs = Section.objects.filter(
+        assigned_sections = Section.objects.filter(
+            id__in=Class.objects.filter(assigned_faculty=profile)
+                                 .exclude(section__isnull=True)
+                                 .values_list('section_id', flat=True)
+        ).order_by('id')
+        coordinator_sections = Section.objects.filter(
             course__department=faculty_dept
-        ).values_list('id', flat=True) if faculty_dept else []
-
-        # union of ids (remove possible None)
-        ids = set([int(x) for x in assigned_ids_qs if x]) | set([int(x) for x in dept_ids_qs if x])
-        sections = Section.objects.filter(id__in=list(ids)).order_by('id') if ids else Section.objects.none()
+        ).order_by('id') if faculty_dept else Section.objects.none()
     else:
-        # Teacher (or other non-coordinator faculty): only their assigned sections
         sections = Section.objects.filter(
-            id__in=Class.objects.filter(assigned_faculty=profile).exclude(section__isnull=True)
+            id__in=Class.objects.filter(assigned_faculty=profile)
+                                .exclude(section__isnull=True)
                                 .values_list('section_id', flat=True)
         ).order_by('id')
 
-    # --- rest of your existing logic (unchanged) ---
-    section_id = request.GET.get('section') or request.POST.get('section')
+    # --- Get selected section ---
+    section_id = request.GET.get('assigned_section') \
+                 or request.GET.get('coordinator_section') \
+                 or request.GET.get('section') \
+                 or request.POST.get('section')
+
     the_date_str = request.GET.get('date') or request.POST.get('date')
     the_date = _date.today()
     if the_date_str:
@@ -878,11 +889,34 @@ def section_attendance_mark(request):
         except Exception:
             pass
 
-    selected_section = sections.filter(id=section_id).first() if section_id else None
-    students = Student.objects.none()
-    max_today = 0
-    schedule = None
+    # --- Selected Section ---
+    selected_section = None
+    selected_assigned_section = None
+    selected_coordinator_section = None
 
+    if section_id:
+        try:
+            section_id = int(section_id)
+        except ValueError:
+            section_id = None
+
+        if profile and profile.user_type == 3:
+            # Coordinator logic: only one dropdown active at a time
+            if request.GET.get('assigned_section'):
+                selected_assigned_section = assigned_sections.filter(id=section_id).first()
+                selected_section = selected_assigned_section
+                selected_coordinator_section = None  # ignore coordinator dropdown
+            elif request.GET.get('coordinator_section'):
+                selected_coordinator_section = coordinator_sections.filter(id=section_id).first()
+                selected_section = selected_coordinator_section
+                selected_assigned_section = None  # ignore assigned dropdown
+        else:
+            selected_section = sections.filter(id=section_id).first()
+
+    # --- Get students and schedule ---
+    students = Student.objects.none()
+    schedule = None
+    max_today = 0
     if selected_section:
         students = Student.objects.filter(section=selected_section).order_by('id')
         schedule = getattr(selected_section, 'schedule', None)
@@ -890,30 +924,36 @@ def section_attendance_mark(request):
             wk = the_date.weekday()
             max_today = _weekday_map(schedule).get(wk, 0)
 
+    # --- Save attendance ---
     if request.method == 'POST' and selected_section:
-        # Loop through students and save attendance
         for s in students:
             if request.user.is_staff or request.user.is_superuser:
-                # Admin input: numeric
                 val = int(request.POST.get(f"hours[{s.id}]", 0))
             else:
-                # Faculty input: checkboxes
                 raw_vals = request.POST.getlist(f"hours[{s.id}][]")
                 val = len(raw_vals)
 
-            if val < 0:
-                val = 0
-            if max_today and val > max_today:
-                val = max_today
-
+            val = max(0, min(val, max_today))  # clamp value
             SectionDailyAttendance.objects.update_or_create(
                 student=s, section=selected_section, date=the_date,
                 defaults={'attended_hours': Decimal(val)}
             )
-
         messages.success(request, f"Attendance saved for {selected_section} on {the_date}.")
-        return redirect(f"{request.path}?section={selected_section.id}&date={the_date.strftime('%Y-%m-%d')}")
 
+        # Redirect to preserve filter
+        if profile and profile.user_type == 3:
+            if request.GET.get("assigned_section") or request.POST.get("assigned_section"):
+                section_param = f"assigned_section={selected_section.id}"
+            elif request.GET.get("coordinator_section") or request.POST.get("coordinator_section"):
+                section_param = f"coordinator_section={selected_section.id}"
+            else:
+                section_param = f"section={selected_section.id}"
+        else:
+            section_param = f"section={selected_section.id}"
+
+        return redirect(f"{request.path}?{section_param}&date={the_date.strftime('%Y-%m-%d')}")
+
+    # --- Existing attendance ---
     existing = {
         a.student_id: int(a.attended_hours)
         for a in SectionDailyAttendance.objects.filter(section=selected_section, date=the_date)
@@ -921,7 +961,11 @@ def section_attendance_mark(request):
 
     return render(request, 'section_attendance_mark.html', {
         'sections': sections,
+        'assigned_sections': assigned_sections,
+        'coordinator_sections': coordinator_sections,
         'selected_section': selected_section,
+        'selected_assigned_section': selected_assigned_section,
+        'selected_coordinator_section': selected_coordinator_section,
         'students': students,
         'date': the_date,
         'schedule': schedule,
@@ -930,8 +974,6 @@ def section_attendance_mark(request):
         'page_title': 'Attendance(daily)',
         'is_admin': request.user.is_staff or request.user.is_superuser
     })
-
-
 
 # ---------- 3) Faculty: Monthly roll-call % (read-only) ----------
 @login_required

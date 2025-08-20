@@ -17,7 +17,6 @@
                     <colgroup>
                         <col width="5%">
                         <col width="15%">
-                        <col width="15%">
                         <col width="10%">
                         <col width="13%">
                         <col width="13%">
@@ -30,10 +29,9 @@
                         <tr class="bg-gradient bg-primary bg-opacity-50 text-light">
                             <th class="px-2 py-2 text-center">#</th>
                             <th class="px-2 py-2 text-center">Teacher</th>
-                            <th class="px-2 py-2 text-center">School Year</th>
                             <th class="px-2 py-2 text-center">Semester</th>
-                            <th class="px-2 py-2 text-center">Major Name</th> <!-- NEW COLUMN -->
-                            <th class="px-2 py-2 text-center">Section</th> <!-- NEW COLUMN -->
+                            <th class="px-2 py-2 text-center">Major Name</th>
+                            <th class="px-2 py-2 text-center">Section</th>
                             <th class="px-2 py-2 text-center">Subject</th>
                             {% if user.profile.user_type == 1 %}
                             <th class="px-2 py-2 text-center">Action</th>
@@ -45,7 +43,6 @@
                         <tr>
                             <td class="px-2 py-2 align-middle">{{ class.id }}</td>
                             <td class="px-2 py-2 align-middle">{{ class.assigned_faculty.user.first_name }} {{ class.assigned_faculty.user.last_name }}</td>
-                            <td class="px-2 py-2 align-middle">{{ class.school_year }}</td>
                             <td class="px-2 py-2 align-middle">{{ class.level }}</td>
                             <td class="px-2 py-2 align-middle">
                                 {% if class.course %}

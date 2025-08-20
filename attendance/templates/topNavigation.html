@@ -10,15 +10,22 @@
             }
         }
 
-        /* Prevent wrapping of nav links */
+        .navbar {
+            padding-top: 0;   /* smaller top padding */
+            padding-bottom: 0; /* smaller bottom padding */
+        }
+
+        /* Increase nav link font size */
         .navbar .nav-link {
             white-space: nowrap;
             font-weight: 500;
+            font-size: 18px;
+            margin-right: 10px;
         }
 
-        /* Smaller logo */
+        /* Bigger logo */
         .navbar-brand img {
-            height: 50px;
+            height: 80px;
             width: auto;
             margin-left: 15px;
         }
@@ -32,7 +39,7 @@
 
         /* Bring left and right sections closer together */
         .navbar .container-fluid {
-            padding-left: 50px;
+            padding-left: 90px;
             padding-right: 50px;
         }
 
@@ -71,61 +78,61 @@
 
                 <div class="collapse navbar-collapse" id="navbarExample01">
                     {% if user.id %}
-                    <ul class="navbar-nav mb-0" id="topNav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'home-page' %}">Home</a>
-                        </li>
-                        {# ========== ADMIN (1) ========== #}
-    {% if user.profile.user_type == 1 %}
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'department-page' %}">Department</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'course-page' %}">Major</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'faculty-page' %}">Faculty</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'class-page' %}">Class</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'student-page' %}">Students</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'section_schedule_manage' %}">Section Schedule</a>
-        </li>
-    {% endif %}
+                        <ul class="navbar-nav mb-0" id="topNav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'home-page' %}">Home</a>
+                            </li>
+                            {# ========== ADMIN (1) ========== #}
+                            {% if user.profile.user_type == 1 %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'department-page' %}">Faculty</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'course-page' %}">Major</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'faculty-page' %}">Faculty Staff</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'class-page' %}">Class</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'student-page' %}">Students</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'section_schedule_manage' %}">Section Schedule</a>
+                                </li>
+                            {% endif %}
 
-    {# ========== TEACHER (2) ========== #}
-    {% if user.profile.user_type == 2 %}
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'class-page' %}">Class</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'student-page' %}">Students</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'section_attendance_mark' %}">Attendance (Daily)</a>
-        </li>
-    {% endif %}
+                            {# ========== TEACHER (2) ========== #}
+                            {% if user.profile.user_type == 2 %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'class-page' %}">Class</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'student-page' %}">Students</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'section_attendance_mark' %}">Attendance (Daily)</a>
+                                </li>
+                            {% endif %}
 
-    {# ========== COORDINATOR (3) ========== #}
-    {% if user.profile.user_type == 3 %}
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'class-page' %}">Class</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'student-page' %}">Students</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'section_attendance_mark' %}">Attendance (Daily)</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'section_rollcall_monthly' %}">Monthly Roll-Call %</a>
-        </li>
-    {% endif %}
-                    </ul>
+                            {# ========== COORDINATOR (3) ========== #}
+                            {% if user.profile.user_type == 3 %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'class-page' %}">Class</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'student-page' %}">Students</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'section_attendance_mark' %}">Attendance (Daily)</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'section_rollcall_monthly' %}">Monthly Roll-Call %</a>
+                                </li>
+                            {% endif %}
+                        </ul>
                     {% endif %}
                 </div>
             </div>
@@ -143,10 +150,9 @@
                 <a class="nav-link" href="{% url 'logout' %}">Logout</a>
             </div>
             {% endif %}
-
         </div>
     </nav>
-    <div style="height: 40px;"></div>
+    <div style="height: 50px;"></div>
 </header>
 
 <script>

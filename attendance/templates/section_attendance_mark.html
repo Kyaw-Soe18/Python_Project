@@ -12,25 +12,54 @@
     <div class="card-body">
         <!-- Filter form -->
         <form method="get" class="row g-2 mb-3">
-            <div class="col-md-4">
-                <label class="form-label">Section</label>
-                <select name="section" class="form-select" onchange="this.form.submit()">
-                    <option value="">-- choose section --</option>
-                    {% for sec in sections %}
-                        <option value="{{ sec.id }}" {% if selected_section and sec.id == selected_section.id %}selected{% endif %}>{{ sec }}</option>
-                    {% endfor %}
-                </select>
-            </div>
+            {% if user.profile.user_type == 3 %}
+                <!-- Assigned Section Filter -->
+                <div class="col-md-4">
+                    <label class="form-label">Assigned Section</label>
+                    <select name="assigned_section" id="assigned_section" class="form-select">
+                        <option value="">-- choose assigned section --</option>
+                        {% for sec in assigned_sections %}
+                            <option value="{{ sec.id }}" {% if selected_assigned_section and sec.id == selected_assigned_section.id %}selected{% endif %}>{{ sec }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Coordinator Section Filter -->
+                <div class="col-md-4">
+                    <label class="form-label">Coordinator Section</label>
+                    <select name="coordinator_section" id="coordinator_section" class="form-select">
+                        <option value="">-- choose coordinator section --</option>
+                        {% for sec in coordinator_sections %}
+                            <option value="{{ sec.id }}" {% if selected_coordinator_section and sec.id == selected_coordinator_section.id %}selected{% endif %}>{{ sec }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            {% else %}
+                <!-- For Admins/Teachers keep the old single filter -->
+                <div class="col-md-4">
+                    <label class="form-label">Section</label>
+                    <select name="section" class="form-select" onchange="this.form.submit()">
+                        <option value="">-- choose section --</option>
+                        {% for sec in sections %}
+                            <option value="{{ sec.id }}" {% if selected_section and sec.id == selected_section.id %}selected{% endif %}>{{ sec }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            {% endif %}
+
+            <!-- Date Filter -->
             <div class="col-md-3">
                 <label class="form-label">Date</label>
-                <input type="date" name="date" class="form-control" value="{{ date|date:'Y-m-d' }}" onchange="this.form.submit()">
+                <input type="date" name="date" class="form-control"
+                       value="{{ date|date:'Y-m-d' }}">
             </div>
         </form>
 
         {% if selected_section %}
             {% if schedule %}
                 <div class="alert alert-info">
-                    <strong>Today's Max Hours:</strong> {{ max_today }}
+                    <strong>Today's Max Hours:</strong> {{ max_today }} &nbsp; | &nbsp;
+                    <strong>Day:</strong> {{ date|date:"l" }}
                 </div>
             {% endif %}
 
@@ -79,10 +108,26 @@
                     </tbody>
                 </table>
 
-
                 <button class="btn btn-primary mt-3">Save Attendance</button>
             </form>
         {% endif %}
     </div>
 </div>
 {% endblock pageContent %}
+
+{% block ScriptBlock %}
+<script>
+$(function() {
+    $('#assigned_section').change(function() {
+        // Reset coordinator section
+        $('#coordinator_section').val('');
+        this.form.submit();
+    });
+    $('#coordinator_section').change(function() {
+        // Reset assigned section
+        $('#assigned_section').val('');
+        this.form.submit();
+    });
+});
+</script>
+{% endblock ScriptBlock %}

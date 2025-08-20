@@ -3,7 +3,7 @@
     <div class="card card-default rounded-0 shadow ">
         <div class="card-header">
             <div class="d-flex w-100 align-items-center justify-content-between">
-                <h4 class="card-title fw-bold">Department Management</h4>
+                <h4 class="card-title fw-bold">Faculty Management</h4>
                 <div class="tools">
                     <button type="button" class="btn btn-primary rounded-0 bg-gradient btn-sm" id='add_new'><i class="fa fa-plus"></i> Add New</button>
                 </div>
@@ -59,13 +59,13 @@
 <script>
     $(function() {
         $('#add_new').click(function() {
-            uni_modal('<i class="fa fa-plus"></i> Add Department', '{% url "manage-department-modal" %}', 'modal-md')
+            uni_modal('<i class="fa fa-plus"></i> Add Faculty', '{% url "manage-department-modal" %}', 'modal-md')
         })
         $('.edit-data').click(function() {
-            uni_modal('<i class="fa fa-edit"></i> Edit Department', '{% url "manage-department-modal" %}/' + $(this).attr('data-id'), 'modal-md')
+            uni_modal('<i class="fa fa-edit"></i> Edit Faculty', '{% url "manage-department-modal" %}/' + $(this).attr('data-id'), 'modal-md')
         })
         $('.delete-data').click(function() {
-            _conf("Are you sure to delete this department permanently?", "delete_department", [$(this).attr('data-id')])
+            _conf("Are you sure to delete this Faculty permanently?", "delete_department", [$(this).attr('data-id')])
         })
 
         $('#department-list').DataTable({
