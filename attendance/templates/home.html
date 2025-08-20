@@ -86,23 +86,30 @@
 
         <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
             <div class="card rounded-0 shadow border-dark text-start summary-card my-3">
-                <div class="card-body">
-                    <div class="d-flex w-100">
-                        <div class="col-8 pe-2">
-                            <a href="{% url 'student-page' %}" style="color:black">
-                                <div class="summary-title fs-5 border-bottom">Total Student</div>
-                            <div class="summary-count text-end fw-bolder mt-3 px-4">{{ students|intcomma }}</div>
-                            </a>
-                        </div>
-                        <div class="col-4">
-                            <div class="summary-icon p-3 rounded border text-center  bg-gradient bg-dark text-light">
-                                <i class="fa fa-user-friends fs-2"></i>
+            <div class="card-body">
+                <div class="d-flex w-100">
+                    <div class="col-8 pe-2">
+                        <a href="{% url 'student-page' %}" style="color:black">
+                            <div class="summary-title fs-5 border-bottom">
+                                {% if user.profile.user_type == 1 %}
+                                    Total Students
+                                {% else %}
+                                    Total Students
+                                {% endif %}
                             </div>
+                            <div class="summary-count text-end fw-bolder mt-3 px-4">{{ students|intcomma }}</div>
+                        </a>
+                    </div>
+                    <div class="col-4">
+                        <div class="summary-icon p-3 rounded border text-center bg-gradient bg-dark text-light">
+                            <i class="fa fa-user-friends fs-2"></i>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+    </div>
+</div>
+
     </div>
 
 </section>

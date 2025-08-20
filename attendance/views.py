@@ -91,33 +91,38 @@ def logoutuser(request):
     logout(request)
     return redirect('/')
 
-
 @login_required
 def home(request):
+    context = {}
     context['page_title'] = 'Home'
+
     departments = Department.objects.count()
     courses = Course.objects.count()
     faculty = UserProfile.objects.filter(user_type=2).count()
 
     if request.user.profile.user_type == 1:
-        # Admin
+        # Admin: count everything
         students = Student.objects.count()
         classes = Class.objects.count()
     else:
-        # Faculty logic that matches student view
+        # Faculty (teacher/coordinator)
         faculty_classes = Class.objects.filter(assigned_faculty=request.user.profile)
-        faculty_courses = faculty_classes.values_list('course_id', flat=True).distinct()
 
-        # ✅ EXACTLY like your student() view logic:
-        students = Student.objects.filter(course_id__in=faculty_courses).count()
+        # Get sections the faculty is assigned to
+        faculty_sections = faculty_classes.values_list('section_id', flat=True).distinct()
+
+        # ✅ Only count students from those sections
+        students = Student.objects.filter(section_id__in=faculty_sections).count()
 
         classes = faculty_classes.count()
 
-    context['departments'] = departments
-    context['courses'] = courses
-    context['faculty'] = faculty
-    context['students'] = students
-    context['classes'] = classes
+    context.update({
+        'departments': departments,
+        'courses': courses,
+        'faculty': faculty,
+        'students': students,
+        'classes': classes,
+    })
 
     return render(request, 'home.html', context)
 
@@ -949,7 +954,11 @@ def section_rollcall_monthly(request):
     month = request.GET.get('month')
     start_month = request.GET.get('start_month')
     end_month = request.GET.get('end_month')
-    min_percent = request.GET.get('min_percent')
+    min_percent = request.GET.get('min_percent', 0)  # default 0
+    try:
+        min_percent = int(min_percent)
+    except (TypeError, ValueError):
+        min_percent = 0
     max_percent = request.GET.get('max_percent')
 
     selected_section = sections.filter(id=section_id).first() if section_id else None

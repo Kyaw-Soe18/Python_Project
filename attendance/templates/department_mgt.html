@@ -31,15 +31,15 @@
                     <tbody>
                         {% for department in departments %}
                         <tr>
-                            <td class="px-2 py-1 align-middle">{{ department.id }}</td>
-                            <td class="px-2 py-1 align-middle">{{ department.name }}</td>
-                            <td class="px-2 py-1 align-middle">{{ department.description }}</td>
-                            <td class="px-2 py-1 align-middle text-center">
+                            <td class="px-2 py-2 align-middle">{{ department.id }}</td>
+                            <td class="px-2 py-2 align-middle">{{ department.name }}</td>
+                            <td class="px-2 py-2 align-middle">{{ department.description }}</td>
+                            <td class="px-2 py-2 align-middle text-center">
                                 {% if department.status == 1 %}
                                 <span class="badge bg-primary rounded-pill px-3">Active</span> {% else %}
                                 <span class="badge bg-secondary rounded-pill px-3">Inactive</span> {% endif %}
                             </td>
-                            <td class="px-2 py-1 align-middle text-center">
+                            <td class="px-2 py-2 align-middle text-center">
                                 <a class="btn btn-outline-primary btn-sm edit-data" href="javascript:void(0)" data-id="{{ department.pk }}" title="Edit">
                                     <i class="fa fa-edit"></i>
                                 </a>

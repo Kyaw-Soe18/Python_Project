@@ -14,10 +14,10 @@
                 <table class="table table-bordered" id="faculty-list">
                     <colgroup>
                         <col width="5%">
-                        <col width="20%">
-                        <col width="20%">
-                        <col width="20%">
-                        <col width="20%">
+                        <col width="30%">
+                        <col width="15%">
+                        <col width="15%">
+                        <col width="15%">
                         <col width="20%">
                     </colgroup>
                     <thead>
@@ -33,21 +33,21 @@
                     <tbody>
                         {% for faculty in faculties %}
                         <tr>
-                            <td class="px-2 py-1 align-middle">{{ faculty.id }}</td>
-                            <td class="px-2 py-1 align-middle">{{ faculty.department }}</td>
-                            <td class="px-2 py-1 align-middle">{{ faculty.user.first_name }} {{ faculty.user.last_name }}</td>
-                            <td class="px-2 py-1 align-middle">{{ faculty.user.email }}</td>
+                            <td class="px-2 py-2 align-middle">{{ faculty.id }}</td>
+                            <td class="px-2 py-2 align-middle">{{ faculty.department }}</td>
+                            <td class="px-2 py-2 align-middle">{{ faculty.user.first_name }} {{ faculty.user.last_name }}</td>
+                            <td class="px-2 py-2 align-middle">{{ faculty.user.email }}</td>
                              <!-- ✅ Role column -->
-        <td class="px-2 py-1 align-middle">
-            {% if faculty.user_type == 2 %}
-                Teacher
-            {% elif faculty.user_type == 3 %}
-                Coordinator
-            {% else %}
-                Unknown
-            {% endif %}
-        </td>
-                            <td class="px-2 py-1 align-middle text-center">
+                            <td class="px-2 py-2 align-middle">
+                                {% if faculty.user_type == 2 %}
+                                    Teacher
+                                {% elif faculty.user_type == 3 %}
+                                    Coordinator
+                                {% else %}
+                                    Unknown
+                                {% endif %}
+                            </td>
+                            <td class="px-2 py-2 align-middle text-center">
                                 <a class="btn btn-outline-info btn-sm view-data" href="javascript:void(0)" data-url="{% url 'view-faculty-modal' faculty.pk %}" title="View Details">
                                     <i class="fa fa-eye"></i>
                                 </a>

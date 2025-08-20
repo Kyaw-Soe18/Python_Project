@@ -76,7 +76,7 @@
                             <td class="px-2 py-2 align-middle">YKPT - {{ student.student_code }}</td>
                             <td class="px-2 py-2 align-middle">{{ student.first_name }} </td>
                             <td class="px-2 py-2 align-middle">{{ student.course.name }}</td>
-                             <td class="px-2 py-2 align-middle">
+                            <td class="px-2 py-2 align-middle">
                                   {% if student.section %}
                                     {{ student.section.name }}
                                   {% else %}
@@ -108,23 +108,31 @@
 {% endblock pageContent %} {% block ScriptBlock %}
 <script>
 $(function() {
+    // Add student button
     $('#add_new').click(function() {
         uni_modal('<i class="fa fa-plus"></i> Add Student', '{% url "manage-student-modal" %}', 'modal-lg')
-    })
+    });
+
+    // View student details
     $('.view-data').click(function() {
         uni_modal('<i class="fa fa-eye"></i> Student Details', $(this).attr('data-url'))
-    })
+    });
+
+    // Edit student
     $('.edit-data').click(function () {
         const studentId = $(this).data('id');
         const url = "{% url 'edit-student-modal' 0 %}".replace('0', studentId);
         uni_modal('<i class="fa fa-edit"></i> Edit Student', url, 'modal-lg');
-    })
+    });
+
+    // Delete student
     $('.delete-data').click(function() {
         _conf("Are you sure to delete this Student permanently?", "delete_student", [$(this).attr('data-id')])
-    })
+    });
 
+    // DataTable setup
     const dataTable = $('#student-list').DataTable({
-        columnDefs: [{ orderable: false, targets: 5 }],
+        columnDefs: [{ orderable: false, targets: 5 }], // disable sort on Action column
         initComplete: function() {
             $('table td, table th').addClass('px-2 py-1')
         },
@@ -133,23 +141,31 @@ $(function() {
         }
     });
 
+    // ===================== Faculty Filter =====================
     {% if user.profile.user_type == 2 %}
-        // Faculty mode: lock course to SE
+        // Faculty locked to their course
         const facultyCourseName = "{{ faculty_course_name|escapejs }}";
         if (facultyCourseName) {
-            dataTable.column(2).search(facultyCourseName).draw();
+            // Column 3 = Major
+            dataTable.column(3).search(facultyCourseName).draw();
         }
+
+        // Section filter for faculty (Column 4 = Section)
         $('#sectionFilter').on('change', function() {
-            dataTable.column(3).search(this.value).draw();
+            dataTable.column(4).search(this.value).draw();
         });
+
+    // ===================== Admin Filter =====================
     {% else %}
-        // Admin mode: dynamic course + section filtering
         const sectionsByCourse = {{ sections_by_course|safe }};
+
+        // Course filter (Column 3 = Major)
         $('#courseFilter').on('change', function() {
             const selectedCourse = $(this).val();
             const $sectionFilter = $('#sectionFilter');
 
             $sectionFilter.empty().append('<option value="">All Sections</option>');
+
             if (selectedCourse && sectionsByCourse[selectedCourse]) {
                 sectionsByCourse[selectedCourse].forEach(function(sectionName) {
                     $sectionFilter.append(`<option value="${sectionName}">${sectionName}</option>`);
@@ -158,16 +174,18 @@ $(function() {
             } else {
                 $sectionFilter.prop('disabled', true);
             }
-            dataTable.column(2).search(selectedCourse).draw();
+
+            // Filter by course (major column index = 3)
+            dataTable.column(3).search(selectedCourse).draw();
             $sectionFilter.val('');
-            dataTable.column(3).search('').draw();
+            dataTable.column(4).search('').draw();
         });
 
+        // Section filter (Column 4 = Section)
         $('#sectionFilter').on('change', function() {
-            dataTable.column(3).search(this.value).draw();
+            dataTable.column(4).search(this.value).draw();
         });
     {% endif %}
 });
-
 </script>
 {% endblock ScriptBlock %}

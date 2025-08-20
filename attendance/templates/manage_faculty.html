@@ -85,10 +85,10 @@
                 {% endif %}
                 <div class="form-group mb-3">
                     <label for="avatar" class="control-label">User Avatar</label>
-                    <input type="file" class="form-control rounded-0" name="avatar" id="avatar" onchange="DisplayImage(this)" accept="images/*" {% if not faculty.id %}required="required" {% endif %}>
+                    <input type="file" class="form-control rounded-0" name="avatar" id="avatar" onchange="DisplayImage(this)" accept="images/*" {% if not faculty.id %} {% endif %}>
                 </div>
                 <div class="form-group mb-3 text-center">
-                    <img src="{% if faculty.avatar %}{{ faculty.avatar.url }}{% else %}{{ MEDIA_URL }}default/default-icon.png{% endif %}" class="img-fluid img-thumbnail bg-gradient bg-dark h-25 w-100" id="user-avatar-modal" alt="">
+                    <img src="{% if faculty.avatar %}{{ faculty.avatar.url }}{% else %}{{ MEDIA_URL }}default/default-icon.png{% endif %}" class="img-fluid img-thumbnail bg-gradient bg-dark w-100" id="user-avatar-modal" alt="">
                 </div>
             </div>
         </div>
