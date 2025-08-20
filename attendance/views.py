@@ -831,20 +831,39 @@ def section_attendance_mark(request):
     Section attendance: faculty uses checkboxes, admin sees counts (editable numbers)
     """
 
-    # --- Filter sections by user ---
+    # --- get profile & department safely ---
     try:
         profile = UserProfile.objects.get(user=request.user)
         faculty_dept = profile.department
     except UserProfile.DoesNotExist:
+        profile = None
         faculty_dept = None
 
+    # --- Decide which sections to show ---
     if request.user.is_staff or request.user.is_superuser:
+        # Admin: all sections
         sections = Section.objects.all().order_by('id')
+    elif profile and profile.user_type == 3:
+        # Coordinator: sections assigned to them + all sections in their department
+        assigned_ids_qs = Class.objects.filter(
+            assigned_faculty=profile
+        ).exclude(section__isnull=True).values_list('section_id', flat=True)
+
+        dept_ids_qs = Section.objects.filter(
+            course__department=faculty_dept
+        ).values_list('id', flat=True) if faculty_dept else []
+
+        # union of ids (remove possible None)
+        ids = set([int(x) for x in assigned_ids_qs if x]) | set([int(x) for x in dept_ids_qs if x])
+        sections = Section.objects.filter(id__in=list(ids)).order_by('id') if ids else Section.objects.none()
     else:
+        # Teacher (or other non-coordinator faculty): only their assigned sections
         sections = Section.objects.filter(
-            id__in=Class.objects.filter(assigned_faculty=profile).values_list('section_id', flat=True)
+            id__in=Class.objects.filter(assigned_faculty=profile).exclude(section__isnull=True)
+                                .values_list('section_id', flat=True)
         ).order_by('id')
 
+    # --- rest of your existing logic (unchanged) ---
     section_id = request.GET.get('section') or request.POST.get('section')
     the_date_str = request.GET.get('date') or request.POST.get('date')
     the_date = _date.today()
@@ -908,6 +927,7 @@ def section_attendance_mark(request):
     })
 
 
+
 # ---------- 3) Faculty: Monthly roll-call % (read-only) ----------
 @login_required
 def section_rollcall_monthly(request):
@@ -917,12 +937,12 @@ def section_rollcall_monthly(request):
     except UserProfile.DoesNotExist:
         faculty_dept = None
 
-    if request.user.is_staff or request.user.is_superuser:
+    if request.user.is_staff or request.user.is_superuser or getattr(profile, 'is_coordinator', False):
+        # Admins and coordinators see all sections
         sections = Section.objects.all().order_by('id')
     else:
-        sections = Section.objects.filter(
-            id__in=Class.objects.filter(assigned_faculty=profile).values_list('section_id', flat=True)
-        ).order_by('id')
+        # Regular faculty sees only their department sections
+        sections = Section.objects.filter(course__department=faculty_dept).order_by('id')
 
     section_id = request.GET.get('section')
     year = int(request.GET.get('year') or _date.today().year)

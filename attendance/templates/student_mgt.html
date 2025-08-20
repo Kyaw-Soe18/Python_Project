@@ -63,27 +63,27 @@
                         <tr class="bg-gradient bg-primary bg-opacity-50 text-light">
                             <th class="px-2 py-2 text-center">#</th>
                             <th class="px-2 py-2 text-center">Roll No.</th>
+                            <th class="px-2 py-2 text-center">Name</th>
                             <th class="px-2 py-2 text-center">Major Name</th>
                             <th class="px-2 py-2 text-center">Section</th>  <!-- New column -->
-                            <th class="px-2 py-2 text-center">Name</th>
                             <th class="px-2 py-2 text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for student in students %}
                         <tr>
-                            <td class="px-2 py-1 align-middle">{{ student.id }}</td>
-                            <td class="px-2 py-1 align-middle">YKPT - {{ student.student_code }}</td>
-                            <td class="px-2 py-1 align-middle">{{ student.course.name }}</td>
-                             <td class="px-2 py-1 align-middle">
+                            <td class="px-2 py-2 align-middle">{{ student.id }}</td>
+                            <td class="px-2 py-2 align-middle">YKPT - {{ student.student_code }}</td>
+                            <td class="px-2 py-2 align-middle">{{ student.first_name }} </td>
+                            <td class="px-2 py-2 align-middle">{{ student.course.name }}</td>
+                             <td class="px-2 py-2 align-middle">
                                   {% if student.section %}
                                     {{ student.section.name }}
                                   {% else %}
                                     N/A
                                   {% endif %}
                             </td>
-                            <td class="px-2 py-1 align-middle">{{ student.first_name }} </td>
-                            <td class="px-2 py-1 align-middle text-center">
+                            <td class="px-2 py-2 align-middle text-center">
                                 <a class="btn btn-outline-info btn-sm view-data" href="javascript:void(0)" data-url="{% url 'view-student-modal' student.pk %}" title="View Details">
                                     <i class="fa fa-eye"></i>
                                 </a>
