@@ -13,9 +13,16 @@
         <!-- Filter form -->
         <form method="get" class="row g-2 mb-3">
             {% if user.profile.user_type == 3 %}
+                <!-- Date Filter -->
+                <div class="col-md-3">
+                    <label class="form-label fw-bold">Date</label>
+                    <input type="date" name="date" class="form-control"
+                           value="{{ date|date:'Y-m-d' }}">
+                </div>
+
                 <!-- Assigned Section Filter -->
                 <div class="col-md-4">
-                    <label class="form-label">Assigned Section</label>
+                    <label class="form-label fw-bold">Assigned Section</label>
                     <select name="assigned_section" id="assigned_section" class="form-select">
                         <option value="">-- choose assigned section --</option>
                         {% for sec in assigned_sections %}
@@ -26,7 +33,7 @@
 
                 <!-- Coordinator Section Filter -->
                 <div class="col-md-4">
-                    <label class="form-label">Coordinator Section</label>
+                    <label class="form-label fw-bold">Coordinator Section</label>
                     <select name="coordinator_section" id="coordinator_section" class="form-select">
                         <option value="">-- choose coordinator section --</option>
                         {% for sec in coordinator_sections %}
@@ -37,7 +44,7 @@
             {% else %}
                 <!-- For Admins/Teachers keep the old single filter -->
                 <div class="col-md-4">
-                    <label class="form-label">Section</label>
+                    <label class="form-label fw-bold">Section</label>
                     <select name="section" class="form-select" onchange="this.form.submit()">
                         <option value="">-- choose section --</option>
                         {% for sec in sections %}
@@ -46,13 +53,6 @@
                     </select>
                 </div>
             {% endif %}
-
-            <!-- Date Filter -->
-            <div class="col-md-3">
-                <label class="form-label">Date</label>
-                <input type="date" name="date" class="form-control"
-                       value="{{ date|date:'Y-m-d' }}">
-            </div>
         </form>
 
         {% if selected_section %}
@@ -71,7 +71,7 @@
                 <table class="table table-bordered table-hover table-sm text-center align-middle">
                     <thead>
                         <tr>
-                            <th>#</th>
+                            <th>No.</th>
                             <th>Roll Number</th>
                             <th class="text-start">Student Name</th>
                             {% if not is_admin %}
@@ -107,8 +107,7 @@
                         {% endfor %}
                     </tbody>
                 </table>
-
-                <button class="btn btn-primary mt-3">Save Attendance</button>
+                <button class="btn btn-primary mt-2">Save Attendance</button>
             </form>
         {% endif %}
     </div>

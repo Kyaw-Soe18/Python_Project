@@ -3,7 +3,7 @@
 
 <head>
 
-    <style>
+<style>
 body {
     background: linear-gradient(-45deg, #ffffff, #dbeafe, #e0f7fa, #f0f4ff);
     background-size: 400% 400%;
@@ -11,6 +11,12 @@ body {
     min-height: 100vh;
     margin: 0;
     font-family: 'Poppins', sans-serif;
+}
+
+body.login-page {
+    background: url("{{ MEDIA_URL }}default/ucsy_bg1.jpg") no-repeat center center fixed;
+    background-size: cover;
+    animation: none;
 }
 
 @keyframes gradientBG {
@@ -45,7 +51,7 @@ body {
     {% block headerContent %} {% endblock headerContent %}
 </head>
 
-<body>
+<body class="{% if request.resolver_match.url_name == 'login' %}login-page{% endif %}">
 
     {% block TopNavigation %} {% include "TopNavigation.html" %} {% endblock TopNavigation %}
     <main class="py-5">
@@ -179,5 +185,4 @@ body {
     <script src="{% static 'assets/select2/dist/js/select2.full.js' %}"></script>
 </body>
 
-</html><!-- FORCE CHANGE BY LEE -->
-<!-- test change -->
+</html>

@@ -15,7 +15,7 @@
              <div class="table-responsive" style="max-height: 60vh; overflow-y: auto;">
              {% if user.profile.user_type == 1 %}
                     <!-- Admin: Course + Section filters -->
-                    <div class="row mb-3">
+                    <div class="row mb-3 w-100">
                         <div class="col-md-3">
                             <label for="courseFilter" class="form-label fw-bold">Filter by Major:</label>
                             <select id="courseFilter" class="form-select form-select">
@@ -52,16 +52,16 @@
 
                 <table class="table table-bordered" id="student-list">
                     <colgroup>
-                        <col width="5%">
+                        <col width="8%">
                         <col width="15%">
                         <col width="20%">
+                        <col width="17%">
                         <col width="20%">
-                        <col width="20%">
-                        <col width="20%">
+                        <col width="15%">
                     </colgroup>
                     <thead>
                         <tr class="bg-gradient bg-primary bg-opacity-50 text-light">
-                            <th class="px-2 py-2 text-center">#</th>
+                            <th class="px-2 py-2 text-center">No.</th>
                             <th class="px-2 py-2 text-center">Roll No.</th>
                             <th class="px-2 py-2 text-center">Name</th>
                             <th class="px-2 py-2 text-center">Major Name</th>

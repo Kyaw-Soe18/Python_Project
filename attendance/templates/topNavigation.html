@@ -157,13 +157,15 @@
 
 <script>
 $(function() {
-    // Only use pathname (ignore query parameters)
     var currentPath = window.location.pathname;
 
     // Highlight main nav links
     $('#topNav .nav-link').each(function() {
         var linkPath = $(this).attr('href');
-        if (currentPath.startsWith(linkPath)) {
+
+        // Exact match for Home ("/"), otherwise use startsWith
+        if ((linkPath === "/" && currentPath === "/") ||
+            (linkPath !== "/" && currentPath.startsWith(linkPath))) {
             $(this).parent().addClass('active');
         }
     });
@@ -172,8 +174,9 @@ $(function() {
     $('.right-section .nav-link').each(function() {
         var linkPath = $(this).attr('href');
         if (currentPath.startsWith(linkPath)) {
-            $(this).css('font-weight', 'bolder'); // Make bold when active
+            $(this).css('font-weight', 'bolder');
         }
     });
 });
 </script>
+
