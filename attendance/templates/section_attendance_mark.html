@@ -17,7 +17,8 @@
                 <div class="col-md-3">
                     <label class="form-label fw-bold">Date</label>
                     <input type="date" name="date" class="form-control"
-                           value="{{ date|date:'Y-m-d' }}">
+                           value="{{ date|date:'Y-m-d' }}"
+                           onchange="this.form.submit()">
                 </div>
 
                 <!-- Assigned Section Filter -->
@@ -26,7 +27,12 @@
                     <select name="assigned_section" id="assigned_section" class="form-select">
                         <option value="">-- choose assigned section --</option>
                         {% for sec in assigned_sections %}
-                            <option value="{{ sec.id }}" {% if selected_assigned_section and sec.id == selected_assigned_section.id %}selected{% endif %}>{{ sec }}</option>
+                            <option value="{{ sec.id }}"
+                                {% if selected_assigned_section and sec.id == selected_assigned_section.id %}
+                                    selected
+                                {% endif %}>
+                                {{ sec }}
+                            </option>
                         {% endfor %}
                     </select>
                 </div>
@@ -37,7 +43,12 @@
                     <select name="coordinator_section" id="coordinator_section" class="form-select">
                         <option value="">-- choose coordinator section --</option>
                         {% for sec in coordinator_sections %}
-                            <option value="{{ sec.id }}" {% if selected_coordinator_section and sec.id == selected_coordinator_section.id %}selected{% endif %}>{{ sec }}</option>
+                            <option value="{{ sec.id }}"
+                                {% if selected_coordinator_section and sec.id == selected_coordinator_section.id %}
+                                    selected
+                                {% endif %}>
+                                {{ sec }}
+                            </option>
                         {% endfor %}
                     </select>
                 </div>
@@ -48,9 +59,22 @@
                     <select name="section" class="form-select" onchange="this.form.submit()">
                         <option value="">-- choose section --</option>
                         {% for sec in sections %}
-                            <option value="{{ sec.id }}" {% if selected_section and sec.id == selected_section.id %}selected{% endif %}>{{ sec }}</option>
+                            <option value="{{ sec.id }}"
+                                {% if selected_section and sec.id == selected_section.id %}
+                                    selected
+                                {% endif %}>
+                                {{ sec }}
+                            </option>
                         {% endfor %}
                     </select>
+                </div>
+
+                <!-- Date Filter -->
+                <div class="col-md-3">
+                    <label class="form-label fw-bold">Date</label>
+                    <input type="date" name="date" class="form-control"
+                           value="{{ date|date:'Y-m-d' }}"
+                           onchange="this.form.submit()">
                 </div>
             {% endif %}
         </form>
@@ -125,6 +149,10 @@ $(function() {
     $('#coordinator_section').change(function() {
         // Reset assigned section
         $('#assigned_section').val('');
+        this.form.submit();
+    });
+    // If date changes, just submit the form without resetting sections
+    $('input[name="date"]').change(function() {
         this.form.submit();
     });
 });
