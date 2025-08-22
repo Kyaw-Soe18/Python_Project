@@ -87,77 +87,119 @@ main {
 
 {% block ScriptBlock %} {% endblock ScriptBlock %}
 
-<!--Footer-->
+<!-- Footer -->
 <footer class="bg-light text-lg-start">
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
         © {% now 'Y' %} Copyright Attendance Management System
     </div>
 </footer>
-    <script>
-        const loader = $('<div>')
-        loader.attr('id', 'pre-loader')
-        loader.html('<div class="lds-default"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>')
 
-        window.start_loader = function() {
-            $('body').removeClass('loading')
-            if ($('#pre-loader').length > 0)
-                $('#pre-loader').remove();
-            $('body').append(loader)
-            $('body').addClass('loading')
-        }
-        window.end_loader = function() {
-            if ($('#pre-loader').length > 0)
-                $('#pre-loader').remove();
-            $('body').removeClass('loading')
-        }
-        window.uni_modal = function($title = '', $url = '', $size = "") {
-            start_loader()
-            $.ajax({
-                url: $url,
-                error: err => {
-                    console.log()
-                    alert("An error occurred")
-                },
-                success: function(resp) {
-                    if (resp) {
-                        $('#uni_modal .modal-title').html($title)
-                        $('#uni_modal .modal-body').html(resp)
-                        if ($size != '') {
-                            $('#uni_modal .modal-dialog').addClass($size + '  modal-dialog-centered')
-                        } else {
-                            $('#uni_modal .modal-dialog').removeAttr("class").addClass("modal-dialog modal-md modal-dialog-centered")
-                        }
-                        $('#uni_modal').modal({
-                            backdrop: 'static',
-                            keyboard: false,
-                            focus: true
-                        })
-                        $('#uni_modal').modal('show')
-                        end_loader()
-                    }
+<!-- Universal Modal -->
+<div class="modal fade" id="uni_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Content loaded via AJAX -->
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" id="modal-save-btn">Save</button>
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Confirmation Modal -->
+<div class="modal fade" id="confirm_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <!-- Confirmation message -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary rounded-0" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger rounded-0" id="confirm">Continue</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+const loader = $('<div>')
+loader.attr('id', 'pre-loader')
+loader.html('<div class="lds-default"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>')
+
+window.start_loader = function() {
+    $('body').removeClass('loading')
+    if ($('#pre-loader').length > 0)
+        $('#pre-loader').remove();
+    $('body').append(loader)
+    $('body').addClass('loading')
+}
+window.end_loader = function() {
+    if ($('#pre-loader').length > 0)
+        $('#pre-loader').remove();
+    $('body').removeClass('loading')
+}
+window.uni_modal = function($title = '', $url = '', $size = "") {
+    start_loader()
+    $.ajax({
+        url: $url,
+        error: err => {
+            console.log(err)
+            alert("An error occurred")
+        },
+        success: function(resp) {
+            if (resp) {
+                $('#uni_modal .modal-title').html($title)
+                $('#uni_modal .modal-body').html(resp)
+                if ($size != '') {
+                    $('#uni_modal .modal-dialog').addClass($size + ' modal-dialog-centered')
+                } else {
+                    $('#uni_modal .modal-dialog').removeAttr("class").addClass("modal-dialog modal-md modal-dialog-centered")
                 }
-            })
-        }
-        window._conf = function($msg = '', $func = '', $params = []) {
-            $('#confirm_modal #confirm').attr('onclick', $func + "(" + $params.join(',') + ")")
-            $('#confirm_modal .modal-body').html($msg)
-            $('#confirm_modal').modal('show')
-        }
-        $(function() {
-            if ($('.redirect-msg').length > 0) {
-                setTimeout(() => {
-                    $('.redirect-msg').hide('slideUp')
-                    setTimeout(() => {
-                        $('.redirect-msg').remove()
-                    }, 500)
-                }, 3500)
+                $('#uni_modal').modal({
+                    backdrop: 'static',
+                    keyboard: false,
+                    focus: true
+                })
+                $('#uni_modal').modal('show')
+                end_loader()
             }
+        }
+    })
+}
 
-        })
-    </script>
+// Save button submits any form inside modal
+$(document).on('click', '#modal-save-btn', function() {
+    var form = $('#uni_modal').find('form');
+    if(form.length){
+        form.submit();
+    }
+});
 
+window._conf = function($msg = '', $func = '', $params = []) {
+    $('#confirm_modal #confirm').attr('onclick', $func + "(" + $params.join(',') + ")")
+    $('#confirm_modal .modal-body').html($msg)
+    $('#confirm_modal').modal('show')
+}
 
-    <script src="{% static 'assets/select2/dist/js/select2.full.js' %}"></script>
+$(function() {
+    if ($('.redirect-msg').length > 0) {
+        setTimeout(() => {
+            $('.redirect-msg').hide('slideUp')
+            setTimeout(() => {
+                $('.redirect-msg').remove()
+            }, 500)
+        }, 3500)
+    }
+})
+</script>
+
+<script src="{% static 'assets/select2/dist/js/select2.full.js' %}"></script>
 </body>
-
 </html>
