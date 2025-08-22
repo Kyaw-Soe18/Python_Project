@@ -16,7 +16,7 @@
 
   <form method="get" class="row g-2 mb-3">
     <div class="col-md-4">
-      <label class="form-label">Section</label>
+      <label class="form-label fw-bold">Section</label>
       <select id="sectionSelect" name="section" class="form-select">
         {% for sec in sections %}
           <option value="{{ sec.id }}" data-course="{{ sec.course.name }}"
@@ -27,27 +27,27 @@
       </select>
     </div>
     <div class="col-md-2">
-      <label class="form-label">Year</label>
+      <label class="form-label fw-bold">Year</label>
       <input id="yearInput" type="number" class="form-control" name="year" value="{{ year }}">
     </div>
     <div class="col-md-2">
-      <label class="form-label">Month</label>
+      <label class="form-label fw-bold">Month</label>
       <input id="monthInput" type="number" class="form-control" name="month" value="{{ month }}" min="1" max="12">
     </div>
     <div class="col-md-2">
-      <label class="form-label">Start Month</label>
+      <label class="form-label fw-bold">Start Month</label>
       <input type="number" class="form-control" name="start_month" value="{{ start_month }}" min="1" max="12">
     </div>
     <div class="col-md-2">
-      <label class="form-label">End Month</label>
+      <label class="form-label fw-bold">End Month</label>
       <input type="number" class="form-control" name="end_month" value="{{ end_month }}" min="1" max="12">
     </div>
     <div class="col-md-2">
-      <label class="form-label">Min %</label>
+      <label class="form-label fw-bold">Min %</label>
       <input type="number" class="form-control" name="min_percent" value="{{ min_percent|default:0 }}" min="0" max="100">
     </div>
     <div class="col-md-2">
-      <label class="form-label">Max %</label>
+      <label class="form-label  fw-bold">Max %</label>
       <input type="number" class="form-control" name="max_percent" value="{{ max_percent }}" min="0" max="100">
     </div>
     <div class="col-md-2 align-self-end">

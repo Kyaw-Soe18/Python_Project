@@ -9,8 +9,8 @@ from attendance.models import ClassStudent, UserProfile, Department, Course, Stu
 from .models import Section
 from .models import SectionSchedule
 class UserRegistration(UserCreationForm):
-    email = forms.EmailField(max_length=250,help_text="The email field is required.")
-    first_name = forms.CharField(max_length=250,help_text="The First Name field is required.")
+    email = forms.EmailField(max_length=250,help_text="The Email field is required.")
+    first_name = forms.CharField(max_length=250,help_text="The Name field is required.")
 
 
     class Meta:
@@ -37,7 +37,7 @@ class UserRegistration(UserCreationForm):
 class UpdateFaculty(UserChangeForm):
     username = forms.CharField(max_length=250,help_text="The username field is required.")
     email = forms.EmailField(max_length=250,help_text="The email field is required.")
-    first_name = forms.CharField(max_length=250,help_text="The First Name field is required.")
+    first_name = forms.CharField(max_length=250,help_text="The Name field is required.")
 
 
     class Meta:
@@ -68,7 +68,7 @@ class UpdateFaculty(UserChangeForm):
 class UpdateProfile(forms.ModelForm):
     username = forms.CharField(max_length=250,help_text="The Username field is required.")
     email = forms.EmailField(max_length=250,help_text="The Email field is required.")
-    first_name = forms.CharField(max_length=250,help_text="The First Name field is required.")
+    first_name = forms.CharField(max_length=250,help_text="The Name field is required.")
     current_password = forms.CharField(max_length=250)
 
     class Meta:
@@ -99,16 +99,16 @@ class UpdateProfile(forms.ModelForm):
 class UpdateProfileMeta(forms.ModelForm):
     dob = forms.DateField(help_text="The Birthday field is required.")
     contact = forms.CharField(max_length=250,help_text="The Contact field is required.")
-    address = forms.CharField(help_text="The Contact field is required.")
+    address = forms.CharField(help_text="The Address field is required.")
 
     class Meta:
         model = UserProfile
         fields = ('dob', 'contact', 'address','gender','department','avatar')
 
 class UpdatePasswords(PasswordChangeForm):
-    old_password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control form-control-sm rounded-0'}), label="Old Password")
-    new_password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control form-control-sm rounded-0'}), label="New Password")
-    new_password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control form-control-sm rounded-0'}), label="Confirm New Password")
+    old_password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}), label="Old Password")
+    new_password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}), label="New Password")
+    new_password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}), label="Confirm New Password")
     class Meta:
         model = User
         fields = ('old_password','new_password1', 'new_password2')

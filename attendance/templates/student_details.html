@@ -2,13 +2,6 @@
     #uni_modal .modal-footer {
         display: none
     }
-    
-    #student-avatar {
-        width: 100%;
-        max-height: 20vh;
-        object-fit: scale-down;
-        object-position: center center;
-    }
 </style>
 <div class="container-fluid">
     <div class="row">
@@ -24,7 +17,7 @@
                 <dd class="ps-3">{{ student.contact }}</dd>
                 <dt class="text-muted">Faculty:</dt>
                 <dd class="ps-3">{{ student.course.department }}</dd>
-                <dt class="text-muted">Course:</dt>
+                <dt class="text-muted">Major:</dt>
                 <dd class="ps-3">{{ student.course }}</dd>
             </dl>
         </div>
