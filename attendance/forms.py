@@ -37,7 +37,7 @@ class UserRegistration(UserCreationForm):
 class UpdateFaculty(UserChangeForm):
     username = forms.CharField(max_length=250,help_text="The username field is required.")
     email = forms.EmailField(max_length=250,help_text="The email field is required.")
-    first_name = forms.CharField(max_length=250,help_text="The First Name field is required.")
+    first_name = forms.CharField(max_length=250,help_text="The Name field is required.")
 
 
     class Meta:
@@ -68,7 +68,7 @@ class UpdateFaculty(UserChangeForm):
 class UpdateProfile(forms.ModelForm):
     username = forms.CharField(max_length=250,help_text="The Username field is required.")
     email = forms.EmailField(max_length=250,help_text="The Email field is required.")
-    first_name = forms.CharField(max_length=250,help_text="The First Name field is required.")
+    first_name = forms.CharField(max_length=250,help_text="The Name field is required.")
     current_password = forms.CharField(max_length=250)
 
     class Meta:
@@ -99,7 +99,7 @@ class UpdateProfile(forms.ModelForm):
 class UpdateProfileMeta(forms.ModelForm):
     dob = forms.DateField(help_text="The Birthday field is required.")
     contact = forms.CharField(max_length=250,help_text="The Contact field is required.")
-    address = forms.CharField(help_text="The Contact field is required.")
+    address = forms.CharField(help_text="The Address field is required.")
 
     class Meta:
         model = UserProfile
@@ -153,7 +153,7 @@ class SaveDepartment(forms.ModelForm):
                  department = Department.objects.get(name = self.cleaned_data['name'])
         except:
             return self.cleaned_data['name']
-        raise forms.ValidationError(f'{department.name} Department Already Exists.')
+        raise forms.ValidationError(f'{department.name} Faculty Already Exists.')
 
 class SaveCourse(forms.ModelForm):
     department = forms.ModelChoiceField(queryset=Department.objects.all(), empty_label=None)
@@ -196,7 +196,7 @@ class SaveCourse(forms.ModelForm):
 class SaveClass(forms.ModelForm):
     assigned_faculty = forms.IntegerField()
     school_year = forms.CharField(max_length=250,help_text = "School Year Field is required.")
-    level = forms.CharField(max_length=250,help_text = "Level Field is required.")
+    level = forms.CharField(max_length=250,help_text = "Semester Field is required.")
     course = forms.ModelChoiceField(queryset=Course.objects.all(), empty_label=None)
     section = forms.ModelChoiceField(queryset=Section.objects.none(), empty_label="Select a section", required=True)
     name = forms.CharField(max_length=250,help_text = "Class Name Field is required.")

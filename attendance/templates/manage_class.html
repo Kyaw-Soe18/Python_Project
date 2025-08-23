@@ -11,7 +11,7 @@
                         <option value="">Select Faculty</option>
                         {% for f in faculties %}
                             <option value="{{ f.id }}" {% if class.assigned_faculty and class.assigned_faculty.id == f.id %}selected{% endif %}>
-                                {{ f.user.username }}
+                                {{ f.user.first_name }}
                             </option>
                         {% endfor %}
                     </select>
