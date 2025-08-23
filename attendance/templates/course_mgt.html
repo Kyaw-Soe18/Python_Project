@@ -76,7 +76,7 @@
             uni_modal('<i class="fa fa-edit"></i> Edit Course', '{% url "manage-course-modal" %}/' + $(this).attr('data-id'), 'modal-md')
         })
         $('.delete-data').click(function() {
-            _conf("Are you sure to delete this course permanently?", "delete_course", [$(this).attr('data-id')])
+            _conf("Are you sure to delete this Course permanently?", "delete_course", [$(this).attr('data-id')])
         })
 
         $('#course-list').DataTable({
