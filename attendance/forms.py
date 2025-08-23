@@ -9,8 +9,8 @@ from attendance.models import ClassStudent, UserProfile, Department, Course, Stu
 from .models import Section
 from .models import SectionSchedule
 class UserRegistration(UserCreationForm):
-    email = forms.EmailField(max_length=250,help_text="The email field is required.")
-    first_name = forms.CharField(max_length=250,help_text="The First Name field is required.")
+    email = forms.EmailField(max_length=250,help_text="The Email field is required.")
+    first_name = forms.CharField(max_length=250,help_text="The Name field is required.")
 
 
     class Meta:
@@ -106,9 +106,9 @@ class UpdateProfileMeta(forms.ModelForm):
         fields = ('dob', 'contact', 'address','gender','department','avatar')
 
 class UpdatePasswords(PasswordChangeForm):
-    old_password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control form-control-sm rounded-0'}), label="Old Password")
-    new_password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control form-control-sm rounded-0'}), label="New Password")
-    new_password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control form-control-sm rounded-0'}), label="Confirm New Password")
+    old_password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}), label="Old Password")
+    new_password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}), label="New Password")
+    new_password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}), label="Confirm New Password")
     class Meta:
         model = User
         fields = ('old_password','new_password1', 'new_password2')

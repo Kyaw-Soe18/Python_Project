@@ -286,7 +286,7 @@ def save_department(request):
     if form.is_valid():
         form.save()
         resp['status'] = 'success'
-        messages.success(request, 'Department has been saved successfully')
+        messages.success(request, 'Faculty has been saved successfully')
     else:
         for field in form:
             for error in field.errors:
@@ -306,7 +306,7 @@ def delete_department(request):
             department = Department.objects.filter(id=id).first()
             department.delete()
             resp['status'] = 'success'
-            messages.success(request, 'Department has been deleted successfully.')
+            messages.success(request, 'Faculty has been deleted successfully.')
         except Exception as e:
             raise print(e)
     return HttpResponse(json.dumps(resp), content_type="application/json")
@@ -495,7 +495,7 @@ def save_faculty(request):
                 saved_profile.save()
 
                 resp['status'] = 'success'
-                messages.success(request, 'Faculty has been saved successfully.')
+                messages.success(request, 'Faculty Staff has been saved successfully.')
             else:
                 # Rollback user if profile fails
                 if not profile:
