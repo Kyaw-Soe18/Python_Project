@@ -91,25 +91,25 @@
                 {% csrf_token %}
                 <input type="hidden" name="section" value="{{ selected_section.id }}">
                 <input type="hidden" name="date" value="{{ date|date:'Y-m-d' }}">
-
-                <table class="table table-bordered table-hover table-sm text-center align-middle">
+                <div class="table-responsive" style="max-height: 60vh; overflow-y: auto;">
+                    <table class="table table-bordered table-hover table-sm text-center align-middle">
                     <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>Roll Number</th>
-                            <th class="text-start">Student Name</th>
+                        <tr class="fs-6">
+                            <th class="fw-bold">No.</th>
+                            <th class="fw-bold">Roll Number</th>
+                            <th class="text-start fw-bold">Student Name</th>
                             {% if not is_admin %}
                                 {% for h in max_today|to_range %}
-                                    <th>{{ h }}</th>
+                                    <th class="fw-bold">{{ h }}</th>
                                 {% endfor %}
                             {% else %}
-                                <th>Hours Attended</th>
+                                <th class="fw-bold">Hours Attended</th>
                             {% endif %}
                         </tr>
                     </thead>
                     <tbody>
                         {% for s in students %}
-                        <tr>
+                        <tr style="font-size: 15px;">
                             <td>{{ forloop.counter }}</td>
                             <td>YKPT - {{ s.student_code }}</td>
                             <td class="text-start">{{ s.first_name }}</td>
@@ -131,6 +131,7 @@
                         {% endfor %}
                     </tbody>
                 </table>
+                </div>
                 <button class="btn btn-primary mt-2">Save Attendance</button>
             </form>
         {% endif %}

@@ -22,16 +22,16 @@
                     </colgroup>
                     <thead>
                         <tr class="bg-gradient bg-primary bg-opacity-50 text-light">
-                            <th class="px-2 py-2 text-center">No.</th>
-                            <th class="px-2 py-2 text-center">Name</th>
-                            <th class="px-2 py-2 text-center">Description</th>
-                            <th class="px-2 py-2 text-center">Status</th>
-                            <th class="px-2 py-2 text-center">Action</th>
+                            <th class="px-2 py-2 text-center fw-bold">No.</th>
+                            <th class="px-2 py-2 text-center fw-bold">Name</th>
+                            <th class="px-2 py-2 text-center fw-bold">Description</th>
+                            <th class="px-2 py-2 text-center fw-bold">Status</th>
+                            <th class="px-2 py-2 text-center fw-bold">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for department in departments %}
-                        <tr>
+                        <tr style="font-size: 15px;">
                             <td class="px-2 py-2 align-middle">{{ department.id }}</td>
                             <td class="px-2 py-2 align-middle">{{ department.name }}</td>
                             <td class="px-2 py-2 align-middle">{{ department.description }}</td>

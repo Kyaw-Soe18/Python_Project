@@ -28,14 +28,14 @@
                 </div>
 
                 <div class="form-group mb-3">
-                    <label for="school_year" class="control-label fw-bold fs-6">School Year</label>
+                    <label for="school_year" class="control-label fw-bold fs-6">Academic Year</label>
                     <input type="text" name="school_year" id="school_year" placeholder="Enter school year" class="form-control rounded-0" value="{{ class.school_year|default:'' }}" required>
                 </div>
             </div>
 
             <div class="col-md-6">
                 <div class="form-group mb-3">
-                    <label for="course" class="control-label fw-bold fs-6">Course</label>
+                    <label for="course" class="control-label fw-bold fs-6">Major</label>
                     <select name="course" id="course" class="form-select rounded-0 select2" required>
                         <option value="">Select Course</option>
                         {% for c in courses %}

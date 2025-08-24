@@ -72,7 +72,7 @@
                     </thead>
                     <tbody>
                       {% for r in results %}
-                        <tr class="fs-6" style="{% if r.percent is not None and r.percent < 75 %}background-color: #ff9999;{% endif %}">
+                        <tr style="{% if r.percent is not None and r.percent < 75 %}background-color: #ff9999;font-size: 15px;{% endif %}">
                           <td>{{ forloop.counter }}</td>
                           <td> YKPT - {{ r.student.student_code }}</td>
                           <td>{{ r.student.first_name }}</td>
