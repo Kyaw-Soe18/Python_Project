@@ -1,5 +1,4 @@
-{% extends 'base.html' %}
-{% block pageContent %}
+{% extends 'base.html' %} {% block pageContent %}
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="card card-default rounded-0 shadow ">
         <div class="card-header">
@@ -111,9 +110,7 @@
         </div>
     </div>
 </div>
-{% endblock pageContent %}
-
-{% block ScriptBlock %}
+{% endblock pageContent %} {% block ScriptBlock %}
 <script>
 $(function() {
     // Add student button
@@ -195,44 +192,5 @@ $(function() {
         });
     {% endif %}
 });
-
-// ✅ Added delete_student function
-function delete_student($id) {
-    start_loader();
-    var _this = $(this)
-    $('.err-msg').remove();
-    var el = $('<div>')
-    el.addClass("alert alert-danger err-msg")
-    el.hide()
-    $.ajax({
-        url: '{% url "delete-student" %}',
-        headers: {
-            'X-CSRFToken': "{{csrf_token}}"
-        },
-        method: 'POST',
-        data: {
-            id: $id
-        },
-        dataType: 'json',
-        error: err => {
-            console.log(err)
-            el.text('An error occurred.')
-            el.show('slow')
-            end_loader()
-        },
-        success: function(resp) {
-            if (resp.status == 'success') {
-                location.reload()
-            } else if (!!resp.msg) {
-                el.text(resp.msg)
-                el.show('slow')
-            } else {
-                el.text('An error occurred.')
-                el.show('slow')
-            }
-            end_loader()
-        }
-    })
-}
 </script>
 {% endblock ScriptBlock %}
