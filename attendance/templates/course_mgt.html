@@ -22,18 +22,18 @@
                         <col width="15%">
                     </colgroup>
                     <thead>
-                        <tr class="bg-gradient bg-primary bg-opacity-50 text-light">
-                            <th class="px-2 py-2 text-center">No.</th>
-                            <th class="px-2 py-2 text-center">Faculty</th>
-                            <th class="px-2 py-2 text-center">Major Name</th>
-                            <th class="px-2 py-2 text-center">Section</th>
-                            <th class="px-2 py-2 text-center">Status</th>
-                            <th class="px-2 py-2 text-center">Action</th>
+                        <tr class="bg-gradient bg-primary bg-opacity-50 text-light fs-6">
+                            <th class="px-2 py-2 text-center fw-bold">No.</th>
+                            <th class="px-2 py-2 text-center fw-bold">Faculty</th>
+                            <th class="px-2 py-2 text-center fw-bold">Major Name</th>
+                            <th class="px-2 py-2 text-center fw-bold">Section</th>
+                            <th class="px-2 py-2 text-center fw-bold">Status</th>
+                            <th class="px-2 py-2 text-center fw-bold">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for course in courses %}
-                        <tr>
+                        <tr class="fs-6">
                             <td class="px-2 py-2 align-middle">{{ course.id }}</td>
                             <td class="px-2 py-2 align-middle">{{ course.department }}</td>
                             <td class="px-2 py-2 align-middle">{{ course.name }}</td>

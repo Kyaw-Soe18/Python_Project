@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group mb-3">
-                    <label for="assigned_faculty" class="control-label">Assigned Teacher</label>
+                    <label for="assigned_faculty" class="control-label fw-bold fs-6">Assigned Teacher</label>
                     <select name="assigned_faculty" id="assigned_faculty" class="form-select rounded-0 select2" required>
                         <option value="">Select Faculty</option>
                         {% for f in faculties %}
@@ -18,24 +18,24 @@
                 </div>
 
                 <div class="form-group mb-3">
-                    <label for="name" class="control-label">Subject</label>
-                    <input type="text" name="name" id="name" class="form-control rounded-0" value="{{ class.name|default:'' }}" required>
+                    <label for="name" class="control-label fw-bold fs-6">Subject</label>
+                    <input type="text" name="name" id="name" placeholder="Enter subject" class="form-control rounded-0" value="{{ class.name|default:'' }}" required>
                 </div>
 
                 <div class="form-group mb-3">
-                    <label for="level" class="control-label">Semester</label>
-                    <input type="text" name="level" id="level" class="form-control rounded-0" value="{{ class.level|default:'' }}" required>
+                    <label for="level" class="control-label fw-bold fs-6">Semester</label>
+                    <input type="text" name="level" id="level" placeholder="Enter semester" class="form-control rounded-0" value="{{ class.level|default:'' }}" required>
                 </div>
 
                 <div class="form-group mb-3">
-                    <label for="school_year" class="control-label">School Year</label>
-                    <input type="text" name="school_year" id="school_year" class="form-control rounded-0" value="{{ class.school_year|default:'' }}" required>
+                    <label for="school_year" class="control-label fw-bold fs-6">School Year</label>
+                    <input type="text" name="school_year" id="school_year" placeholder="Enter school year" class="form-control rounded-0" value="{{ class.school_year|default:'' }}" required>
                 </div>
             </div>
 
             <div class="col-md-6">
                 <div class="form-group mb-3">
-                    <label for="course" class="control-label">Course</label>
+                    <label for="course" class="control-label fw-bold fs-6">Course</label>
                     <select name="course" id="course" class="form-select rounded-0 select2" required>
                         <option value="">Select Course</option>
                         {% for c in courses %}
@@ -45,7 +45,7 @@
                 </div>
 
                 <div class="form-group mb-3">
-                    <label for="section" class="control-label">Section</label>
+                    <label for="section" class="control-label fw-bold fs-6">Section</label>
                     <select name="section" id="section" class="form-select rounded-0 select2" required>
                         <option value="">Select Section</option>
                         {% if class.section %}

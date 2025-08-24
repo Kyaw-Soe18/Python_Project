@@ -6,12 +6,12 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group mb-3">
-                    <label for="first_name" class="control-label">Name</label>
-                    <input type="text" class="form-control rounded-0" name="first_name" id="first_name" value="{{ faculty.user.first_name }}" required="required">
+                    <label for="first_name" class="control-label  fw-bold fs-6">Name</label>
+                    <input type="text" class="form-control rounded-0" name="first_name" id="first_name" placeholder="Enter name" value="{{ faculty.user.first_name }}" required="required">
                 </div>
 
                 <div class="form-group mb-3">
-                    <label for="gender" class="control-label">Gender</label>
+                    <label for="gender" class="control-label fw-bold fs-6">Gender</label>
                     <select name="gender" id="gender" class="form-select rounded-0" required>
                         {% if faculty.gender == 'Male' %}
                         <option selected>Male</option>
@@ -27,19 +27,19 @@
                     </select>
                 </div>
                 <div class="form-group mb-3">
-                    <label for="dob" class="control-label">Birthdate</label>
-                    <input type="date" class="form-control rounded-0" name="dob" id="dob" value="{{ faculty.dob|date:'Y-m-d' }}" required="required">
+                    <label for="dob" class="control-label fw-bold fs-6">Birthdate</label>
+                    <input type="date" class="form-control rounded-0" name="dob" id="dob" placeholder="Enter birthdate" value="{{ faculty.dob|date:'Y-m-d' }}" required="required">
                 </div>
                 <div class="form-group mb-3">
-                    <label for="contact" class="control-label">Contact</label>
-                    <input type="text" class="form-control rounded-0" name="contact" id="contact" value="{{ faculty.contact }}" required="required">
+                    <label for="contact" class="control-label fw-bold fs-6">Contact</label>
+                    <input type="text" class="form-control rounded-0" name="contact" id="contact" placeholder="Enter phone number" value="{{ faculty.contact }}" required="required">
                 </div>
                 <div class="form-group mb-3">
-                    <label for="address" class="control-label">Address</label>
-                    <textarea rows="3" class="form-control rounded-0" name="address" id="address" required="required">{{ faculty.address }}</textarea>
+                    <label for="address" class="control-label fw-bold fs-6">Address</label>
+                    <textarea rows="3" class="form-control rounded-0" name="address" id="address" placeholder="Enter address" required="required">{{ faculty.address }}</textarea>
                 </div>
                 <div class="form-group mb-3">
-    <label for="user_type" class="control-label">Role</label>
+    <label for="user_type" class="control-label fw-bold fs-6">Role</label>
     <select name="user_type" id="user_type" class="form-select rounded-0" required>
         <option value="2" {% if faculty.user_type == 2 %}selected{% endif %}>Teacher</option>
         <option value="3" {% if faculty.user_type == 3 %}selected{% endif %}>Course_Coordinator</option>
@@ -48,7 +48,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group mb-3">
-                    <label for="department" class="control-label">Faculty</label>
+                    <label for="department" class="control-label fw-bold fs-6">Faculty</label>
                     <select name="department" id="department" class="form-select rounded-0 select2" required>
                         {% if not faculty.department %}
                         <option disabled selected></option>
@@ -66,25 +66,25 @@
                     </select>
                 </div>
                 <div class="form-group mb-3">
-                    <label for="email" class="control-label">Email</label>
-                    <input type="email" class="form-control rounded-0" name="email" id="email" value="{{ faculty.user.email }}" required="required">
+                    <label for="email" class="control-label fw-bold fs-6">Email</label>
+                    <input type="email" class="form-control rounded-0" name="email" id="email" placeholder="Enter email" value="{{ faculty.user.email }}" required="required">
                 </div>
                 <div class="form-group mb-3">
-                    <label for="username" class="control-label">Username</label>
-                    <input type="text" class="form-control rounded-0" name="username" id="username" value="{{ faculty.user.username }}" required="required">
+                    <label for="username" class="control-label fw-bold fs-6">Username</label>
+                    <input type="text" class="form-control rounded-0" name="username" id="username" placeholder="Enter username" value="{{ faculty.user.username }}" required="required">
                 </div>
                 {% if not faculty %}
                 <div class="form-group mb-3">
-                    <label for="password1" class="control-label">{% if faculty.id %}New {% endif %}Password</label>
+                    <label for="password1" class="control-label fw-bold fs-6">{% if faculty.id %}New {% endif %}Password</label>
                     <input type="password" class="form-control rounded-0" name="password1" id="password1" {% if not faculty.id %}required="required" {% endif %}>
                 </div>
                 <div class="form-group mb-3">
-                    <label for="password2" class="control-label">Confirm {% if faculty.id %}New {% endif %}Password</label>
+                    <label for="password2" class="control-label fw-bold fs-6">Confirm {% if faculty.id %}New {% endif %}Password</label>
                     <input type="password" class="form-control rounded-0" name="password2" id="password2" {% if not faculty.id %}required="required" {% endif %}>
                 </div>
                 {% endif %}
                 <div class="form-group mb-3">
-                    <label for="avatar" class="control-label">User Avatar</label>
+                    <label for="avatar" class="control-label fw-bold fs-6">User Avatar</label>
                     <input type="file" class="form-control rounded-0" name="avatar" id="avatar" onchange="DisplayImage(this)" accept="images/*" {% if not faculty.id %} {% endif %}>
                 </div>
                 <div class="form-group mb-3 text-center">

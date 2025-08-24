@@ -27,21 +27,21 @@
                         {% endif %}
                     </colgroup>
                     <thead>
-                        <tr class="bg-gradient bg-primary bg-opacity-50 text-light">
-                            <th class="px-2 py-2 text-center">No.</th>
-                            <th class="px-2 py-2 text-center">Teacher</th>
-                            <th class="px-2 py-2 text-center">Semester</th>
-                            <th class="px-2 py-2 text-center">Major Name</th>
-                            <th class="px-2 py-2 text-center">Section</th>
-                            <th class="px-2 py-2 text-center">Subject</th>
+                        <tr class="bg-gradient bg-primary bg-opacity-50 text-light fs-6">
+                            <th class="px-2 py-2 text-center fw-bold">No.</th>
+                            <th class="px-2 py-2 text-center fw-bold">Teacher</th>
+                            <th class="px-2 py-2 text-center fw-bold">Semester</th>
+                            <th class="px-2 py-2 text-center fw-bold">Major Name</th>
+                            <th class="px-2 py-2 text-center fw-bold">Section</th>
+                            <th class="px-2 py-2 text-center fw-bold">Subject</th>
                             {% if user.profile.user_type == 1 %}
-                            <th class="px-2 py-2 text-center">Action</th>
+                            <th class="px-2 py-2 text-center fw-bold">Action</th>
                             {% endif %}
                         </tr>
                     </thead>
                     <tbody>
                         {% for class in classes %}
-                        <tr>
+                        <tr class="fs-6">
                             <td class="px-2 py-2 align-middle">{{ class.id }}</td>
                             <td class="px-2 py-2 align-middle">{{ class.assigned_faculty.user.first_name }} {{ class.assigned_faculty.user.last_name }}</td>
                             <td class="px-2 py-2 align-middle">{{ class.level }}</td>

@@ -58,30 +58,33 @@
   {% if selected_section %}
     {% if results %}
       <div id="printArea">
-        <table class="table table-bordered table-hover table-sm">
-          <thead>
-            <tr>
-              <th>No.</th>
-              <th>Roll Number</th>
-              <th>Student Name</th>
-              <th>Attended</th>
-              <th>Expected</th>
-              <th>Roll Call%</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for r in results %}
-              <tr style="{% if r.percent is not None and r.percent < 75 %}background-color: #ff9999;{% endif %}">
-                <td>{{ forloop.counter }}</td>
-                <td> YKPT - {{ r.student.student_code }}</td>
-                <td>{{ r.student.first_name }}</td>
-                <td>{{ r.attended }}</td>
-                <td>{{ r.expected }}</td>
-                <td>{% if r.percent is not None %}{{ r.percent }}%{% else %}-{% endif %}</td>
-              </tr>
-            {% endfor %}
-          </tbody>
-        </table>
+        <div class="table-responsive" style="max-height: 60vh; overflow-y: auto;">
+                  <table class="table table-bordered table-hover table-sm">
+                    <thead>
+                      <tr class="fs-6">
+                        <th class="fw-bold">No.</th>
+                        <th class="fw-bold">Roll Number</th>
+                        <th class="fw-bold">Student Name</th>
+                        <th class="fw-bold">Attended</th>
+                        <th class="fw-bold">Expected</th>
+                        <th class="fw-bold">Roll Call%</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for r in results %}
+                        <tr class="fs-6" style="{% if r.percent is not None and r.percent < 75 %}background-color: #ff9999;{% endif %}">
+                          <td>{{ forloop.counter }}</td>
+                          <td> YKPT - {{ r.student.student_code }}</td>
+                          <td>{{ r.student.first_name }}</td>
+                          <td>{{ r.attended }}</td>
+                          <td>{{ r.expected }}</td>
+                          <td>{% if r.percent is not None %}{{ r.percent }}%{% else %}-{% endif %}</td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+        </div>
+
       </div>
     {% else %}
       <div class="alert alert-info">No data for selected month(s)/year.</div>

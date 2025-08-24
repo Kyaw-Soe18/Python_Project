@@ -4,7 +4,7 @@
         <div class="col-lg-7 col-md-10 col-sm-12 col-xs-12">
             <div class="card shadow rounded-0">
                 <div class="card-header">
-                    <div class="h5 card-title fw-bold">My Profile</div>
+                    <div class="h4 card-title fw-bold">My Profile</div>
                 </div>
                 <div class="card-body">
                     <div class="container-fluid">
@@ -15,18 +15,18 @@
                             </div>
                             <div class="col-md-8">
                                 <dl>
-                                    <dt class="text-muted">Fullname</dt>
-                                    <dd class="ps-4">{{ user.first_name }}</dd>
-                                    <dt class="text-muted">Birthday</dt>
-                                    <dd class="ps-4">{{ user.profile.dob|date:"F d, Y" }}</dd>
-                                    <dt class="text-muted">Contact #</dt>
-                                    <dd class="ps-4">{{ user.profile.contact }}</dd>
-                                    <dt class="text-muted">Address</dt>
-                                    <dd class="ps-4">{{ user.profile.address }}</dd>
-                                    <dt class="text-muted">Email</dt>
-                                    <dd class="ps-4">{{ user.email }}</dd>
-                                    <dt class="text-muted">Username</dt>
-                                    <dd class="ps-4">{{ user.username }}</dd>
+                                    <dt class="text-muted fs-5">Fullname</dt>
+                                    <dd class="ps-4 h5">{{ user.first_name }}</dd>
+                                    <dt class="text-muted fs-5">Birthday</dt>
+                                    <dd class="ps-4 h5">{{ user.profile.dob|date:"F d, Y" }}</dd>
+                                    <dt class="text-muted fs-5">Contact #</dt>
+                                    <dd class="ps-4 h5">{{ user.profile.contact }}</dd>
+                                    <dt class="text-muted fs-5">Address</dt>
+                                    <dd class="ps-4 h5">{{ user.profile.address }}</dd>
+                                    <dt class="text-muted fs-5">Email</dt>
+                                    <dd class="ps-4 h5">{{ user.email }}</dd>
+                                    <dt class="text-muted fs-5">Username</dt>
+                                    <dd class="ps-4 h5">{{ user.username }}</dd>
                                 </dl>
                             </div>
                         </div>

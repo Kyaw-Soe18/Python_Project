@@ -5,16 +5,16 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group mb-3">
-                    <label for="student_code" class="control-label">Roll No.</label>
-                    <input type="text" class="form-control rounded-0" name="student_code" id="student_code" value="{{ student.student_code }}" required="required">
+                    <label for="student_code" class="control-label fw-bold fs-6">Roll No.</label>
+                    <input type="text" class="form-control rounded-0" name="student_code" id="student_code" placeholder="Enter roll number(eg - 22222)" value="{{ student.student_code }}" required="required">
                 </div>
                 <div class="form-group mb-3">
-                    <label for="first_name" class="control-label">Name</label>
-                    <input type="text" class="form-control rounded-0" name="first_name" id="first_name" value="{{ student.first_name }}" required="required">
+                    <label for="first_name" class="control-label fw-bold fs-6">Name</label>
+                    <input type="text" class="form-control rounded-0" name="first_name" id="first_name" placeholder="Enter name" value="{{ student.first_name }}" required="required">
                 </div>
 
                 <div class="form-group mb-3">
-                    <label for="gender" class="control-label">Gender</label>
+                    <label for="gender" class="control-label fw-bold fs-6">Gender</label>
                     <select name="gender" id="gender" class="form-select rounded-0" required>
                         {% if student.gender == 'Male' %}
                         <option selected>Male</option>
@@ -32,17 +32,17 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group mb-3">
-                    <label for="dob" class="control-label">Birthdate</label>
-                    <input type="date" class="form-control rounded-0" name="dob" id="dob" value="{{ student.dob|date:'Y-m-d' }}" required="required">
+                    <label for="dob" class="control-label fw-bold fs-6">Birthdate</label>
+                    <input type="date" class="form-control rounded-0" name="dob" id="dob" placeholder="Enter birthdate" value="{{ student.dob|date:'Y-m-d' }}" required="required">
                 </div>
                 <div class="form-group mb-3">
-                    <label for="contact" class="control-label">Contact</label>
-                    <input type="text" class="form-control rounded-0" name="contact" id="contact" value="{{ student.contact }}" required="required">
+                    <label for="contact" class="control-label fw-bold fs-6">Contact</label>
+                    <input type="text" class="form-control rounded-0" name="contact" id="contact" placeholder="Enter phone number" value="{{ student.contact }}" required="required">
                 </div>
                 <div class="form-group mb-3">
-                    <label for="course" class="control-label">Major Name</label>
+                    <label for="course" class="control-label fw-bold fs-6">Major Name</label>
                     <select name="course" id="course" class="form-select rounded-0 select2" required>
-                        <option disabled selected>Select a course</option>
+                        <option disabled selected>Please Select Here</option>
                         
                         {% for course in courses %}
                         {% if student.course and course.id == student.course.id %}
@@ -54,12 +54,12 @@
                     </select>
                 </div>
                 <div class="form-group mb-3">
-                    <label for="section" class="control-label">Section</label>
+                    <label for="section" class="control-label fw-bold fs-6">Section</label>
                     <select name="section" id="section" class="form-select rounded-0 select2" required>
                         {% if student.section %}
                             <option value="{{ student.section.id }}" selected>{{ student.section.name }}</option>
                         {% else %}
-                            <option disabled selected>Select a section</option>
+                            <option disabled selected>Please Select Here</option>
                         {% endif %}
                     </select>
                 </div>

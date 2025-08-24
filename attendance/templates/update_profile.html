@@ -12,9 +12,9 @@
                         <div class="mdc-layout-grid">
                             <div class="mdc-layout-grid__inner">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 fw-bold">
                                         <div class="form-group mb-3">
-                                            <label for="first_name" class="control-label">First Name</label>
+                                            <label for="first_name" class="control-label">Name</label>
                                             <input type="text" class="form-control rounded-0" name="first_name" id="first_name" value="{{ userData.first_name }}" required="required">
                                         </div>
 
@@ -31,7 +31,7 @@
                                             <textarea rows="3" class="form-control rounded-0" name="address" id="address" required="required">{{ userProfile.address }}</textarea>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 fw-bold">
                                         <div class="form-group mb-3">
                                             <label for="email" class="control-label">Email</label>
                                             <input type="email" class="form-control rounded-0" name="email" id="email" value="{{ userData.email }}" required="required">
