@@ -852,34 +852,41 @@ def section_attendance_mark(request):
         profile = None
         faculty_dept = None
 
-    # --- Sections for filter ---
+        # --- Sections for filter ---
     sections = Section.objects.none()
     assigned_sections = Section.objects.none()
     coordinator_sections = Section.objects.none()
 
     if request.user.is_staff or request.user.is_superuser:
+        # Admin sees all
         sections = Section.objects.all().order_by('id')
     elif profile and profile.user_type == 3:
+        # Faculty (with coordinator privilege)
         assigned_sections = Section.objects.filter(
             id__in=Class.objects.filter(assigned_faculty=profile)
-                                 .exclude(section__isnull=True)
-                                 .values_list('section_id', flat=True)
-        ).order_by('id')
-        coordinator_sections = Section.objects.filter(
-            course__department=faculty_dept
-        ).order_by('id') if faculty_dept else Section.objects.none()
-    else:
-        sections = Section.objects.filter(
-            id__in=Class.objects.filter(assigned_faculty=profile)
-                                .exclude(section__isnull=True)
-                                .values_list('section_id', flat=True)
+            .exclude(section__isnull=True)
+            .values_list('section_id', flat=True)
         ).order_by('id')
 
-    # --- Get selected section ---
-    section_id = request.GET.get('assigned_section') \
-                 or request.GET.get('coordinator_section') \
-                 or request.GET.get('section') \
-                 or request.POST.get('section')
+        coordinator_sections = (
+            Section.objects.filter(course__department=faculty_dept).order_by('id')
+            if faculty_dept else Section.objects.none()
+        )
+    else:
+        # Normal faculty (only assigned sections)
+        sections = Section.objects.filter(
+            id__in=Class.objects.filter(assigned_faculty=profile)
+            .exclude(section__isnull=True)
+            .values_list('section_id', flat=True)
+        ).order_by('id')
+
+    # --- Selected section ---
+    section_id = (
+            request.GET.get('assigned_section')
+            or request.GET.get('coordinator_section')
+            or request.GET.get('section')
+            or request.POST.get('section')
+    )
 
     the_date_str = request.GET.get('date') or request.POST.get('date')
     the_date = _date.today()
@@ -889,7 +896,6 @@ def section_attendance_mark(request):
         except Exception:
             pass
 
-    # --- Selected Section ---
     selected_section = None
     selected_assigned_section = None
     selected_coordinator_section = None
@@ -905,11 +911,11 @@ def section_attendance_mark(request):
             if request.GET.get('assigned_section'):
                 selected_assigned_section = assigned_sections.filter(id=section_id).first()
                 selected_section = selected_assigned_section
-                selected_coordinator_section = None  # ignore coordinator dropdown
+                selected_coordinator_section = None
             elif request.GET.get('coordinator_section'):
                 selected_coordinator_section = coordinator_sections.filter(id=section_id).first()
                 selected_section = selected_coordinator_section
-                selected_assigned_section = None  # ignore assigned dropdown
+                selected_assigned_section = None
         else:
             selected_section = sections.filter(id=section_id).first()
 
@@ -924,12 +930,25 @@ def section_attendance_mark(request):
             wk = the_date.weekday()
             max_today = _weekday_map(schedule).get(wk, 0)
 
+    # --- Determine role display type ---
+    is_admin = request.user.is_staff or request.user.is_superuser
+    is_faculty_assigned = False
+    is_faculty_coordinator = False
+
+    if profile and profile.user_type == 3:
+        if selected_assigned_section:
+            is_faculty_assigned = True
+        elif selected_coordinator_section:
+            is_faculty_coordinator = True
+
     # --- Save attendance ---
     if request.method == 'POST' and selected_section:
         for s in students:
-            if request.user.is_staff or request.user.is_superuser:
+            if is_admin or is_faculty_coordinator:
+                # Numeric input (total hours)
                 val = int(request.POST.get(f"hours[{s.id}]", 0))
             else:
+                # Checkbox input
                 raw_vals = request.POST.getlist(f"hours[{s.id}][]")
                 val = len(raw_vals)
 
@@ -938,6 +957,7 @@ def section_attendance_mark(request):
                 student=s, section=selected_section, date=the_date,
                 defaults={'attended_hours': Decimal(val)}
             )
+
         messages.success(request, f"Attendance saved for {selected_section} on {the_date}.")
 
         # Redirect to preserve filter
@@ -971,8 +991,10 @@ def section_attendance_mark(request):
         'schedule': schedule,
         'max_today': max_today,
         'existing': existing,
-        'page_title': 'Attendance(daily)',
-        'is_admin': request.user.is_staff or request.user.is_superuser
+        'page_title': 'Attendance (daily)',
+        'is_admin': is_admin,
+        'is_faculty_assigned': is_faculty_assigned,
+        'is_faculty_coordinator': is_faculty_coordinator,
     })
 
 # ---------- 3) Faculty: Monthly roll-call % (read-only) ----------

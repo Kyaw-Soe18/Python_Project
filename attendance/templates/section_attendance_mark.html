@@ -91,47 +91,46 @@
                 {% csrf_token %}
                 <input type="hidden" name="section" value="{{ selected_section.id }}">
                 <input type="hidden" name="date" value="{{ date|date:'Y-m-d' }}">
-                <div class="table-responsive" style="max-height: 60vh; overflow-y: auto;">
-                    <table class="table table-bordered table-hover table-sm text-center align-middle">
+
+                <table class="table table-bordered table-hover table-sm text-center align-middle">
                     <thead>
-                        <tr class="fs-6">
-                            <th class="fw-bold">No.</th>
-                            <th class="fw-bold">Roll Number</th>
-                            <th class="text-start fw-bold">Student Name</th>
-                            {% if not is_admin %}
-                                {% for h in max_today|to_range %}
-                                    <th class="fw-bold">{{ h }}</th>
-                                {% endfor %}
-                            {% else %}
-                                <th class="fw-bold">Hours Attended</th>
-                            {% endif %}
+                        <tr>
+                            <th>No.</th>
+                            <th>Roll Number</th>
+                            <th class="text-start">Student Name</th>
+                            {% if is_faculty_assigned %}
+    {% for h in max_today|to_range %}
+        <th>{{ h }}</th>
+    {% endfor %}
+{% else %}
+    <th>Hours Attended</th>
+{% endif %}
                         </tr>
                     </thead>
                     <tbody>
                         {% for s in students %}
-                        <tr style="font-size: 15px;">
+                        <tr>
                             <td>{{ forloop.counter }}</td>
                             <td>YKPT - {{ s.student_code }}</td>
                             <td class="text-start">{{ s.first_name }}</td>
-                            {% if is_admin %}
-                                <td>
-                                    <input type="number" name="hours[{{ s.id }}]"
-                                           value="{{ existing|get_item:s.id }}"
-                                           min="0" max="{{ max_today }}">
-                                </td>
-                            {% else %}
-                                {% for h in max_today|to_range %}
-                                    <td>
-                                        <input type="checkbox" name="hours[{{ s.id }}][]" value="{{ h }}"
-                                               {% if existing|get_item:s.id >= h %}checked{% endif %}>
-                                    </td>
-                                {% endfor %}
-                            {% endif %}
+                            {% if is_faculty_assigned %}
+    {% for h in max_today|to_range %}
+        <td>
+            <input type="checkbox" name="hours[{{ s.id }}][]" value="{{ h }}"
+                   {% if existing|get_item:s.id >= h %}checked{% endif %}>
+        </td>
+    {% endfor %}
+{% else %}
+    <td>
+        <input type="number" name="hours[{{ s.id }}]"
+               value="{{ existing|get_item:s.id }}"
+               min="0" max="{{ max_today }}">
+    </td>
+{% endif %}
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
-                </div>
                 <button class="btn btn-primary mt-2">Save Attendance</button>
             </form>
         {% endif %}
