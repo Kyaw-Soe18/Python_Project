@@ -20,7 +20,7 @@
             white-space: nowrap;
             font-weight: 500;
             font-size: 20px;
-            margin-right: 10px;
+            margin-right: 7px;
         }
 
         /* Bigger logo */
@@ -39,8 +39,8 @@
 
         /* Bring left and right sections closer together */
         .navbar .container-fluid {
-            padding-left: 90px;
-            padding-right: 50px;
+            padding-left: 30px;
+            padding-right: 67px;
         }
 
         /* Tighten right section */
@@ -48,7 +48,7 @@
             color: inherit; /* same as other nav links */
             font-weight: 500; /* match left side */
             white-space: nowrap;
-            padding-right: 20px;
+            padding-right: 8px;
             padding-left: 5px;
         }
 
@@ -56,6 +56,18 @@
             color: black; /* Bootstrap primary hover color */
             text-decoration: none;
         }
+
+        .logout-link .logout-icon {
+            color: #333;             /* default icon color */
+            font-size: 20px;
+            display: inline-block;    /* ensures hover color works */
+            transition: color 0.3s;
+        }
+
+        .logout-link .logout-icon:hover {
+            color: red !important;    /* force red on hover */
+        }
+
     </style>
 
     <!-- Navbar -->
@@ -147,7 +159,9 @@
                         class="img-thumbnail rounded-circle">
                     {{ user.first_name }}
                 </a>
-                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                <a class="nav-link logout-link" href="{% url 'logout' %}" title="Logout">
+                    <i class="fas fa-sign-out-alt logout-icon"></i>
+                </a>
             </div>
             {% endif %}
         </div>
@@ -174,7 +188,7 @@ $(function() {
     $('.right-section .nav-link').each(function() {
         var linkPath = $(this).attr('href');
         if (currentPath.startsWith(linkPath)) {
-            $(this).css('font-weight', 'bolder');
+            $(this).css('font-weight', 'bold');
         }
     });
 });
