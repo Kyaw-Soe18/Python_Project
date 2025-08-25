@@ -663,14 +663,374 @@
     }
   },
   {
+    "model": "auth.permission",
+    "pk": 53,
+    "fields": {
+      "name": "Can add user profile",
+      "content_type": 14,
+      "codename": "add_userprofile"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 54,
+    "fields": {
+      "name": "Can change user profile",
+      "content_type": 14,
+      "codename": "change_userprofile"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 55,
+    "fields": {
+      "name": "Can delete user profile",
+      "content_type": 14,
+      "codename": "delete_userprofile"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 56,
+    "fields": {
+      "name": "Can view user profile",
+      "content_type": 14,
+      "codename": "view_userprofile"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 57,
+    "fields": {
+      "name": "Can add class",
+      "content_type": 9,
+      "codename": "add_class"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 58,
+    "fields": {
+      "name": "Can change class",
+      "content_type": 9,
+      "codename": "change_class"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 59,
+    "fields": {
+      "name": "Can delete class",
+      "content_type": 9,
+      "codename": "delete_class"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 60,
+    "fields": {
+      "name": "Can view class",
+      "content_type": 9,
+      "codename": "view_class"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 61,
+    "fields": {
+      "name": "Can add section",
+      "content_type": 10,
+      "codename": "add_section"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 62,
+    "fields": {
+      "name": "Can change section",
+      "content_type": 10,
+      "codename": "change_section"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 63,
+    "fields": {
+      "name": "Can delete section",
+      "content_type": 10,
+      "codename": "delete_section"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 64,
+    "fields": {
+      "name": "Can view section",
+      "content_type": 10,
+      "codename": "view_section"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 65,
+    "fields": {
+      "name": "Can add student",
+      "content_type": 11,
+      "codename": "add_student"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 66,
+    "fields": {
+      "name": "Can change student",
+      "content_type": 11,
+      "codename": "change_student"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 67,
+    "fields": {
+      "name": "Can delete student",
+      "content_type": 11,
+      "codename": "delete_student"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 68,
+    "fields": {
+      "name": "Can view student",
+      "content_type": 11,
+      "codename": "view_student"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 69,
+    "fields": {
+      "name": "Can add timetable",
+      "content_type": 15,
+      "codename": "add_timetable"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 70,
+    "fields": {
+      "name": "Can change timetable",
+      "content_type": 15,
+      "codename": "change_timetable"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 71,
+    "fields": {
+      "name": "Can delete timetable",
+      "content_type": 15,
+      "codename": "delete_timetable"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 72,
+    "fields": {
+      "name": "Can view timetable",
+      "content_type": 15,
+      "codename": "view_timetable"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 73,
+    "fields": {
+      "name": "Can add timetable slot",
+      "content_type": 16,
+      "codename": "add_timetableslot"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 74,
+    "fields": {
+      "name": "Can change timetable slot",
+      "content_type": 16,
+      "codename": "change_timetableslot"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 75,
+    "fields": {
+      "name": "Can delete timetable slot",
+      "content_type": 16,
+      "codename": "delete_timetableslot"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 76,
+    "fields": {
+      "name": "Can view timetable slot",
+      "content_type": 16,
+      "codename": "view_timetableslot"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 77,
+    "fields": {
+      "name": "Can add section schedule",
+      "content_type": 17,
+      "codename": "add_sectionschedule"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 78,
+    "fields": {
+      "name": "Can change section schedule",
+      "content_type": 17,
+      "codename": "change_sectionschedule"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 79,
+    "fields": {
+      "name": "Can delete section schedule",
+      "content_type": 17,
+      "codename": "delete_sectionschedule"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 80,
+    "fields": {
+      "name": "Can view section schedule",
+      "content_type": 17,
+      "codename": "view_sectionschedule"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 81,
+    "fields": {
+      "name": "Can add weekly session",
+      "content_type": 18,
+      "codename": "add_weeklysession"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 82,
+    "fields": {
+      "name": "Can change weekly session",
+      "content_type": 18,
+      "codename": "change_weeklysession"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 83,
+    "fields": {
+      "name": "Can delete weekly session",
+      "content_type": 18,
+      "codename": "delete_weeklysession"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 84,
+    "fields": {
+      "name": "Can view weekly session",
+      "content_type": 18,
+      "codename": "view_weeklysession"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 85,
+    "fields": {
+      "name": "Can add daily attendance",
+      "content_type": 19,
+      "codename": "add_dailyattendance"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 86,
+    "fields": {
+      "name": "Can change daily attendance",
+      "content_type": 19,
+      "codename": "change_dailyattendance"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 87,
+    "fields": {
+      "name": "Can delete daily attendance",
+      "content_type": 19,
+      "codename": "delete_dailyattendance"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 88,
+    "fields": {
+      "name": "Can view daily attendance",
+      "content_type": 19,
+      "codename": "view_dailyattendance"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 89,
+    "fields": {
+      "name": "Can add section daily attendance",
+      "content_type": 20,
+      "codename": "add_sectiondailyattendance"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 90,
+    "fields": {
+      "name": "Can change section daily attendance",
+      "content_type": 20,
+      "codename": "change_sectiondailyattendance"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 91,
+    "fields": {
+      "name": "Can delete section daily attendance",
+      "content_type": 20,
+      "codename": "delete_sectiondailyattendance"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 92,
+    "fields": {
+      "name": "Can view section daily attendance",
+      "content_type": 20,
+      "codename": "view_sectiondailyattendance"
+    }
+  },
+  {
     "model": "auth.user",
     "pk": 1,
     "fields": {
       "password": "pbkdf2_sha256$1000000$ceJRxW3ypBr8OIDF9wPOkw$ULUuz0oVzk3HYSKh3yqINe7ZJ4lDUuP6zLQE16E/EIc=",
-      "last_login": "2025-08-08T14:52:30.740Z",
+      "last_login": "2025-08-20T04:30:04.040Z",
       "is_superuser": true,
       "username": "admin",
-      "first_name": "System",
+      "first_name": "Super Admin",
       "last_name": "Administrator",
       "email": "admin@gmail.com",
       "is_staff": true,
@@ -685,7 +1045,7 @@
     "pk": 17,
     "fields": {
       "password": "pbkdf2_sha256$1000000$yB0I4Z8Vt7yLqcEm8kGG9y$/fQjvS6kzildwuGFVr0q8J00GNuKaWoJC7kaM6sNLG4=",
-      "last_login": "2025-08-08T14:51:47.018Z",
+      "last_login": "2025-08-20T04:22:19.406Z",
       "is_superuser": false,
       "username": "sora",
       "first_name": "Sora",
@@ -703,7 +1063,7 @@
     "pk": 18,
     "fields": {
       "password": "pbkdf2_sha256$1000000$or35aUFnEPsZd3TPPUNgyk$I94YA5A5nq/FqPVeJzkYrG2oOe6Ps3iY2eNhvodR9c4=",
-      "last_login": "2025-08-06T05:07:18.111Z",
+      "last_login": "2025-08-19T14:47:49.045Z",
       "is_superuser": false,
       "username": "xorn",
       "first_name": "Xorn",
@@ -721,7 +1081,7 @@
     "pk": 19,
     "fields": {
       "password": "pbkdf2_sha256$1000000$EyS1TFrgBHs5gviUPM5okc$KvtY5jkPMSVb33H6unOUBmDQ86TxCu0hhuTW6ZyldRQ=",
-      "last_login": "2025-08-07T08:10:50.337Z",
+      "last_login": "2025-08-19T07:35:37.592Z",
       "is_superuser": false,
       "username": "nwet",
       "first_name": "Tchal Nwet",
@@ -775,7 +1135,7 @@
     "pk": 22,
     "fields": {
       "password": "pbkdf2_sha256$1000000$WMXitef31PdOz1u0XxKaYJ$5Ke9jPzWsu5OTqzXKHZiBvYllV2ePFdu6oPW1K4o3yA=",
-      "last_login": null,
+      "last_login": "2025-08-12T14:11:10.539Z",
       "is_superuser": false,
       "username": "aye",
       "first_name": "Tchal Aye",
@@ -793,7 +1153,7 @@
     "pk": 23,
     "fields": {
       "password": "pbkdf2_sha256$1000000$HrcxfdZrWxDEmHvqgDSYbY$Wl5L9waZnrFTDGL31Hx7q7w4KyHxDFGkLH3xUyE5i4w=",
-      "last_login": "2025-08-07T15:06:16.482Z",
+      "last_login": "2025-08-19T05:36:17.432Z",
       "is_superuser": false,
       "username": "hlaoo",
       "first_name": "Hla Oo",
@@ -802,6 +1162,24 @@
       "is_staff": false,
       "is_active": true,
       "date_joined": "2025-08-07T14:26:41.253Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 25,
+    "fields": {
+      "password": "pbkdf2_sha256$1000000$zZBwcTd7NLjq9icTtkjYPo$4GDO4Hp9vC5/F8RZVtSSlii2LV6gY3/wq0tjrAmECv0=",
+      "last_login": "2025-08-20T04:32:21.760Z",
+      "is_superuser": false,
+      "username": "hlanu",
+      "first_name": "Daw Hla Nu",
+      "last_name": "",
+      "email": "hlanu@gmail.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-08-19T12:30:51.166Z",
       "groups": [],
       "user_permissions": []
     }
@@ -875,7 +1253,7 @@
     "pk": 9,
     "fields": {
       "app_label": "attendance",
-      "model": "userprofile"
+      "model": "class"
     }
   },
   {
@@ -883,7 +1261,7 @@
     "pk": 10,
     "fields": {
       "app_label": "attendance",
-      "model": "student"
+      "model": "section"
     }
   },
   {
@@ -891,7 +1269,7 @@
     "pk": 11,
     "fields": {
       "app_label": "attendance",
-      "model": "class"
+      "model": "student"
     }
   },
   {
@@ -911,6 +1289,62 @@
     }
   },
   {
+    "model": "contenttypes.contenttype",
+    "pk": 14,
+    "fields": {
+      "app_label": "attendance",
+      "model": "userprofile"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 15,
+    "fields": {
+      "app_label": "attendance",
+      "model": "timetable"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 16,
+    "fields": {
+      "app_label": "attendance",
+      "model": "timetableslot"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 17,
+    "fields": {
+      "app_label": "attendance",
+      "model": "sectionschedule"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 18,
+    "fields": {
+      "app_label": "attendance",
+      "model": "weeklysession"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 19,
+    "fields": {
+      "app_label": "attendance",
+      "model": "dailyattendance"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 20,
+    "fields": {
+      "app_label": "attendance",
+      "model": "sectiondailyattendance"
+    }
+  },
+  {
     "model": "sessions.session",
     "pk": "0f1krag7h0xfmcpko1t3ag7lro4yqprb",
     "fields": {
@@ -924,6 +1358,14 @@
     "fields": {
       "session_data": ".eJxVjDsOwjAQRO_iGllZ2-s1lPScwVr_cAA5UpxUiLuTSCmgmGbem3kLz-tS_drz7MckLgLE6bcLHJ-57SA9uN0nGae2zGOQuyIP2uVtSvl1Pdy_g8q9bmtnMiVUqNGScZEBVFGmDGcmcDZjoEGjhi0WwGikFFxBRckBoAUjPl-i-DXF:1uiBpo:HK5M01eJHmLFlGODiKT9uSfiCRfKXEif0HAIZgHqbz8",
       "expire_date": "2025-08-16T12:59:36.030Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "80nwxq9dsf802tum9fkmui0fjof6p2xx",
+    "fields": {
+      "session_data": ".eJxVjDEOwjAMRe-SGUWNhUPCyM4ZIjt2SQGlUtNOiLtDpA6gv_339F4m0baWtDVd0iTmbADN4fdkyg-tncid6m22ea7rMrHtit1ps9dZ9HnZ3b9AoVZ6F4DBOwyEMQ45yOgkOIRA2YdI7Fxg9vGo34kOMJIKRRSIisruZN4f9sQ4Pg:1uoaUn:3JMJ2TuxWmkRaC8bMC_awoYlrHqAOnRmS-_rYfbqhEg",
+      "expire_date": "2025-09-03T04:32:21.799Z"
     }
   },
   {
@@ -952,6 +1394,22 @@
   },
   {
     "model": "sessions.session",
+    "pk": "gg4b2d7ut310s21vxup55ztl8my1ymmg",
+    "fields": {
+      "session_data": ".eJxVjEEOwiAQRe_C2hCgOIBL956BDMwgVUOT0q6Md7dNutDtf-_9t4i4LjWunec4krgILU6_W8L85LYDemC7TzJPbZnHJHdFHrTL20T8uh7u30HFXrcaVQlZKWedBpcJNFDwAS36AGlADUn5UkoiB-wHsi6UTWCgszNsjBGfL9vPN8Y:1uoBTq:OLBgOSaXlrtP-bAQOJmRsHL0O6y1sB1WJFMrJa3kRcE",
+      "expire_date": "2025-09-02T01:49:42.714Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "ggvhyvv1xktsbv8k8se9luv8oybb2tym",
+    "fields": {
+      "session_data": ".eJxVjEEOwiAQRe_C2hCgOIBL956BDMwgVUOT0q6Md7dNutDtf-_9t4i4LjWunec4krgILU6_W8L85LYDemC7TzJPbZnHJHdFHrTL20T8uh7u30HFXrcaVQlZKWedBpcJNFDwAS36AGlADUn5UkoiB-wHsi6UTWCgszNsjBGfL9vPN8Y:1ulpmS:4SWId_sFTsKsJ1C9DnC_oJ5Y6fsfpjfLqNDsRP0z_ec",
+      "expire_date": "2025-08-26T14:15:12.687Z"
+    }
+  },
+  {
+    "model": "sessions.session",
     "pk": "ie968nq151q7295wmonwp5xjrnwvke52",
     "fields": {
       "session_data": ".eJxVjEEOwiAQRe_C2hCgOIBL956BDMwgVUOT0q6Md7dNutDtf-_9t4i4LjWunec4krgILU6_W8L85LYDemC7TzJPbZnHJHdFHrTL20T8uh7u30HFXrcaVQlZKWedBpcJNFDwAS36AGlADUn5UkoiB-wHsi6UTWCgszNsjBGfL9vPN8Y:1ukOSM:uOKJhf8Ook6HukA2wPfromDNsmCKQ4mHLAM7ktPlTVI",
@@ -972,6 +1430,14 @@
     "fields": {
       "session_data": ".eJxVjDsOwjAQBe_iGln-bgwlPWew1rs2CSBbipMKcXcSKQW0b2beW0RclzGuPc9xYnER2onT75iQnrnuhB9Y701Sq8s8Jbkr8qBd3hrn1_Vw_w5G7ONWD-BJOcxgIDAlDh4HVmEgBQAhWb9BY9mEM1mtvU3BGy4FyIHjgiQ-X_X2N9k:1nStaY:VDFWL2KP94dV7el1Uy22ymYqO0mS_olxxF1u9m4yOiw",
       "expire_date": "2022-03-26T04:42:46.412Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "ptn26jv1a54ya63tt85egg36eyyv8fvq",
+    "fields": {
+      "session_data": ".eJxVjEEOwiAQRe_C2hCgOIBL956BDMwgVUOT0q6Md7dNutDtf-_9t4i4LjWunec4krgILU6_W8L85LYDemC7TzJPbZnHJHdFHrTL20T8uh7u30HFXrcaVQlZKWedBpcJNFDwAS36AGlADUn5UkoiB-wHsi6UTWCgszNsjBGfL9vPN8Y:1ulUM6:oebj7NxJ2odNh9yoBDSKN75I6FgwZqu28Vcn09fzp9U",
+      "expire_date": "2025-08-25T15:22:34.925Z"
     }
   },
   {
@@ -1010,77 +1476,77 @@
     "model": "attendance.department",
     "pk": 1,
     "fields": {
-      "name": "Software Department",
-      "description": "SE",
+      "name": "Faculty of information science",
+      "description": "FIS",
       "status": 1,
       "date_added": "2022-03-10T09:09:49.941Z",
-      "date_updated": "2025-08-06T03:37:12.086Z"
+      "date_updated": "2025-08-11T04:39:59.781Z"
     }
   },
   {
     "model": "attendance.department",
     "pk": 2,
     "fields": {
-      "name": "Business Information System Department",
-      "description": "BIS",
+      "name": "Information Technology Supporting and Maintenance",
+      "description": "ITSM",
       "status": 1,
       "date_added": "2022-03-11T00:35:07.614Z",
-      "date_updated": "2025-08-06T03:37:37.117Z"
+      "date_updated": "2025-08-15T03:13:24.967Z"
     }
   },
   {
     "model": "attendance.department",
     "pk": 3,
     "fields": {
-      "name": "Knowledge Engineering Department",
-      "description": "KE",
+      "name": "Faculty of Computer Science and Technology",
+      "description": "FCST",
       "status": 1,
       "date_added": "2022-03-11T00:39:21.657Z",
-      "date_updated": "2025-08-06T03:37:57.545Z"
+      "date_updated": "2025-08-15T03:15:28.076Z"
     }
   },
   {
     "model": "attendance.department",
     "pk": 4,
     "fields": {
-      "name": "High Performance Computing Department",
-      "description": "HPC",
+      "name": "Faculty of Computer Science",
+      "description": "FCS",
       "status": 1,
       "date_added": "2022-03-11T00:39:44.504Z",
-      "date_updated": "2025-08-06T03:39:27.507Z"
+      "date_updated": "2025-08-15T03:15:57.709Z"
     }
   },
   {
     "model": "attendance.department",
     "pk": 5,
     "fields": {
-      "name": "Cyber Security Forensis Department",
-      "description": "CSF",
+      "name": "Faculty of Computing",
+      "description": "FCM",
       "status": 1,
       "date_added": "2022-03-11T00:46:54.794Z",
-      "date_updated": "2025-08-06T03:39:39.743Z"
+      "date_updated": "2025-08-15T03:17:04.012Z"
     }
   },
   {
     "model": "attendance.department",
     "pk": 6,
     "fields": {
-      "name": "TEST101",
-      "description": "This is a sample Department only",
+      "name": "Department of Language",
+      "description": "Language",
       "status": 1,
       "date_added": "2022-03-12T08:02:28.767Z",
-      "date_updated": "2022-03-12T08:25:15.824Z"
+      "date_updated": "2025-08-15T03:17:30.885Z"
     }
   },
   {
     "model": "attendance.department",
     "pk": 8,
     "fields": {
-      "name": "Computer Technology Department",
-      "description": "CT",
+      "name": "Department of Natural Science",
+      "description": "Natural Science",
       "status": 1,
       "date_added": "2025-08-06T03:39:17.689Z",
-      "date_updated": "2025-08-06T03:39:17.691Z"
+      "date_updated": "2025-08-15T03:18:05.853Z"
     }
   },
   {
@@ -1090,7 +1556,7 @@
       "user": 1,
       "contact": "09123456789",
       "dob": "1997-06-23",
-      "address": "Sample Only",
+      "address": "UCSY",
       "avatar": "images/avatar.png",
       "user_type": 1,
       "gender": null,
@@ -1106,7 +1572,7 @@
       "dob": "2004-10-08",
       "address": "Hpa-an",
       "avatar": "images/images_4.jpg",
-      "user_type": 2,
+      "user_type": 3,
       "gender": "Female",
       "department": 2
     }
@@ -1196,6 +1662,20 @@
     }
   },
   {
+    "model": "attendance.userprofile",
+    "pk": 25,
+    "fields": {
+      "user": 25,
+      "contact": "09475489737",
+      "dob": "1997-10-31",
+      "address": "Myit Kyi Nar",
+      "avatar": "images/photo_2024-01-15_18-38-22.jpg",
+      "user_type": 3,
+      "gender": "Female",
+      "department": 1
+    }
+  },
+  {
     "model": "attendance.course",
     "pk": 19,
     "fields": {
@@ -1203,7 +1683,7 @@
       "name": "BIS",
       "status": 1,
       "date_added": "2025-08-06T04:38:43.210Z",
-      "date_updated": "2025-08-09T02:41:21.924Z"
+      "date_updated": "2025-08-10T02:43:20.453Z"
     }
   },
   {
@@ -1214,40 +1694,18 @@
       "name": "SE",
       "status": 1,
       "date_added": "2025-08-06T05:51:34.699Z",
-      "date_updated": "2025-08-09T02:41:30.561Z"
+      "date_updated": "2025-08-10T02:47:01.903Z"
     }
   },
   {
     "model": "attendance.course",
     "pk": 21,
     "fields": {
-      "department": 3,
+      "department": 1,
       "name": "KE",
       "status": 1,
       "date_added": "2025-08-06T05:56:28.301Z",
-      "date_updated": "2025-08-09T02:41:45.683Z"
-    }
-  },
-  {
-    "model": "attendance.course",
-    "pk": 22,
-    "fields": {
-      "department": 1,
-      "name": "SE",
-      "status": 1,
-      "date_added": "2025-08-06T05:56:58.482Z",
-      "date_updated": "2025-08-09T02:41:55.478Z"
-    }
-  },
-  {
-    "model": "attendance.course",
-    "pk": 23,
-    "fields": {
-      "department": 1,
-      "name": "SE",
-      "status": 1,
-      "date_added": "2025-08-06T05:57:15.415Z",
-      "date_updated": "2025-08-09T02:42:05.619Z"
+      "date_updated": "2025-08-15T03:26:37.564Z"
     }
   },
   {
@@ -1258,7 +1716,7 @@
       "name": "HPC",
       "status": 1,
       "date_added": "2025-08-06T06:00:16.268Z",
-      "date_updated": "2025-08-09T02:42:16.317Z"
+      "date_updated": "2025-08-10T02:47:55.179Z"
     }
   },
   {
@@ -1269,7 +1727,7 @@
       "name": "CSF",
       "status": 1,
       "date_added": "2025-08-06T06:01:28.357Z",
-      "date_updated": "2025-08-09T02:42:26.341Z"
+      "date_updated": "2025-08-10T02:48:09.283Z"
     }
   },
   {
@@ -1280,21 +1738,94 @@
       "name": "CT",
       "status": 1,
       "date_added": "2025-08-06T06:01:54.165Z",
-      "date_updated": "2025-08-09T02:42:34.488Z"
+      "date_updated": "2025-08-10T03:36:18.930Z"
+    }
+  },
+  {
+    "model": "attendance.section",
+    "pk": 1,
+    "fields": {
+      "name": "E-004",
+      "course": 19
+    }
+  },
+  {
+    "model": "attendance.section",
+    "pk": 2,
+    "fields": {
+      "name": "E-001",
+      "course": 20
+    }
+  },
+  {
+    "model": "attendance.section",
+    "pk": 4,
+    "fields": {
+      "name": "E-002",
+      "course": 20
+    }
+  },
+  {
+    "model": "attendance.section",
+    "pk": 5,
+    "fields": {
+      "name": "E-003",
+      "course": 20
+    }
+  },
+  {
+    "model": "attendance.section",
+    "pk": 6,
+    "fields": {
+      "name": "E-101",
+      "course": 24
+    }
+  },
+  {
+    "model": "attendance.section",
+    "pk": 7,
+    "fields": {
+      "name": "E-102",
+      "course": 25
+    }
+  },
+  {
+    "model": "attendance.section",
+    "pk": 10,
+    "fields": {
+      "name": "E-005",
+      "course": 21
+    }
+  },
+  {
+    "model": "attendance.section",
+    "pk": 11,
+    "fields": {
+      "name": "E-105",
+      "course": 26
+    }
+  },
+  {
+    "model": "attendance.section",
+    "pk": 12,
+    "fields": {
+      "name": "E-006",
+      "course": 21
     }
   },
   {
     "model": "attendance.student",
     "pk": 3,
     "fields": {
-      "student_code": "2306141507",
+      "student_code": "22550",
       "course": 19,
       "first_name": "Angela",
+      "section": 1,
       "gender": "Female",
       "dob": "1997-06-23",
       "contact": "09987564123",
       "date_added": "2022-03-12T08:07:28.914Z",
-      "date_updated": "2025-08-06T05:48:20.007Z"
+      "date_updated": "2025-08-15T05:18:58.016Z"
     }
   },
   {
@@ -1304,11 +1835,12 @@
       "student_code": "22543",
       "course": 19,
       "first_name": "Kyaw Soe",
+      "section": 1,
       "gender": "Male",
       "dob": "2004-03-15",
       "contact": "09962270911",
       "date_added": "2025-08-06T04:43:05.994Z",
-      "date_updated": "2025-08-06T04:45:24.692Z"
+      "date_updated": "2025-08-10T06:39:14.674Z"
     }
   },
   {
@@ -1318,11 +1850,12 @@
       "student_code": "22373",
       "course": 19,
       "first_name": "Hnin Htet Htet Sam",
+      "section": 1,
       "gender": "Female",
       "dob": "2004-05-08",
       "contact": "09787348341",
       "date_added": "2025-08-06T04:46:28.447Z",
-      "date_updated": "2025-08-06T04:46:28.462Z"
+      "date_updated": "2025-08-10T06:39:21.137Z"
     }
   },
   {
@@ -1332,11 +1865,12 @@
       "student_code": "22567",
       "course": 19,
       "first_name": "Su Su",
+      "section": 1,
       "gender": "Female",
       "dob": "2003-08-30",
       "contact": "09579727593",
       "date_added": "2025-08-06T05:34:47.761Z",
-      "date_updated": "2025-08-06T05:34:47.773Z"
+      "date_updated": "2025-08-10T06:39:27.693Z"
     }
   },
   {
@@ -1346,11 +1880,12 @@
       "student_code": "22532",
       "course": 19,
       "first_name": "Htun Htun",
+      "section": 1,
       "gender": "Male",
       "dob": "2003-07-25",
       "contact": "0974573927",
       "date_added": "2025-08-06T05:35:32.589Z",
-      "date_updated": "2025-08-06T05:35:32.601Z"
+      "date_updated": "2025-08-10T06:39:34.355Z"
     }
   },
   {
@@ -1360,11 +1895,12 @@
       "student_code": "22453",
       "course": 19,
       "first_name": "Kagura",
+      "section": 1,
       "gender": "Female",
       "dob": "2004-05-13",
       "contact": "0974754729",
       "date_added": "2025-08-06T05:36:11.373Z",
-      "date_updated": "2025-08-06T05:36:11.385Z"
+      "date_updated": "2025-08-10T06:39:41.606Z"
     }
   },
   {
@@ -1374,11 +1910,12 @@
       "student_code": "22212",
       "course": 20,
       "first_name": "Gusion",
+      "section": 5,
       "gender": "Male",
       "dob": "2004-02-03",
       "contact": "0988489384",
       "date_added": "2025-08-06T06:05:00.666Z",
-      "date_updated": "2025-08-06T06:05:00.678Z"
+      "date_updated": "2025-08-10T06:39:49.499Z"
     }
   },
   {
@@ -1388,11 +1925,12 @@
       "student_code": "22213",
       "course": 20,
       "first_name": "Lesley",
+      "section": 2,
       "gender": "Female",
       "dob": "2004-12-04",
       "contact": "09475489345",
       "date_added": "2025-08-06T06:06:06.965Z",
-      "date_updated": "2025-08-06T06:06:06.978Z"
+      "date_updated": "2025-08-10T06:39:57.286Z"
     }
   },
   {
@@ -1402,11 +1940,12 @@
       "student_code": "22214",
       "course": 20,
       "first_name": "Nana",
+      "section": 4,
       "gender": "Female",
       "dob": "2005-04-15",
       "contact": "0937498759",
       "date_added": "2025-08-06T06:07:03.892Z",
-      "date_updated": "2025-08-07T15:05:58.404Z"
+      "date_updated": "2025-08-10T06:40:05.423Z"
     }
   },
   {
@@ -1415,6 +1954,7 @@
     "fields": {
       "assigned_faculty": 18,
       "course": 19,
+      "section": 1,
       "school_year": "2025-2026",
       "level": "Sem-7",
       "name": "Python"
@@ -1426,6 +1966,7 @@
     "fields": {
       "assigned_faculty": 19,
       "course": 19,
+      "section": 1,
       "school_year": "2025-2026",
       "level": "Sem-7",
       "name": "BIS"
@@ -1437,6 +1978,7 @@
     "fields": {
       "assigned_faculty": 17,
       "course": 19,
+      "section": 1,
       "school_year": "2025-2026",
       "level": "Sem-7",
       "name": "Math"
@@ -1448,6 +1990,7 @@
     "fields": {
       "assigned_faculty": 20,
       "course": 19,
+      "section": 1,
       "school_year": "2025-2026",
       "level": "Sem-7",
       "name": "AI"
@@ -1459,6 +2002,7 @@
     "fields": {
       "assigned_faculty": 21,
       "course": 19,
+      "section": 1,
       "school_year": "2025-2026",
       "level": "Sem-7",
       "name": "E-commerce"
@@ -1470,6 +2014,7 @@
     "fields": {
       "assigned_faculty": 22,
       "course": 19,
+      "section": 1,
       "school_year": "2025-2026",
       "level": "Sem-7",
       "name": "Data Mining"
@@ -1481,9 +2026,1828 @@
     "fields": {
       "assigned_faculty": 23,
       "course": 20,
+      "section": 2,
       "school_year": "2025-2026",
       "level": "Sem-7",
       "name": "SE testing"
+    }
+  },
+  {
+    "model": "attendance.class",
+    "pk": 18,
+    "fields": {
+      "assigned_faculty": 23,
+      "course": 21,
+      "section": 10,
+      "school_year": "2025-2026",
+      "level": "Sem-7",
+      "name": "AI advance"
+    }
+  },
+  {
+    "model": "attendance.class",
+    "pk": 19,
+    "fields": {
+      "assigned_faculty": 17,
+      "course": 20,
+      "section": 4,
+      "school_year": "2025-2026",
+      "level": "Sem-7",
+      "name": "testing"
+    }
+  },
+  {
+    "model": "attendance.class",
+    "pk": 20,
+    "fields": {
+      "assigned_faculty": 25,
+      "course": 20,
+      "section": 2,
+      "school_year": "2025-2026",
+      "level": "Sem-7",
+      "name": "Software Testing"
+    }
+  },
+  {
+    "model": "attendance.class",
+    "pk": 21,
+    "fields": {
+      "assigned_faculty": 25,
+      "course": 20,
+      "section": 5,
+      "school_year": "2025-2026",
+      "level": "Sem-7",
+      "name": "Software Testing"
+    }
+  },
+  {
+    "model": "attendance.class",
+    "pk": 22,
+    "fields": {
+      "assigned_faculty": 25,
+      "course": 26,
+      "section": 11,
+      "school_year": "2025-2026",
+      "level": "Sem-7",
+      "name": "Network Testing"
+    }
+  },
+  {
+    "model": "attendance.classstudent",
+    "pk": 1,
+    "fields": {
+      "classIns": 16,
+      "student": 7
+    }
+  },
+  {
+    "model": "attendance.sectionschedule",
+    "pk": 1,
+    "fields": {
+      "section": null,
+      "monday_hours": 0,
+      "tuesday_hours": 0,
+      "wednesday_hours": 0,
+      "thursday_hours": 0,
+      "friday_hours": 0,
+      "created_at": "2025-08-13T02:22:06.799Z"
+    }
+  },
+  {
+    "model": "attendance.sectionschedule",
+    "pk": 2,
+    "fields": {
+      "section": null,
+      "monday_hours": 3,
+      "tuesday_hours": 2,
+      "wednesday_hours": 2,
+      "thursday_hours": 0,
+      "friday_hours": 1,
+      "created_at": "2025-08-13T02:24:14.444Z"
+    }
+  },
+  {
+    "model": "attendance.sectionschedule",
+    "pk": 3,
+    "fields": {
+      "section": 1,
+      "monday_hours": 4,
+      "tuesday_hours": 5,
+      "wednesday_hours": 4,
+      "thursday_hours": 3,
+      "friday_hours": 6,
+      "created_at": "2025-08-13T14:58:47.126Z"
+    }
+  },
+  {
+    "model": "attendance.sectionschedule",
+    "pk": 4,
+    "fields": {
+      "section": 2,
+      "monday_hours": 5,
+      "tuesday_hours": 5,
+      "wednesday_hours": 4,
+      "thursday_hours": 6,
+      "friday_hours": 6,
+      "created_at": "2025-08-13T15:39:43.510Z"
+    }
+  },
+  {
+    "model": "attendance.sectionschedule",
+    "pk": 5,
+    "fields": {
+      "section": 4,
+      "monday_hours": 4,
+      "tuesday_hours": 5,
+      "wednesday_hours": 5,
+      "thursday_hours": 6,
+      "friday_hours": 4,
+      "created_at": "2025-08-14T06:27:36.103Z"
+    }
+  },
+  {
+    "model": "attendance.sectionschedule",
+    "pk": 6,
+    "fields": {
+      "section": 5,
+      "monday_hours": 0,
+      "tuesday_hours": 0,
+      "wednesday_hours": 0,
+      "thursday_hours": 0,
+      "friday_hours": 0,
+      "created_at": "2025-08-14T06:28:06.186Z"
+    }
+  },
+  {
+    "model": "attendance.sectionschedule",
+    "pk": 7,
+    "fields": {
+      "section": 7,
+      "monday_hours": 0,
+      "tuesday_hours": 0,
+      "wednesday_hours": 0,
+      "thursday_hours": 0,
+      "friday_hours": 0,
+      "created_at": "2025-08-14T06:28:09.366Z"
+    }
+  },
+  {
+    "model": "attendance.sectionschedule",
+    "pk": 8,
+    "fields": {
+      "section": 10,
+      "monday_hours": 0,
+      "tuesday_hours": 0,
+      "wednesday_hours": 0,
+      "thursday_hours": 0,
+      "friday_hours": 0,
+      "created_at": "2025-08-14T06:28:12.280Z"
+    }
+  },
+  {
+    "model": "attendance.sectionschedule",
+    "pk": 9,
+    "fields": {
+      "section": 12,
+      "monday_hours": 0,
+      "tuesday_hours": 0,
+      "wednesday_hours": 0,
+      "thursday_hours": 0,
+      "friday_hours": 0,
+      "created_at": "2025-08-14T06:28:15.951Z"
+    }
+  },
+  {
+    "model": "attendance.sectionschedule",
+    "pk": 10,
+    "fields": {
+      "section": 6,
+      "monday_hours": 0,
+      "tuesday_hours": 0,
+      "wednesday_hours": 0,
+      "thursday_hours": 0,
+      "friday_hours": 0,
+      "created_at": "2025-08-15T04:18:33.957Z"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 1,
+    "fields": {
+      "student": 3,
+      "section": 1,
+      "date": "2025-08-13",
+      "attended_hours": "4.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 2,
+    "fields": {
+      "student": 7,
+      "section": 1,
+      "date": "2025-08-13",
+      "attended_hours": "4.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 3,
+    "fields": {
+      "student": 8,
+      "section": 1,
+      "date": "2025-08-13",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 4,
+    "fields": {
+      "student": 9,
+      "section": 1,
+      "date": "2025-08-13",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 5,
+    "fields": {
+      "student": 10,
+      "section": 1,
+      "date": "2025-08-13",
+      "attended_hours": "2.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 6,
+    "fields": {
+      "student": 11,
+      "section": 1,
+      "date": "2025-08-13",
+      "attended_hours": "4.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 7,
+    "fields": {
+      "student": 3,
+      "section": 1,
+      "date": "2025-08-01",
+      "attended_hours": "6.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 8,
+    "fields": {
+      "student": 7,
+      "section": 1,
+      "date": "2025-08-01",
+      "attended_hours": "5.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 9,
+    "fields": {
+      "student": 8,
+      "section": 1,
+      "date": "2025-08-01",
+      "attended_hours": "4.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 10,
+    "fields": {
+      "student": 9,
+      "section": 1,
+      "date": "2025-08-01",
+      "attended_hours": "4.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 11,
+    "fields": {
+      "student": 10,
+      "section": 1,
+      "date": "2025-08-01",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 12,
+    "fields": {
+      "student": 11,
+      "section": 1,
+      "date": "2025-08-01",
+      "attended_hours": "6.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 13,
+    "fields": {
+      "student": 3,
+      "section": 1,
+      "date": "2025-08-04",
+      "attended_hours": "4.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 14,
+    "fields": {
+      "student": 7,
+      "section": 1,
+      "date": "2025-08-04",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 15,
+    "fields": {
+      "student": 8,
+      "section": 1,
+      "date": "2025-08-04",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 16,
+    "fields": {
+      "student": 9,
+      "section": 1,
+      "date": "2025-08-04",
+      "attended_hours": "1.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 17,
+    "fields": {
+      "student": 10,
+      "section": 1,
+      "date": "2025-08-04",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 18,
+    "fields": {
+      "student": 11,
+      "section": 1,
+      "date": "2025-08-04",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 19,
+    "fields": {
+      "student": 3,
+      "section": 1,
+      "date": "2025-08-05",
+      "attended_hours": "5.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 20,
+    "fields": {
+      "student": 7,
+      "section": 1,
+      "date": "2025-08-05",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 21,
+    "fields": {
+      "student": 8,
+      "section": 1,
+      "date": "2025-08-05",
+      "attended_hours": "5.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 22,
+    "fields": {
+      "student": 9,
+      "section": 1,
+      "date": "2025-08-05",
+      "attended_hours": "2.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 23,
+    "fields": {
+      "student": 10,
+      "section": 1,
+      "date": "2025-08-05",
+      "attended_hours": "5.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 24,
+    "fields": {
+      "student": 11,
+      "section": 1,
+      "date": "2025-08-05",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 25,
+    "fields": {
+      "student": 3,
+      "section": 1,
+      "date": "2025-08-06",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 26,
+    "fields": {
+      "student": 7,
+      "section": 1,
+      "date": "2025-08-06",
+      "attended_hours": "4.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 27,
+    "fields": {
+      "student": 8,
+      "section": 1,
+      "date": "2025-08-06",
+      "attended_hours": "2.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 28,
+    "fields": {
+      "student": 9,
+      "section": 1,
+      "date": "2025-08-06",
+      "attended_hours": "1.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 29,
+    "fields": {
+      "student": 10,
+      "section": 1,
+      "date": "2025-08-06",
+      "attended_hours": "0.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 30,
+    "fields": {
+      "student": 11,
+      "section": 1,
+      "date": "2025-08-06",
+      "attended_hours": "4.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 31,
+    "fields": {
+      "student": 3,
+      "section": 1,
+      "date": "2025-08-07",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 32,
+    "fields": {
+      "student": 7,
+      "section": 1,
+      "date": "2025-08-07",
+      "attended_hours": "2.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 33,
+    "fields": {
+      "student": 8,
+      "section": 1,
+      "date": "2025-08-07",
+      "attended_hours": "1.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 34,
+    "fields": {
+      "student": 9,
+      "section": 1,
+      "date": "2025-08-07",
+      "attended_hours": "0.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 35,
+    "fields": {
+      "student": 10,
+      "section": 1,
+      "date": "2025-08-07",
+      "attended_hours": "0.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 36,
+    "fields": {
+      "student": 11,
+      "section": 1,
+      "date": "2025-08-07",
+      "attended_hours": "0.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 37,
+    "fields": {
+      "student": 3,
+      "section": 1,
+      "date": "2025-08-08",
+      "attended_hours": "6.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 38,
+    "fields": {
+      "student": 7,
+      "section": 1,
+      "date": "2025-08-08",
+      "attended_hours": "4.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 39,
+    "fields": {
+      "student": 8,
+      "section": 1,
+      "date": "2025-08-08",
+      "attended_hours": "5.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 40,
+    "fields": {
+      "student": 9,
+      "section": 1,
+      "date": "2025-08-08",
+      "attended_hours": "6.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 41,
+    "fields": {
+      "student": 10,
+      "section": 1,
+      "date": "2025-08-08",
+      "attended_hours": "6.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 42,
+    "fields": {
+      "student": 11,
+      "section": 1,
+      "date": "2025-08-08",
+      "attended_hours": "6.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 43,
+    "fields": {
+      "student": 3,
+      "section": 1,
+      "date": "2025-08-11",
+      "attended_hours": "4.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 44,
+    "fields": {
+      "student": 7,
+      "section": 1,
+      "date": "2025-08-11",
+      "attended_hours": "4.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 45,
+    "fields": {
+      "student": 8,
+      "section": 1,
+      "date": "2025-08-11",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 46,
+    "fields": {
+      "student": 9,
+      "section": 1,
+      "date": "2025-08-11",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 47,
+    "fields": {
+      "student": 10,
+      "section": 1,
+      "date": "2025-08-11",
+      "attended_hours": "4.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 48,
+    "fields": {
+      "student": 11,
+      "section": 1,
+      "date": "2025-08-11",
+      "attended_hours": "4.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 49,
+    "fields": {
+      "student": 3,
+      "section": 1,
+      "date": "2025-08-12",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 50,
+    "fields": {
+      "student": 7,
+      "section": 1,
+      "date": "2025-08-12",
+      "attended_hours": "4.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 51,
+    "fields": {
+      "student": 8,
+      "section": 1,
+      "date": "2025-08-12",
+      "attended_hours": "5.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 52,
+    "fields": {
+      "student": 9,
+      "section": 1,
+      "date": "2025-08-12",
+      "attended_hours": "4.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 53,
+    "fields": {
+      "student": 10,
+      "section": 1,
+      "date": "2025-08-12",
+      "attended_hours": "5.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 54,
+    "fields": {
+      "student": 11,
+      "section": 1,
+      "date": "2025-08-12",
+      "attended_hours": "5.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 55,
+    "fields": {
+      "student": 3,
+      "section": 1,
+      "date": "2025-08-14",
+      "attended_hours": "2.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 56,
+    "fields": {
+      "student": 7,
+      "section": 1,
+      "date": "2025-08-14",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 57,
+    "fields": {
+      "student": 8,
+      "section": 1,
+      "date": "2025-08-14",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 58,
+    "fields": {
+      "student": 9,
+      "section": 1,
+      "date": "2025-08-14",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 59,
+    "fields": {
+      "student": 10,
+      "section": 1,
+      "date": "2025-08-14",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 60,
+    "fields": {
+      "student": 11,
+      "section": 1,
+      "date": "2025-08-14",
+      "attended_hours": "1.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 61,
+    "fields": {
+      "student": 3,
+      "section": 1,
+      "date": "2025-08-15",
+      "attended_hours": "5.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 62,
+    "fields": {
+      "student": 7,
+      "section": 1,
+      "date": "2025-08-15",
+      "attended_hours": "6.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 63,
+    "fields": {
+      "student": 8,
+      "section": 1,
+      "date": "2025-08-15",
+      "attended_hours": "6.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 64,
+    "fields": {
+      "student": 9,
+      "section": 1,
+      "date": "2025-08-15",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 65,
+    "fields": {
+      "student": 10,
+      "section": 1,
+      "date": "2025-08-15",
+      "attended_hours": "4.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 66,
+    "fields": {
+      "student": 11,
+      "section": 1,
+      "date": "2025-08-15",
+      "attended_hours": "4.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 67,
+    "fields": {
+      "student": 3,
+      "section": 1,
+      "date": "2025-08-18",
+      "attended_hours": "4.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 68,
+    "fields": {
+      "student": 7,
+      "section": 1,
+      "date": "2025-08-18",
+      "attended_hours": "2.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 69,
+    "fields": {
+      "student": 8,
+      "section": 1,
+      "date": "2025-08-18",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 70,
+    "fields": {
+      "student": 9,
+      "section": 1,
+      "date": "2025-08-18",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 71,
+    "fields": {
+      "student": 10,
+      "section": 1,
+      "date": "2025-08-18",
+      "attended_hours": "2.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 72,
+    "fields": {
+      "student": 11,
+      "section": 1,
+      "date": "2025-08-18",
+      "attended_hours": "2.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 73,
+    "fields": {
+      "student": 3,
+      "section": 1,
+      "date": "2025-08-19",
+      "attended_hours": "5.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 74,
+    "fields": {
+      "student": 7,
+      "section": 1,
+      "date": "2025-08-19",
+      "attended_hours": "5.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 75,
+    "fields": {
+      "student": 8,
+      "section": 1,
+      "date": "2025-08-19",
+      "attended_hours": "4.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 76,
+    "fields": {
+      "student": 9,
+      "section": 1,
+      "date": "2025-08-19",
+      "attended_hours": "4.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 77,
+    "fields": {
+      "student": 10,
+      "section": 1,
+      "date": "2025-08-19",
+      "attended_hours": "4.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 78,
+    "fields": {
+      "student": 11,
+      "section": 1,
+      "date": "2025-08-19",
+      "attended_hours": "4.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 79,
+    "fields": {
+      "student": 3,
+      "section": 1,
+      "date": "2025-08-20",
+      "attended_hours": "4.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 80,
+    "fields": {
+      "student": 7,
+      "section": 1,
+      "date": "2025-08-20",
+      "attended_hours": "4.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 81,
+    "fields": {
+      "student": 8,
+      "section": 1,
+      "date": "2025-08-20",
+      "attended_hours": "2.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 82,
+    "fields": {
+      "student": 9,
+      "section": 1,
+      "date": "2025-08-20",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 83,
+    "fields": {
+      "student": 10,
+      "section": 1,
+      "date": "2025-08-20",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 84,
+    "fields": {
+      "student": 11,
+      "section": 1,
+      "date": "2025-08-20",
+      "attended_hours": "2.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 85,
+    "fields": {
+      "student": 3,
+      "section": 1,
+      "date": "2025-08-21",
+      "attended_hours": "2.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 86,
+    "fields": {
+      "student": 7,
+      "section": 1,
+      "date": "2025-08-21",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 87,
+    "fields": {
+      "student": 8,
+      "section": 1,
+      "date": "2025-08-21",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 88,
+    "fields": {
+      "student": 9,
+      "section": 1,
+      "date": "2025-08-21",
+      "attended_hours": "1.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 89,
+    "fields": {
+      "student": 10,
+      "section": 1,
+      "date": "2025-08-21",
+      "attended_hours": "1.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 90,
+    "fields": {
+      "student": 11,
+      "section": 1,
+      "date": "2025-08-21",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 91,
+    "fields": {
+      "student": 3,
+      "section": 1,
+      "date": "2025-08-22",
+      "attended_hours": "4.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 92,
+    "fields": {
+      "student": 7,
+      "section": 1,
+      "date": "2025-08-22",
+      "attended_hours": "6.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 93,
+    "fields": {
+      "student": 8,
+      "section": 1,
+      "date": "2025-08-22",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 94,
+    "fields": {
+      "student": 9,
+      "section": 1,
+      "date": "2025-08-22",
+      "attended_hours": "2.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 95,
+    "fields": {
+      "student": 10,
+      "section": 1,
+      "date": "2025-08-22",
+      "attended_hours": "2.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 96,
+    "fields": {
+      "student": 11,
+      "section": 1,
+      "date": "2025-08-22",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 97,
+    "fields": {
+      "student": 3,
+      "section": 1,
+      "date": "2025-08-25",
+      "attended_hours": "4.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 98,
+    "fields": {
+      "student": 7,
+      "section": 1,
+      "date": "2025-08-25",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 99,
+    "fields": {
+      "student": 8,
+      "section": 1,
+      "date": "2025-08-25",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 100,
+    "fields": {
+      "student": 9,
+      "section": 1,
+      "date": "2025-08-25",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 101,
+    "fields": {
+      "student": 10,
+      "section": 1,
+      "date": "2025-08-25",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 102,
+    "fields": {
+      "student": 11,
+      "section": 1,
+      "date": "2025-08-25",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 103,
+    "fields": {
+      "student": 3,
+      "section": 1,
+      "date": "2025-08-26",
+      "attended_hours": "4.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 104,
+    "fields": {
+      "student": 7,
+      "section": 1,
+      "date": "2025-08-26",
+      "attended_hours": "4.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 105,
+    "fields": {
+      "student": 8,
+      "section": 1,
+      "date": "2025-08-26",
+      "attended_hours": "2.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 106,
+    "fields": {
+      "student": 9,
+      "section": 1,
+      "date": "2025-08-26",
+      "attended_hours": "5.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 107,
+    "fields": {
+      "student": 10,
+      "section": 1,
+      "date": "2025-08-26",
+      "attended_hours": "5.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 108,
+    "fields": {
+      "student": 11,
+      "section": 1,
+      "date": "2025-08-26",
+      "attended_hours": "5.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 109,
+    "fields": {
+      "student": 3,
+      "section": 1,
+      "date": "2025-08-27",
+      "attended_hours": "2.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 110,
+    "fields": {
+      "student": 7,
+      "section": 1,
+      "date": "2025-08-27",
+      "attended_hours": "1.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 111,
+    "fields": {
+      "student": 8,
+      "section": 1,
+      "date": "2025-08-27",
+      "attended_hours": "0.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 112,
+    "fields": {
+      "student": 9,
+      "section": 1,
+      "date": "2025-08-27",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 113,
+    "fields": {
+      "student": 10,
+      "section": 1,
+      "date": "2025-08-27",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 114,
+    "fields": {
+      "student": 11,
+      "section": 1,
+      "date": "2025-08-27",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 115,
+    "fields": {
+      "student": 3,
+      "section": 1,
+      "date": "2025-08-28",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 116,
+    "fields": {
+      "student": 7,
+      "section": 1,
+      "date": "2025-08-28",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 117,
+    "fields": {
+      "student": 8,
+      "section": 1,
+      "date": "2025-08-28",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 118,
+    "fields": {
+      "student": 9,
+      "section": 1,
+      "date": "2025-08-28",
+      "attended_hours": "0.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 119,
+    "fields": {
+      "student": 10,
+      "section": 1,
+      "date": "2025-08-28",
+      "attended_hours": "2.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 120,
+    "fields": {
+      "student": 11,
+      "section": 1,
+      "date": "2025-08-28",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 121,
+    "fields": {
+      "student": 3,
+      "section": 1,
+      "date": "2025-08-29",
+      "attended_hours": "4.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 122,
+    "fields": {
+      "student": 7,
+      "section": 1,
+      "date": "2025-08-29",
+      "attended_hours": "4.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 123,
+    "fields": {
+      "student": 8,
+      "section": 1,
+      "date": "2025-08-29",
+      "attended_hours": "6.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 124,
+    "fields": {
+      "student": 9,
+      "section": 1,
+      "date": "2025-08-29",
+      "attended_hours": "6.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 125,
+    "fields": {
+      "student": 10,
+      "section": 1,
+      "date": "2025-08-29",
+      "attended_hours": "5.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 126,
+    "fields": {
+      "student": 11,
+      "section": 1,
+      "date": "2025-08-29",
+      "attended_hours": "5.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 127,
+    "fields": {
+      "student": 13,
+      "section": 2,
+      "date": "2025-06-02",
+      "attended_hours": "4.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 128,
+    "fields": {
+      "student": 13,
+      "section": 2,
+      "date": "2025-06-03",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 129,
+    "fields": {
+      "student": 13,
+      "section": 2,
+      "date": "2025-06-04",
+      "attended_hours": "4.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 130,
+    "fields": {
+      "student": 13,
+      "section": 2,
+      "date": "2025-06-05",
+      "attended_hours": "4.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 131,
+    "fields": {
+      "student": 13,
+      "section": 2,
+      "date": "2025-06-06",
+      "attended_hours": "6.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 132,
+    "fields": {
+      "student": 13,
+      "section": 2,
+      "date": "2025-06-09",
+      "attended_hours": "0.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 133,
+    "fields": {
+      "student": 13,
+      "section": 2,
+      "date": "2025-06-10",
+      "attended_hours": "5.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 134,
+    "fields": {
+      "student": 13,
+      "section": 2,
+      "date": "2025-06-11",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 135,
+    "fields": {
+      "student": 13,
+      "section": 2,
+      "date": "2025-06-12",
+      "attended_hours": "6.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 136,
+    "fields": {
+      "student": 13,
+      "section": 2,
+      "date": "2025-06-13",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 137,
+    "fields": {
+      "student": 13,
+      "section": 2,
+      "date": "2025-06-16",
+      "attended_hours": "4.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 138,
+    "fields": {
+      "student": 13,
+      "section": 2,
+      "date": "2025-06-17",
+      "attended_hours": "4.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 139,
+    "fields": {
+      "student": 13,
+      "section": 2,
+      "date": "2025-06-18",
+      "attended_hours": "4.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 140,
+    "fields": {
+      "student": 13,
+      "section": 2,
+      "date": "2025-06-19",
+      "attended_hours": "6.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 141,
+    "fields": {
+      "student": 13,
+      "section": 2,
+      "date": "2025-06-20",
+      "attended_hours": "5.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 142,
+    "fields": {
+      "student": 13,
+      "section": 2,
+      "date": "2025-06-23",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 143,
+    "fields": {
+      "student": 13,
+      "section": 2,
+      "date": "2025-06-24",
+      "attended_hours": "5.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 144,
+    "fields": {
+      "student": 13,
+      "section": 2,
+      "date": "2025-06-25",
+      "attended_hours": "4.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 145,
+    "fields": {
+      "student": 13,
+      "section": 2,
+      "date": "2025-06-26",
+      "attended_hours": "0.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 146,
+    "fields": {
+      "student": 13,
+      "section": 2,
+      "date": "2025-06-27",
+      "attended_hours": "5.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 147,
+    "fields": {
+      "student": 13,
+      "section": 2,
+      "date": "2025-06-30",
+      "attended_hours": "4.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 148,
+    "fields": {
+      "student": 3,
+      "section": 1,
+      "date": "2025-07-17",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 149,
+    "fields": {
+      "student": 7,
+      "section": 1,
+      "date": "2025-07-17",
+      "attended_hours": "1.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 150,
+    "fields": {
+      "student": 8,
+      "section": 1,
+      "date": "2025-07-17",
+      "attended_hours": "2.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 151,
+    "fields": {
+      "student": 9,
+      "section": 1,
+      "date": "2025-07-17",
+      "attended_hours": "2.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 152,
+    "fields": {
+      "student": 10,
+      "section": 1,
+      "date": "2025-07-17",
+      "attended_hours": "2.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 153,
+    "fields": {
+      "student": 11,
+      "section": 1,
+      "date": "2025-07-17",
+      "attended_hours": "2.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 154,
+    "fields": {
+      "student": 13,
+      "section": 2,
+      "date": "2025-08-19",
+      "attended_hours": "4.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 155,
+    "fields": {
+      "student": 3,
+      "section": 1,
+      "date": "2025-06-02",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 156,
+    "fields": {
+      "student": 7,
+      "section": 1,
+      "date": "2025-06-02",
+      "attended_hours": "0.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 157,
+    "fields": {
+      "student": 8,
+      "section": 1,
+      "date": "2025-06-02",
+      "attended_hours": "0.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 158,
+    "fields": {
+      "student": 9,
+      "section": 1,
+      "date": "2025-06-02",
+      "attended_hours": "0.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 159,
+    "fields": {
+      "student": 10,
+      "section": 1,
+      "date": "2025-06-02",
+      "attended_hours": "0.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 160,
+    "fields": {
+      "student": 11,
+      "section": 1,
+      "date": "2025-06-02",
+      "attended_hours": "0.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 161,
+    "fields": {
+      "student": 14,
+      "section": 4,
+      "date": "2025-08-19",
+      "attended_hours": "3.00"
+    }
+  },
+  {
+    "model": "attendance.sectiondailyattendance",
+    "pk": 162,
+    "fields": {
+      "student": 14,
+      "section": 4,
+      "date": "2025-08-20",
+      "attended_hours": "2.00"
     }
   }
 ]
