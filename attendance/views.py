@@ -18,10 +18,10 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.db.models import Q
 from ams.settings import MEDIA_ROOT, MEDIA_URL
-from attendance.models import UserProfile, Course, Department, Student, Class, ClassStudent
+from attendance.models import UserProfile, Course, Department, Student, Class
 
 from attendance.forms import UserRegistration, UpdateProfile, UpdateProfileMeta, UpdateProfileAvatar, AddAvatar, \
-    SaveDepartment, SaveCourse, SaveClass, SaveStudent, SaveClassStudent, UpdatePasswords, UpdateFaculty
+    SaveDepartment, SaveCourse, SaveClass, SaveStudent, UpdatePasswords, UpdateFaculty
 from django.http import JsonResponse
 from attendance.models import Section
 from .models import Section
@@ -619,52 +619,6 @@ def delete_class(request):
         except Exception as e:
             raise print(e)
     return HttpResponse(json.dumps(resp), content_type="application/json")
-
-
-@login_required
-def manage_class_student(request, classPK=None):
-    if classPK is None:
-        return HttpResponse('Class ID is Unknown')
-    else:
-        context['classPK'] = classPK
-        _class = Class.objects.get(id=classPK)
-        # print(ClassStudent.objects.filter(classIns = _class))
-        students = Student.objects.exclude(
-            id__in=ClassStudent.objects.filter(classIns=_class).values_list('student').distinct()).all()
-        context['students'] = students
-        return render(request, 'manage_class_student.html', context)
-
-
-@login_required
-def save_class_student(request):
-    resp = {'status': 'failed', 'msg': ''}
-    if request.method == 'POST':
-        form = SaveClassStudent(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Student has been added successfully.")
-            resp['status'] = 'success'
-        else:
-            for field in form:
-                for error in field.errors:
-                    resp['msg'] += str(error + "<br>")
-    return HttpResponse(json.dumps(resp), content_type='json')
-
-
-@login_required
-def delete_class_student(request):
-    resp = {'status': 'failed', 'msg': ''}
-    if request.method == 'POST':
-        id = request.POST['id']
-        try:
-            cs = ClassStudent.objects.filter(id=id).first()
-            cs.delete()
-            resp['status'] = 'success'
-            messages.success(request, 'Student has been deleted from Class successfully.')
-        except Exception as e:
-            raise print(e)
-    return HttpResponse(json.dumps(resp), content_type="application/json")
-
 
 # Student
 @login_required

@@ -92,29 +92,6 @@ class Class(models.Model):
     def __str__(self):
         return "[" + self.level + "] "+ self.level+ '-' +self.name
 
-class ClassStudent(models.Model):
-    classIns = models.ForeignKey(Class, on_delete=models.CASCADE)
-    student = models.ForeignKey(Student, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.student.student_code
-
-    def get_present(self):
-        student = self.student
-        _class = self.classIns
-        try:
-            return Attendance.objects.filter(classIns=_class, student=student, type='1').count()
-        except:
-            return 0
-
-    def get_absent(self):
-        student = self.student
-        _class = self.classIns
-        try:
-            return Attendance.objects.filter(classIns=_class, student=student, type='2').count()
-        except:
-            return 0
-
 
 class SectionSchedule(models.Model):
     section = models.OneToOneField(

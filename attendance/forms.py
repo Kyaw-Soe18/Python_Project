@@ -5,7 +5,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm,PasswordChangeForm, UserChangeForm
 
 from django.contrib.auth.models import User
-from attendance.models import ClassStudent, UserProfile, Department, Course, Student, Class
+from attendance.models import UserProfile, Department, Course, Student, Class
 from .models import Section
 from .models import SectionSchedule
 class UserRegistration(UserCreationForm):
@@ -233,32 +233,6 @@ class SaveStudent(forms.ModelForm):
             self.fields['section'].queryset = Section.objects.filter(course=self.instance.course).order_by('name')
             self.fields['section'].initial = self.instance.section
 
-class SaveClassStudent(forms.ModelForm):
-    classIns = forms.IntegerField()
-    student = forms.IntegerField()
-
-    class Meta:
-        model = ClassStudent
-        fields = ('classIns','student')
-
-    def clean_classIns(self):
-        cid = self.cleaned_data['classIns']
-        try:
-            classIns = Class.objects.get(id = cid)
-            return classIns
-        except:
-            raise forms.ValidationError("Class ID is Invalid.")
-    
-    def clean_student(self):
-        student_id = self.cleaned_data['student']
-        _class = Class.objects.get(id = self.data.get('classIns'))
-        student = Student.objects.get(id = student_id)
-        try:
-            cs = ClassStudent.objects.get(classIns = _class, student = student)
-            if len(cs) > 0:
-                raise forms.ValidationError(f"Student already exists in the Class List.")
-        except:
-            return student
 
 class SectionScheduleForm(forms.ModelForm):
     class Meta:
