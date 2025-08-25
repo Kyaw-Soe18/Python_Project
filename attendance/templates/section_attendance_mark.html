@@ -98,13 +98,15 @@
                             <th class="fw-bold">No.</th>
                             <th class="fw-bold">Roll Number</th>
                             <th class="text-start fw-bold">Student Name</th>
-                            {% if is_faculty_assigned %}
-                                {% for h in max_today|to_range %}
-                                    <th class="fw-bold">{{ h }}</th>
-                                {% endfor %}
-                            {% else %}
-                                <th class="fw-bold">Hours Attended</th>
-                            {% endif %}
+                           {% if is_faculty_assigned or user.profile.user_type == 2 %}
+    {# checkboxes mode → show per-hour headers #}
+    {% for h in max_today|to_range %}
+        <th class="fw-bold">{{ h }}</th>
+    {% endfor %}
+{% elif is_faculty_coordinator or is_admin %}
+    {# numeric input mode → show single column #}
+    <th class="fw-bold">Hours Attended</th>
+{% endif %}
                         </tr>
                     </thead>
                     <tbody>
@@ -113,20 +115,22 @@
                             <td>{{ forloop.counter }}</td>
                             <td>YKPT - {{ s.student_code }}</td>
                             <td class="text-start">{{ s.first_name }}</td>
-                            {% if is_faculty_assigned %}
-                                {% for h in max_today|to_range %}
-                                    <td>
-                                        <input type="checkbox" name="hours[{{ s.id }}][]" value="{{ h }}"
-                                               {% if existing|get_item:s.id >= h %}checked{% endif %}>
-                                    </td>
-                                {% endfor %}
-                            {% else %}
-                                <td>
-                                    <input type="number" name="hours[{{ s.id }}]"
-                                           value="{{ existing|get_item:s.id }}"
-                                           min="0" max="{{ max_today }}">
-                                </td>
-                            {% endif %}
+                            {% if is_faculty_assigned or user.profile.user_type == 2 %}
+    {# Faculty OR coordinator’s assigned section → checkboxes #}
+    {% for h in max_today|to_range %}
+        <td>
+            <input type="checkbox" name="hours[{{ s.id }}][]" value="{{ h }}"
+                   {% if existing|get_item:s.id >= h %}checked{% endif %}>
+        </td>
+    {% endfor %}
+{% elif is_faculty_coordinator or is_admin %}
+    {# Coordinator’s section OR admin → numeric input #}
+    <td>
+        <input type="number" name="hours[{{ s.id }}]"
+               value="{{ existing|get_item:s.id }}"
+               min="0" max="{{ max_today }}">
+    </td>
+{% endif %}
                         </tr>
                         {% endfor %}
                     </tbody>

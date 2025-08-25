@@ -1,8 +1,9 @@
 {% extends "base.html" %} {% load static %} {% load humanize %} {% block pageContent %}
 
 <!-- Fullscreen Carousel Section -->
-<div id="homeCarousel" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-inner" style="height: 70vh;"> <!-- fixed height -->
+<div  class="container-fluid px-0 mt-0">
+    <div id="homeCarousel" class="carousel slide w-100" data-bs-ride="carousel" style="margin:0; padding:0;">
+  <div class="carousel-inner" style="width: 99vw; margin-left: calc(-50vw + 50%);">
     <div class="carousel-item active">
       <img src="{{ MEDIA_URL }}default/ucsy_bg.jpg" class="d-block w-100 h-100" style="object-fit: cover;" alt="Slide 1">
     </div>
@@ -21,6 +22,8 @@
     <span class="visually-hidden">Next</span>
   </button>
 </div>
+</div>
+
 
 <!--Section: Content-->
 <section class="text-center">
