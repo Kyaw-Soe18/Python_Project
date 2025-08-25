@@ -27,28 +27,44 @@
       </select>
     </div>
     <div class="col-md-2">
-      <label class="form-label fw-bold">Year</label>
-      <input id="yearInput" type="number" class="form-control" name="year" value="{{ year }}">
-    </div>
-    <div class="col-md-2">
       <label class="form-label fw-bold">Month</label>
-      <input id="monthInput" type="number" class="form-control" name="month" value="{{ month }}" min="1" max="12">
+      <select id="monthInput" name="month" class="form-select">
+        {% for num, name in month_choices %}
+          <option value="{{ num }}" {% if month == num %}selected{% endif %}>{{ name }}</option>
+        {% endfor %}
+      </select>
     </div>
+
     <div class="col-md-2">
       <label class="form-label fw-bold">Start Month</label>
-      <input type="number" class="form-control" name="start_month" value="{{ start_month }}" min="1" max="12">
+      <select name="start_month" class="form-select">
+        <option value="">--</option>
+        {% for num, name in month_choices %}
+          <option value="{{ num }}" {% if start_month == num %}selected{% endif %}>{{ name }}</option>
+        {% endfor %}
+      </select>
     </div>
+
     <div class="col-md-2">
       <label class="form-label fw-bold">End Month</label>
-      <input type="number" class="form-control" name="end_month" value="{{ end_month }}" min="1" max="12">
+      <select name="end_month" class="form-select">
+        <option value="">--</option>
+        {% for num, name in month_choices %}
+          <option value="{{ num }}" {% if end_month == num %}selected{% endif %}>{{ name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-2">
+      <label class="form-label fw-bold">Year</label>
+      <input id="yearInput" type="number" class="form-control" name="year" value="{{ year }}" style="height: calc(2.15rem + 5px);">
     </div>
     <div class="col-md-2">
       <label class="form-label fw-bold">Min %</label>
-      <input type="number" class="form-control" name="min_percent" value="{{ min_percent|default:0 }}" min="0" max="100">
+      <input type="number" class="form-control" name="min_percent" value="{{ min_percent|default:0 }}" min="0" max="100" style="height: calc(2.15rem + 4px);">
     </div>
     <div class="col-md-2">
       <label class="form-label  fw-bold">Max %</label>
-      <input type="number" class="form-control" name="max_percent" value="{{ max_percent }}" min="0" max="100">
+      <input type="number" class="form-control" name="max_percent" value="{{ max_percent }}" min="0" max="100" style="height: calc(2.15rem + 4px);">
     </div>
     <div class="col-md-2 align-self-end">
       <button class="btn btn-primary">Show</button>
@@ -106,18 +122,21 @@ function printReport() {
     let year = document.getElementById("yearInput").value;
 
     let monthNum = parseInt(document.getElementById("monthInput").value);
-    let startMonth = parseInt(document.querySelector('input[name="start_month"]').value);
-    let endMonth = parseInt(document.querySelector('input[name="end_month"]').value);
+    let startMonthEl = document.querySelector('select[name="start_month"]');
+    let endMonthEl = document.querySelector('select[name="end_month"]');
 
-    let monthNames = ["January", "February", "March", "April", "May", "June",
-                      "July", "August", "September", "October", "November", "December"];
+    let startMonth = startMonthEl.value ? parseInt(startMonthEl.value) : null;
+    let endMonth = endMonthEl.value ? parseInt(endMonthEl.value) : null;
 
-    let monthDisplay = "";
-    if (startMonth && endMonth) {
-        monthDisplay = monthNames[startMonth - 1] + " - " + monthNames[endMonth - 1];
-    } else {
-        monthDisplay = monthNames[monthNum - 1];
-    }
+    // Burmese month names
+    let monthNames = [
+        "ဇန်နဝါရီ", "ဖေဖေါ်ဝါရီ", "မတ်", "ဧပြီ", "မေ", "ဇွန်",
+        "ဇူလိုင်", "သြဂုတ်", "စက်တင်ဘာ", "အောက်တိုဘာ", "နိုဝင်ဘာ", "ဒီဇင်ဘာ"
+    ];
+
+    let monthDisplay = (startMonth && endMonth)
+        ? monthNames[startMonth - 1] + " - " + monthNames[endMonth - 1]
+        : monthNum ? monthNames[monthNum - 1] : "N/A";
 
     // Build table HTML using Django-rendered percents
     let tableHTML = `
@@ -154,8 +173,7 @@ function printReport() {
     let printContents = `
         <div style="text-align:center; margin-bottom:20px; font-family:Arial, sans-serif;">
             <h2 style="margin:0;">ရန်ကုန်ကွန်ပျူတာတက္ကသိုလ်</h2>
-            <h4 style="margin:5px 0;">၂၀၂၄-၂၀၂၅ ပညာသင်နှစ် Semester-VII (B.C.Sc) လအလိုက်ကျောင်းခေါ်ချိန်မှတ်တမ်း</h4>
-            <h4 style="margin:5px 0;">Year : ${year} &nbsp;&nbsp; Month : ${monthDisplay} &nbsp;&nbsp; Roll Call Percent %</h4>
+            <h4 style="margin:5px 0;">၂၀၂၄-၂၀၂၅ ပညာသင်နှစ် Semester-VII (B.C.Sc) ${monthDisplay}လ ကျောင်းခေါ်ချိန်မှတ်တမ်း</h4>
             <h4 style="margin:0; text-align:left;">အခန်းအမှတ် - (${sectionText}) (${courseName})</h4>
         </div>
         ${tableHTML}

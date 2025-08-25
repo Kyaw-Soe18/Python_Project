@@ -977,10 +977,8 @@ def section_rollcall_monthly(request):
         faculty_dept = None
 
     if request.user.is_staff or request.user.is_superuser or getattr(profile, 'is_coordinator', False):
-        # Admins and coordinators see all sections
         sections = Section.objects.all().order_by('id')
     else:
-        # Regular faculty sees only their department sections
         sections = Section.objects.filter(course__department=faculty_dept).order_by('id')
 
     section_id = request.GET.get('section')
@@ -988,12 +986,13 @@ def section_rollcall_monthly(request):
     month = request.GET.get('month')
     start_month = request.GET.get('start_month')
     end_month = request.GET.get('end_month')
-    min_percent = request.GET.get('min_percent', 0)  # default 0
+    min_percent = request.GET.get('min_percent', 0)
+    max_percent = request.GET.get('max_percent')
+
     try:
         min_percent = int(min_percent)
     except (TypeError, ValueError):
         min_percent = 0
-    max_percent = request.GET.get('max_percent')
 
     selected_section = sections.filter(id=section_id).first() if section_id else None
     results = []
@@ -1018,7 +1017,6 @@ def section_rollcall_monthly(request):
                 total_expected += expected
             percent = round((total_attended / total_expected) * 100, 2) if total_expected > 0 else None
 
-            # apply percentage filter
             if percent is not None:
                 if min_percent and percent < float(min_percent):
                     continue
@@ -1032,15 +1030,23 @@ def section_rollcall_monthly(request):
                 'percent': percent
             })
 
+    # Define month names for dropdown
+    month_choices = [
+        (1, "January"), (2, "February"), (3, "March"), (4, "April"),
+        (5, "May"), (6, "June"), (7, "July"), (8, "August"),
+        (9, "September"), (10, "October"), (11, "November"), (12, "December")
+    ]
+
     return render(request, 'section_rollcall_monthly.html', {
         'sections': sections,
         'selected_section': selected_section,
         'year': year,
-        'month': month,
-        'start_month': start_month,
-        'end_month': end_month,
+        'month': int(month) if month else _date.today().month,
+        'start_month': int(start_month) if start_month else None,
+        'end_month': int(end_month) if end_month else None,
         'min_percent': min_percent,
         'max_percent': max_percent,
         'results': results,
         'page_title': 'Monthly %',
+        'month_choices': month_choices,  # pass month choices
     })
