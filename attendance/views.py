@@ -36,7 +36,7 @@ from django.db.models import Sum
 from django.shortcuts import render, redirect, get_object_or_404
 
 # ❗️ Adjust these imports to your project structure if needed
-from .models import SectionSchedule, SectionDailyAttendance
+from .models import SectionSchedule, SectionDailyAttendance, SectionDailyAttendanceDetail
 from attendance.models import Section, Student, UserProfile  # if these live elsewhere, change path
 from .forms import SectionScheduleForm
 
@@ -907,10 +907,21 @@ def section_attendance_mark(request):
                 val = len(raw_vals)
 
             val = max(0, min(val, max_today))  # clamp value
-            SectionDailyAttendance.objects.update_or_create(
+            # ✅ Save the main record
+            att, _ = SectionDailyAttendance.objects.update_or_create(
                 student=s, section=selected_section, date=the_date,
-                defaults={'attended_hours': Decimal(val)}
+                defaults={'attended_hours': len(request.POST.getlist(f"hours[{s.id}][]"))}
             )
+
+            # ✅ Clear old details
+            att.details.all().delete()
+
+            # ✅ Save new selected hours
+            for h in request.POST.getlist(f"hours[{s.id}][]"):
+                SectionDailyAttendanceDetail.objects.create(
+                    attendance=att,
+                    hour=int(h)
+                )
 
         messages.success(request, f"Attendance saved for {selected_section} on {the_date}.")
 
@@ -928,10 +939,14 @@ def section_attendance_mark(request):
         return redirect(f"{request.path}?{section_param}&date={the_date.strftime('%Y-%m-%d')}")
 
     # --- Existing attendance ---
-    existing = {
-        a.student_id: int(a.attended_hours)
-        for a in SectionDailyAttendance.objects.filter(section=selected_section, date=the_date)
-    } if selected_section else {}
+    existing_hours = {
+        att.student_id: int(att.attended_hours)
+        for att in SectionDailyAttendance.objects.filter(section=selected_section, date=the_date)
+    }
+    existing_details = {
+        att.student_id: list(att.details.values_list("hour", flat=True))
+        for att in SectionDailyAttendance.objects.filter(section=selected_section, date=the_date)
+    }
 
     return render(request, 'section_attendance_mark.html', {
         'sections': sections,
@@ -944,7 +959,8 @@ def section_attendance_mark(request):
         'date': the_date,
         'schedule': schedule,
         'max_today': max_today,
-        'existing': existing,
+        "existing_details": existing_details,
+        "existing_hours": existing_hours,  # ✅ add this
         'page_title': 'Attendance (daily)',
         'is_admin': is_admin,
         'is_faculty_assigned': is_faculty_assigned,

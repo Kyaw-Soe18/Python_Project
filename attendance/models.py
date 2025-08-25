@@ -127,3 +127,17 @@ class SectionDailyAttendance(models.Model):
 
     def __str__(self):
         return f"{self.date} - {self.student} ({self.section}) = {self.attended_hours}"
+
+class SectionDailyAttendanceDetail(models.Model):
+    attendance = models.ForeignKey(
+        SectionDailyAttendance,
+        on_delete=models.CASCADE,
+        related_name="details"
+    )
+    hour = models.PositiveSmallIntegerField()
+
+    class Meta:
+        unique_together = ("attendance", "hour")
+
+    def __str__(self):
+        return f"{self.attendance.student} - Hour {self.hour}"

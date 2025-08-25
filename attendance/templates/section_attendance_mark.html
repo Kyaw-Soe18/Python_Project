@@ -120,16 +120,16 @@
     {% for h in max_today|to_range %}
         <td>
             <input type="checkbox" name="hours[{{ s.id }}][]" value="{{ h }}"
-                   {% if existing|get_item:s.id >= h %}checked{% endif %}>
+                   {% if h in existing_details|get_item:s.id %}checked{% endif %}
+
         </td>
     {% endfor %}
 {% elif is_faculty_coordinator or is_admin %}
-    {# Coordinator’s section OR admin → numeric input #}
-    <td>
-        <input type="number" name="hours[{{ s.id }}]"
-               value="{{ existing|get_item:s.id }}"
-               min="0" max="{{ max_today }}">
-    </td>
+<td>
+    <input type="number" name="hours[{{ s.id }}]"
+           value="{{ existing_hours|get_item:s.id|default:0 }}"
+           min="0" max="{{ max_today }}">
+</td>
 {% endif %}
                         </tr>
                         {% endfor %}
