@@ -907,36 +907,30 @@ def section_attendance_mark(request):
                 val = len(raw_vals)
 
             val = max(0, min(val, max_today))  # clamp value
+
             # ✅ Save the main record
             att, _ = SectionDailyAttendance.objects.update_or_create(
                 student=s, section=selected_section, date=the_date,
-                defaults={'attended_hours': len(request.POST.getlist(f"hours[{s.id}][]"))}
+                defaults={'attended_hours': val}
             )
 
             # ✅ Clear old details
             att.details.all().delete()
 
-            # ✅ Save new selected hours
-            for h in request.POST.getlist(f"hours[{s.id}][]"):
-                SectionDailyAttendanceDetail.objects.create(
-                    attendance=att,
-                    hour=int(h)
-                )
-
-        messages.success(request, f"Attendance saved for {selected_section} on {the_date}.")
-
-        # Redirect to preserve filter
-        if profile and profile.user_type == 3:
-            if request.GET.get("assigned_section") or request.POST.get("assigned_section"):
-                section_param = f"assigned_section={selected_section.id}"
-            elif request.GET.get("coordinator_section") or request.POST.get("coordinator_section"):
-                section_param = f"coordinator_section={selected_section.id}"
+            if is_admin or is_faculty_coordinator:
+                # If coordinator/admin enters "3", store details as hours 1..val
+                for h in range(1, val + 1):
+                    SectionDailyAttendanceDetail.objects.create(
+                        attendance=att,
+                        hour=h
+                    )
             else:
-                section_param = f"section={selected_section.id}"
-        else:
-            section_param = f"section={selected_section.id}"
-
-        return redirect(f"{request.path}?{section_param}&date={the_date.strftime('%Y-%m-%d')}")
+                # Save new selected hours (checkboxes)
+                for h in request.POST.getlist(f"hours[{s.id}][]"):
+                    SectionDailyAttendanceDetail.objects.create(
+                        attendance=att,
+                        hour=int(h)
+                    )
 
     # --- Existing attendance ---
     existing_hours = {
