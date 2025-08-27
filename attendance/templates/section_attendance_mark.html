@@ -1,19 +1,15 @@
 {% extends 'base.html' %}
 {% load dict_extras custom_tags %}
+
 {% block pageContent %}
 <div class="card shadow rounded-0">
     <div class="card-header d-flex justify-content-between align-items-center">
         <h4 class="fw-bold">Section Attendance (Daily)</h4>
-<!--        {% for m in messages %}-->
-<!--            <div class="alert alert-{{ m.tags }}">{{ m }}</div>-->
-<!--        {% endfor %}-->
     </div>
 
     <div class="card-body">
-        <!-- Filter form -->
         <form method="get" class="row g-2 mb-3">
             {% if user.profile.user_type == 3 %}
-                <!-- Date Filter -->
                 <div class="col-md-3">
                     <label class="form-label fw-bold">Date</label>
                     <input type="date" name="date" class="form-control"
@@ -21,55 +17,45 @@
                            onchange="this.form.submit()">
                 </div>
 
-                <!-- Assigned Section Filter -->
                 <div class="col-md-4">
                     <label class="form-label fw-bold">Assigned Section</label>
                     <select name="assigned_section" id="assigned_section" class="form-select">
                         <option value="">-- choose assigned section --</option>
                         {% for sec in assigned_sections %}
                             <option value="{{ sec.id }}"
-                                {% if selected_assigned_section and sec.id == selected_assigned_section.id %}
-                                    selected
-                                {% endif %}>
+                                {% if selected_assigned_section and sec.id == selected_assigned_section.id %}selected{% endif %}>
                                 {{ sec }}
                             </option>
                         {% endfor %}
                     </select>
                 </div>
 
-                <!-- Coordinator Section Filter -->
                 <div class="col-md-4">
                     <label class="form-label fw-bold">Coordinator Section</label>
                     <select name="coordinator_section" id="coordinator_section" class="form-select">
                         <option value="">-- choose coordinator section --</option>
                         {% for sec in coordinator_sections %}
                             <option value="{{ sec.id }}"
-                                {% if selected_coordinator_section and sec.id == selected_coordinator_section.id %}
-                                    selected
-                                {% endif %}>
+                                {% if selected_coordinator_section and sec.id == selected_coordinator_section.id %}selected{% endif %}>
                                 {{ sec }}
                             </option>
                         {% endfor %}
                     </select>
                 </div>
             {% else %}
-                <!-- For Admins/Teachers keep the old single filter -->
                 <div class="col-md-4">
                     <label class="form-label fw-bold">Section</label>
                     <select name="section" class="form-select" onchange="this.form.submit()">
                         <option value="">-- choose section --</option>
                         {% for sec in sections %}
                             <option value="{{ sec.id }}"
-                                {% if selected_section and sec.id == selected_section.id %}
-                                    selected
-                                {% endif %}>
+                                {% if selected_section and sec.id == selected_section.id %}selected{% endif %}>
                                 {{ sec }}
                             </option>
                         {% endfor %}
                     </select>
                 </div>
 
-                <!-- Date Filter -->
                 <div class="col-md-3">
                     <label class="form-label fw-bold">Date</label>
                     <input type="date" name="date" class="form-control"
@@ -91,50 +77,48 @@
                 {% csrf_token %}
                 <input type="hidden" name="section" value="{{ selected_section.id }}">
                 <input type="hidden" name="date" value="{{ date|date:'Y-m-d' }}">
+
                 <div class="table-responsive" style="max-height: 60vh; overflow-y: auto;">
                     <table class="table table-bordered table-hover table-sm text-center align-middle">
-                    <thead>
-                        <tr class="fs-6">
-                            <th class="fw-bold">No.</th>
-                            <th class="fw-bold">Roll Number</th>
-                            <th class="text-start fw-bold">Student Name</th>
-                           {% if is_faculty_assigned or user.profile.user_type == 2 %}
-    {# checkboxes mode → show per-hour headers #}
-    {% for h in max_today|to_range %}
-        <th class="fw-bold">{{ h }}</th>
-    {% endfor %}
-{% elif is_faculty_coordinator or is_admin %}
-    {# numeric input mode → show single column #}
-    <th class="fw-bold">Hours Attended</th>
-{% endif %}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for s in students %}
-                        <tr style="font-size: 15px;">
-                            <td>{{ forloop.counter }}</td>
-                            <td>YKPT - {{ s.student_code }}</td>
-                            <td class="text-start">{{ s.first_name }}</td>
-                            {% if is_faculty_assigned or user.profile.user_type == 2 %}
-    {# Faculty OR coordinator’s assigned section → checkboxes #}
-    {% for h in max_today|to_range %}
-        <td>
-            <input type="checkbox" name="hours[{{ s.id }}][]" value="{{ h }}"
-                   {% if h in existing_details|get_item:s.id %}checked{% endif %}
+                        <thead>
+                            <tr class="fs-6">
+                                <th class="fw-bold">No.</th>
+                                <th class="fw-bold">Roll Number</th>
+                                <th class="text-start fw-bold">Student Name</th>
+                                {% if is_faculty_assigned or user.profile.user_type == 2 %}
+                                    {% for h in max_today|to_range %}
+                                        <th class="fw-bold">{{ h }}</th>
+                                    {% endfor %}
+                                {% elif is_faculty_coordinator or is_admin %}
+                                    <th class="fw-bold">Hours Attended</th>
+                                {% endif %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for s in students %}
+                                <tr style="font-size: 15px;">
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>YKPT - {{ s.student_code }}</td>
+                                    <td class="text-start">{{ s.first_name }}</td>
 
-        </td>
-    {% endfor %}
-{% elif is_faculty_coordinator or is_admin %}
-<td>
-    <input type="number" name="hours[{{ s.id }}]"
-           value="{{ existing_hours|get_item:s.id|default:0 }}"
-           min="0" max="{{ max_today }}">
-</td>
-{% endif %}
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                                    {% if is_faculty_assigned or user.profile.user_type == 2 %}
+                                        {% for h in max_today|to_range %}
+                                            <td>
+                                                <input type="checkbox" name="hours[{{ s.id }}][]" value="{{ h }}"
+                                                       {% if existing_details|get_item:s.id and h in existing_details|get_item:s.id %}checked{% endif %}>
+                                            </td>
+                                        {% endfor %}
+                                    {% elif is_faculty_coordinator or is_admin %}
+                                        <td>
+                                            <input type="number" name="hours[{{ s.id }}]"
+                                                   value="{{ existing_hours|get_item:s.id|default:0 }}"
+                                                   min="0" max="{{ max_today }}">
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
                 <button class="btn btn-primary mt-2">Save Attendance</button>
             </form>
@@ -147,16 +131,13 @@
 <script>
 $(function() {
     $('#assigned_section').change(function() {
-        // Reset coordinator section
         $('#coordinator_section').val('');
         this.form.submit();
     });
     $('#coordinator_section').change(function() {
-        // Reset assigned section
         $('#assigned_section').val('');
         this.form.submit();
     });
-    // If date changes, just submit the form without resetting sections
     $('input[name="date"]').change(function() {
         this.form.submit();
     });
