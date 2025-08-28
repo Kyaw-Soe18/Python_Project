@@ -920,17 +920,26 @@ def section_attendance_mark(request):
                 defaults={'attended_hours': val}
             )
 
-            # Clear old details
-            att.details.all().delete()
-
-            # Save detail hours
             if is_admin or is_faculty_coordinator:
-                for h in range(1, val + 1):
-                    SectionDailyAttendanceDetail.objects.create(
-                        attendance=att,
-                        hour=h
-                    )
+                # already saved hours for this attendance
+                existing_hours_for_student = set(att.details.values_list("hour", flat=True))
+                current_count = len(existing_hours_for_student)
+
+                if val > current_count:
+                    # add only the missing hours
+                    for h in range(1, val + 1):
+                        if h not in existing_hours_for_student:
+                            SectionDailyAttendanceDetail.objects.get_or_create(
+                                attendance=att,
+                                hour=h
+                            )
+                elif val < current_count:
+                    # remove the extra ones
+                    att.details.filter(hour__gt=val).delete()
+
             else:
+                # faculty still uses checkbox POST
+                att.details.all().delete()
                 for h in request.POST.getlist(f"hours[{s.id}][]"):
                     SectionDailyAttendanceDetail.objects.create(
                         attendance=att,
