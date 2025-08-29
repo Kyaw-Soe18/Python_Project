@@ -22,8 +22,8 @@
                     <select name="assigned_section" id="assigned_section" class="form-select">
                         <option value="">-- choose assigned section --</option>
                         {% for sec in assigned_sections %}
-                            <option value="{{ sec.id }}"
-                                {% if selected_assigned_section and sec.id == selected_assigned_section.id %}selected{% endif %}>
+                            <option value="{{ sec.name }}"
+                                {% if selected_assigned_section and sec.name == selected_assigned_section.name %}selected{% endif %}>
                                 {{ sec }}
                             </option>
                         {% endfor %}
@@ -35,8 +35,8 @@
                     <select name="coordinator_section" id="coordinator_section" class="form-select">
                         <option value="">-- choose coordinator section --</option>
                         {% for sec in coordinator_sections %}
-                            <option value="{{ sec.id }}"
-                                {% if selected_coordinator_section and sec.id == selected_coordinator_section.id %}selected{% endif %}>
+                            <option value="{{ sec.name }}"
+                                {% if selected_coordinator_section and sec.name == selected_coordinator_section.name %}selected{% endif %}>
                                 {{ sec }}
                             </option>
                         {% endfor %}
@@ -48,8 +48,8 @@
                     <select name="section" class="form-select" onchange="this.form.submit()">
                         <option value="">-- choose section --</option>
                         {% for sec in sections %}
-                            <option value="{{ sec.id }}"
-                                {% if selected_section and sec.id == selected_section.id %}selected{% endif %}>
+                            <option value="{{ sec.name }}"
+                                {% if selected_section and sec.name == selected_section.name %}selected{% endif %}>
                                 {{ sec }}
                             </option>
                         {% endfor %}

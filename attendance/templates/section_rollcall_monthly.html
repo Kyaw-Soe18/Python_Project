@@ -19,8 +19,8 @@
       <label class="form-label fw-bold">Section</label>
       <select id="sectionSelect" name="section" class="form-select">
         {% for sec in sections %}
-          <option value="{{ sec.id }}" data-course="{{ sec.course.name }}"
-            {% if selected_section and sec.id == selected_section.id %}selected{% endif %}>
+          <option value="{{ sec.name }}" data-course="{{ sec.course.name }}"
+            {% if selected_section and sec.name == selected_section.name %}selected{% endif %}>
             {{ sec }}
           </option>
         {% endfor %}

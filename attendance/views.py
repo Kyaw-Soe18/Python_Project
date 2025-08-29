@@ -815,23 +815,23 @@ def section_attendance_mark(request):
     coordinator_sections = Section.objects.none()
 
     if request.user.is_staff or request.user.is_superuser:
-        sections = Section.objects.all().order_by('id')
+        sections = Section.objects.all().order_by('name')
     elif profile and profile.user_type == 3:
         assigned_sections = Section.objects.filter(
             id__in=Class.objects.filter(assigned_faculty=profile)
                 .exclude(section__isnull=True)
                 .values_list('section_id', flat=True)
-        ).order_by('id')
-        coordinator_sections = Section.objects.filter(course__department=faculty_dept).order_by('id') if faculty_dept else Section.objects.none()
+        ).order_by('name')
+        coordinator_sections = Section.objects.filter(course__department=faculty_dept).order_by('name') if faculty_dept else Section.objects.none()
     else:
         sections = Section.objects.filter(
             id__in=Class.objects.filter(assigned_faculty=profile)
                 .exclude(section__isnull=True)
                 .values_list('section_id', flat=True)
-        ).order_by('id')
+        ).order_by('name')
 
-    # --- Selected section ---
-    section_id = (
+    # --- Selected section by name ---
+    section_name = (
         request.GET.get('assigned_section') or
         request.GET.get('coordinator_section') or
         request.GET.get('section') or
@@ -850,21 +850,16 @@ def section_attendance_mark(request):
     selected_assigned_section = None
     selected_coordinator_section = None
 
-    if section_id:
-        try:
-            section_id = int(section_id)
-        except ValueError:
-            section_id = None
-
+    if section_name:
         if profile and profile.user_type == 3:
             if request.GET.get('assigned_section'):
-                selected_assigned_section = assigned_sections.filter(id=section_id).first()
+                selected_assigned_section = assigned_sections.filter(name=section_name).first()
                 selected_section = selected_assigned_section
             elif request.GET.get('coordinator_section'):
-                selected_coordinator_section = coordinator_sections.filter(id=section_id).first()
+                selected_coordinator_section = coordinator_sections.filter(name=section_name).first()
                 selected_section = selected_coordinator_section
         else:
-            selected_section = sections.filter(id=section_id).first()
+            selected_section = sections.filter(name=section_name).first()
 
     # --- Students and schedule ---
     students = list(Student.objects.none())
@@ -890,7 +885,7 @@ def section_attendance_mark(request):
         existing_hours[att.student_id] = int(att.attended_hours)
         existing_details[att.student_id] = list(att.details.values_list("hour", flat=True))
 
-    # --- Get edited_student_id from GET (after redirect) ---
+    # --- Get edited_student_id from GET ---
     edited_student_id = request.GET.get("edited_student")
     if edited_student_id:
         edited_student_id = int(edited_student_id)
@@ -912,7 +907,7 @@ def section_attendance_mark(request):
                 raw_vals = request.POST.getlist(f"hours[{s.id}][]")
                 val = len(raw_vals)
 
-            val = max(0, min(val, max_today))  # clamp
+            val = max(0, min(val, max_today))
 
             # Save/update main attendance
             att, _ = SectionDailyAttendance.objects.update_or_create(
@@ -921,12 +916,10 @@ def section_attendance_mark(request):
             )
 
             if is_admin or is_faculty_coordinator:
-                # already saved hours for this attendance
                 existing_hours_for_student = set(att.details.values_list("hour", flat=True))
                 current_count = len(existing_hours_for_student)
 
                 if val > current_count:
-                    # add only the missing hours
                     for h in range(1, val + 1):
                         if h not in existing_hours_for_student:
                             SectionDailyAttendanceDetail.objects.get_or_create(
@@ -934,11 +927,8 @@ def section_attendance_mark(request):
                                 hour=h
                             )
                 elif val < current_count:
-                    # remove the extra ones
                     att.details.filter(hour__gt=val).delete()
-
             else:
-                # faculty still uses checkbox POST
                 att.details.all().delete()
                 for h in request.POST.getlist(f"hours[{s.id}][]"):
                     SectionDailyAttendanceDetail.objects.create(
@@ -948,19 +938,20 @@ def section_attendance_mark(request):
 
         messages.success(request, "Attendance saved successfully.")
 
-        # --- Redirect with edited_student_id ---
+        # --- Redirect with section name ---
         query_params = f"?date={the_date}"
         if selected_assigned_section:
-            query_params += f"&assigned_section={selected_assigned_section.id}"
+            query_params += f"&assigned_section={selected_assigned_section.name}"
         elif selected_coordinator_section:
-            query_params += f"&coordinator_section={selected_coordinator_section.id}"
+            query_params += f"&coordinator_section={selected_coordinator_section.name}"
         else:
-            query_params += f"&section={selected_section.id}"
+            query_params += f"&section={selected_section.name}"
         if edited_student_id and is_faculty_coordinator:
             query_params += f"&edited_student={edited_student_id}"
+
         return redirect(f"{request.path}{query_params}")
 
-    # --- Reorder students: move edited student first ---
+    # --- Reorder students ---
     if edited_student_id and is_faculty_coordinator:
         for i, s in enumerate(students):
             if s.id == edited_student_id:
@@ -987,24 +978,28 @@ def section_attendance_mark(request):
         'is_faculty_coordinator': is_faculty_coordinator,
     })
 
-
-
-
 # ---------- 3) Faculty: Monthly roll-call % (read-only) ----------
 @login_required
 def section_rollcall_monthly(request):
+    # --- Get user profile ---
     try:
         profile = UserProfile.objects.get(user=request.user)
         faculty_dept = profile.department
     except UserProfile.DoesNotExist:
+        profile = None
         faculty_dept = None
 
+    # --- Sections for filters ---
     if request.user.is_staff or request.user.is_superuser or getattr(profile, 'is_coordinator', False):
-        sections = Section.objects.all().order_by('id')
+        sections = Section.objects.all().order_by('name')
     else:
-        sections = Section.objects.filter(course__department=faculty_dept).order_by('id')
+        sections = Section.objects.filter(course__department=faculty_dept).order_by('name')
 
-    section_id = request.GET.get('section')
+    # --- Selected section by name ---
+    section_name = request.GET.get('section')
+    selected_section = sections.filter(name=section_name).first() if section_name else None
+
+    # --- Get year/month params ---
     year = int(request.GET.get('year') or _date.today().year)
     month = request.GET.get('month')
     start_month = request.GET.get('start_month')
@@ -1017,9 +1012,8 @@ def section_rollcall_monthly(request):
     except (TypeError, ValueError):
         min_percent = 0
 
-    selected_section = sections.filter(id=section_id).first() if section_id else None
+    # --- Compute attendance percentages ---
     results = []
-
     if selected_section:
         studs = Student.objects.filter(section=selected_section).order_by('id')
 
@@ -1053,7 +1047,7 @@ def section_rollcall_monthly(request):
                 'percent': percent
             })
 
-    # Define month names for dropdown
+    # --- Month dropdown choices ---
     month_choices = [
         (1, "January"), (2, "February"), (3, "March"), (4, "April"),
         (5, "May"), (6, "June"), (7, "July"), (8, "August"),
@@ -1071,5 +1065,5 @@ def section_rollcall_monthly(request):
         'max_percent': max_percent,
         'results': results,
         'page_title': 'Monthly %',
-        'month_choices': month_choices,  # pass month choices
+        'month_choices': month_choices,
     })
