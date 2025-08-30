@@ -18,7 +18,7 @@
     <select name="section" class="form-select" onchange="this.form.submit()">
       <option value="">-- choose section --</option>
       {% for sec in sections %}
-        <option value="{{ sec.id }}" {% if selected_section and sec.id == selected_section.id %}selected{% endif %}>
+        <option value="{{ sec.name }}" {% if selected_section and sec.name == selected_section.name %}selected{% endif %}>
           {{ sec }}  {# show name/label of Section #}
         </option>
       {% endfor %}

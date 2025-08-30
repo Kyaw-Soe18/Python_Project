@@ -760,23 +760,27 @@ def section_schedule_manage(request):
     """
     Dropdown နဲ့ Section ရွေး → Mon–Fri hours သတ်မှတ်/ပြင်
     """
-    # super admin/staff only (change logic to your role system if needed)
+    # --- Only admin/staff ---
     if not (request.user.is_staff or request.user.is_superuser):
         messages.error(request, "Only admin/staff can manage section schedule.")
         return redirect('home')
 
-    sections = Section.objects.all().order_by('id')  # show all sections from DB
-    section_id = request.GET.get('section') or request.POST.get('section')
-    selected_section = Section.objects.filter(id=section_id).first() if section_id else None
-    form = None
+    # --- Sections ordered by name for dropdown ---
+    sections = Section.objects.all().order_by('name')
 
+    # --- Get selected section by name ---
+    section_name = request.GET.get('section') or request.POST.get('section')
+    selected_section = sections.filter(name=section_name).first() if section_name else None
+
+    form = None
     if request.method == 'POST' and selected_section:
         schedule, _ = SectionSchedule.objects.get_or_create(section=selected_section)
         form = SectionScheduleForm(request.POST, instance=schedule)
         if form.is_valid():
             form.save()
             messages.success(request, f"Schedule saved for Section {selected_section}.")
-            return redirect(f"{request.path}?section={selected_section.id}")
+            # Redirect using section name
+            return redirect(f"{request.path}?section={selected_section.name}")
     elif selected_section:
         schedule, _ = SectionSchedule.objects.get_or_create(section=selected_section)
         form = SectionScheduleForm(instance=schedule)
@@ -785,7 +789,7 @@ def section_schedule_manage(request):
         'sections': sections,
         'selected_section': selected_section,
         'form': form,
-        'page_title': "Section_Schedule",
+        'page_title': "Section Schedule",
     })
 
 
