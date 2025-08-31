@@ -12,13 +12,13 @@
                         <div class="mdc-layout-grid">
                             <div class="mdc-layout-grid__inner">
                                 <div class="form-group mb-3">
-                                    <label for="first_name" class="control-label">First Name</label>
+                                    <label for="first_name" class="control-label">Name</label>
                                     <input type="text" class="form-control rounded-0" name="first_name" id="first_name" value="{{ reg_form.data.first_name }}" required="required">
                                 </div>
-                                <div class="form-group mb-3">
-                                    <label for="last_name" class="control-label">Last Name</label>
-                                    <input type="text" class="form-control rounded-0" name="last_name" id="last_name" value="{{ reg_form.data.last_name }}" required="required">
-                                </div>
+<!--                                <div class="form-group mb-3">-->
+<!--                                    <label for="last_name" class="control-label">Last Name</label>-->
+<!--                                    <input type="text" class="form-control rounded-0" name="last_name" id="last_name" value="{{ reg_form.data.last_name }}" required="required">-->
+<!--                                </div>-->
                                 <div class="form-group mb-3">
                                     <label for="dob" class="control-label">Birthdate</label>
                                     <input type="date" class="form-control rounded-0" name="dob" id="dob" value="{{ reg_form.data.dob }}" required="required">
@@ -50,7 +50,7 @@
 
                                 <div class="form-group mb-3">
                                     <label for="avatar" class="control-label">User Avatar</label>
-                                    <input type="file" class="form-control rounded-0" name="avatar" id="avatar" accept="images/*" required="required">
+                                    <input type="file" class="form-control rounded-0" name="avatar" id="avatar" accept="images/*">
                                 </div>
                                 {% for field in reg_form %} {% for error in field.errors %}
                                 <div class="alert alert-danger my-2">

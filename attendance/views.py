@@ -134,36 +134,44 @@ def home(request):
     return render(request, 'home.html', context)
 
 def registerUser(request):
-    user = request.user
-    if user.is_authenticated:
+    if request.user.is_authenticated:
         return redirect('home-page')
-    context['page_title'] = "Register User"
+
+    context = {'page_title': "Register User"}
+
     if request.method == 'POST':
-        data = request.POST
-        form = UserRegistration(data)
+        form = UserRegistration(request.POST)
         if form.is_valid():
-            form.save()
-            newUser = User.objects.all().last()
-            try:
-                profile = UserProfile.objects.get(user=newUser)
-            except:
-                profile = None
-            if profile is None:
-                UserProfile(user=newUser, dob=data['dob'], contact=data['contact'], address=data['address'],
-                            avatar=request.FILES['avatar']).save()
-            else:
-                UserProfile.objects.filter(id=profile.id).update(user=newUser, dob=data['dob'], contact=data['contact'],
-                                                                 address=data['address'])
-                avatar = AddAvatar(request.POST, request.FILES, instance=profile)
-                if avatar.is_valid():
-                    avatar.save()
+            # Save user directly from form
+            new_user = form.save()
+
+            # Create or update profile
+            profile, created = UserProfile.objects.get_or_create(user=new_user)
+            profile.dob = request.POST.get('dob')
+            profile.contact = request.POST.get('contact')
+            profile.address = request.POST.get('address')
+
+            # Handle avatar only if uploaded
+            if 'avatar' in request.FILES:
+                profile.avatar = request.FILES['avatar']
+
+            profile.save()
+
+            # Authenticate and log in new user
             username = form.cleaned_data.get('username')
             pwd = form.cleaned_data.get('password1')
-            loginUser = authenticate(username=username, password=pwd)
-            login(request, loginUser)
-            return redirect('home-page')
+            login_user = authenticate(username=username, password=pwd)
+            if login_user:
+                login(request, login_user)
+                messages.success(request, "Registration successful! Welcome 🎉")
+                return redirect('home-page')
+            else:
+                messages.error(request, "Something went wrong with login. Please try again.")
+                return redirect('login')
         else:
             context['reg_form'] = form
+    else:
+        context['reg_form'] = UserRegistration()
 
     return render(request, 'register.html', context)
 
@@ -390,7 +398,7 @@ def save_course(request):
                     section_obj, created = Section.objects.get_or_create(course=saved_course, name=name)
 
                 resp['status'] = 'success'
-                messages.success(request, 'Course has been saved successfully')
+                messages.success(request, 'Major has been saved successfully')
             else:
                 for field in form:
                     for error in field.errors:
@@ -520,7 +528,7 @@ def delete_faculty(request):
             faculty = User.objects.filter(id=id).first()
             faculty.delete()
             resp['status'] = 'success'
-            messages.success(request, 'Faculty has been deleted successfully.')
+            messages.success(request, 'Faculty Staff has been deleted successfully.')
         except Exception as e:
             raise print(e)
     return HttpResponse(json.dumps(resp), content_type="application/json")
