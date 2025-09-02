@@ -187,31 +187,40 @@ def profile(request):
 
 @login_required
 def update_profile(request):
-    context['page_title'] = "Update Profile"
-    user = User.objects.get(id=request.user.id)
+    context = {"page_title": "Update Profile"}
+    user = request.user
     profile = UserProfile.objects.get(user=user)
-    context['userData'] = user
-    context['userProfile'] = profile
-    if request.method == 'POST':
-        data = request.POST
-        # if data['password1'] == '':
-        # data['password1'] = '123'
-        form = UpdateProfile(data, instance=user)
-        if form.is_valid():
-            form.save()
-            form2 = UpdateProfileMeta(data, instance=profile)
-            if form2.is_valid():
-                form2.save()
-                messages.success(request, "Your Profile has been updated successfully")
-                return redirect("profile")
-            else:
-                # form = UpdateProfile(instance=user)
-                context['form2'] = form2
-        else:
-            context['form1'] = form
-            form = UpdateProfile(instance=request.user)
-    return render(request, 'update_profile.html', context)
 
+    if request.method == "POST":
+        form1 = UpdateProfile(request.POST, instance=user)
+        form2 = UpdateProfileMeta(request.POST, instance=profile)
+
+        if form1.is_valid() and form2.is_valid():
+            form1.save()
+            form2.save()
+            messages.success(request, "Your profile has been updated successfully")
+            return redirect("profile")  # ✅ success → redirect
+        else:
+            # Save forms with errors into session
+            request.session["form1_errors"] = form1.errors
+            request.session["form2_errors"] = form2.errors
+            return redirect("update-profile")  # ✅ failure → redirect
+
+    else:
+        form1 = UpdateProfile(instance=user)
+        form2 = UpdateProfileMeta(instance=profile)
+
+        # if errors exist from last POST, attach them
+        if "form1_errors" in request.session:
+            form1._errors = request.session.pop("form1_errors")
+        if "form2_errors" in request.session:
+            form2._errors = request.session.pop("form2_errors")
+
+    context["userData"] = user
+    context["userProfile"] = profile
+    context["form1"] = form1
+    context["form2"] = form2
+    return render(request, "update_profile.html", context)
 
 @login_required
 def update_avatar(request):
