@@ -993,6 +993,18 @@ def section_attendance_mark(request):
                 students.insert(0, edited_student)
                 break
 
+    # --- Count total present & absent ---
+    total_students = len(students)
+    total_present = 0
+    total_absent = 0
+    if selected_section:
+        for s in students:
+            attended = existing_hours.get(s.id, 0)
+            if attended > 0:
+                total_present += 1
+            else:
+                total_absent += 1
+
     return render(request, 'section_attendance_mark.html', {
         'sections': sections,
         'assigned_sections': assigned_sections,
@@ -1010,6 +1022,9 @@ def section_attendance_mark(request):
         'is_admin': is_admin,
         'is_faculty_assigned': is_faculty_assigned,
         'is_faculty_coordinator': is_faculty_coordinator,
+        "total_students": total_students,
+        'total_present': total_present,
+        'total_absent': total_absent,
     })
 
 # ---------- 3) Faculty: Monthly roll-call % (read-only) ----------

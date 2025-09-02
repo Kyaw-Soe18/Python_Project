@@ -68,8 +68,11 @@
         {% if selected_section %}
             {% if schedule %}
                 <div class="alert alert-info">
-                    <strong>Today's Max Hours:</strong> {{ max_today }} &nbsp; | &nbsp;
-                    <strong>Day:</strong> {{ date|date:"l" }}
+                    <strong>Today's Max Hours: {{ max_today }}</strong> &nbsp; | &nbsp;
+                    <strong>Day: {{ date|date:"l" }}</strong> &nbsp; |
+                    <strong><span class="ms-3 fw-bold">Total Students: {{ total_students }}</span></strong>&nbsp; |
+                    <strong><span class="ms-3 text-success">Present: {{ total_present }}</span></strong>&nbsp; |
+                    <strong><span class="ms-3 text-danger">Absent: {{ total_absent }}</span></strong>
                 </div>
             {% endif %}
 
