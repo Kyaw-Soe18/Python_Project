@@ -224,26 +224,39 @@ def update_profile(request):
 
 @login_required
 def update_avatar(request):
-    context['page_title'] = "Update Avatar"
-    user = User.objects.get(id=request.user.id)
-    context['userData'] = user
-    context['userProfile'] = user.profile
-    if user.profile.avatar:
-        img = user.profile.avatar.url
-    else:
-        img = MEDIA_URL + "/default/default-avatar.png"
+    user = request.user
+    profile = user.profile
 
-    context['img'] = img
-    if request.method == 'POST':
+    context = {
+        "page_title": "Update Avatar",
+        "userData": user,
+        "userProfile": profile,
+    }
+
+    if profile.avatar:
+        context["img"] = profile.avatar.url
+    else:
+        context["img"] = f"{MEDIA_URL}default/default-avatar.png"
+
+    if request.method == "POST":
         form = UpdateProfileAvatar(request.POST, request.FILES, instance=user)
         if form.is_valid():
             form.save()
-            messages.success(request, "Your Profile has been updated successfully")
-            return redirect("profile")
+            messages.success(request, "Your avatar has been updated successfully.")
+            return redirect("profile")  # ✅ redirect clears refresh issue
         else:
-            context['form'] = form
-            form = UpdateProfileAvatar(instance=user)
-    return render(request, 'update_avatar.html', context)
+            # store errors temporarily
+            request.session["avatar_form_errors"] = form.errors
+            return redirect("update-avatar")
+
+    else:
+        form = UpdateProfileAvatar(instance=user)
+        # attach errors from last POST if any
+        if "avatar_form_errors" in request.session:
+            form._errors = request.session.pop("avatar_form_errors")
+
+    context["form"] = form
+    return render(request, "update_avatar.html", context)
 
 
 @login_required
