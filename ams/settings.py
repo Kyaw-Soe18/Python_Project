@@ -60,7 +60,7 @@ ROOT_URLCONF = 'ams.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [BASE_DIR / 'attendance' / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
