@@ -27,8 +27,8 @@ SECRET_KEY = '18_y&n^=!$k$ojm43-a0)bxsk3&pc_e-=0f##1g#*#)+6=v)g@'
 DEBUG = True
 
 ALLOWED_HOSTS = ['attendancesystem-b4ux.onrender.com',
-    'localhost',
-    '127.0.0.1',]
+                'localhost',
+                '127.0.0.1',]
 
 
 # Application definition
