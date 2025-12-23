@@ -1,4 +1,4 @@
-🎓 Student Attendance Management System (UCSY)
+# 🎓 Student Attendance Management System (UCSY)
 
 ## 📖 Overview
 
